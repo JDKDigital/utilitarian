@@ -1,0 +1,6 @@
+{
+  "parent": "utilitarian:block/soliciting_carpet",
+  "textures": {
+    "wool": "minecraft:block/green_wool"
+  }
+}

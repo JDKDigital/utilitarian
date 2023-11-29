@@ -1,0 +1,8 @@
+{
+    "sources": [
+        {
+            "type": "single",
+            "resource": "utilitarian:entity/no_soliciting_banner"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "utilitarian:block/orange_soliciting_carpet",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "utilitarian:block/orange_soliciting_carpet"
+    },
+    "facing=south": {
+      "model": "utilitarian:block/orange_soliciting_carpet",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "utilitarian:block/orange_soliciting_carpet",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "utilitarian:item/restraining_order",
+  "textures": {
+    "layer0": "utilitarian:item/restraining_order_active"
+  }
+}
