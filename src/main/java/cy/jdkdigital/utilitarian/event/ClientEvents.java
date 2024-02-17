@@ -4,7 +4,9 @@ import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.client.render.block.NoSolicitingBannerRenderer;
 import cy.jdkdigital.utilitarian.common.item.RestrainingOrder;
+import cy.jdkdigital.utilitarian.module.AngelBlockModule;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -42,6 +44,13 @@ public class ClientEvents
                     event.accept(NoSolicitingModule.TRAPPED_SOLICITING_CARPET_ITEM.get(color).get());
                 }
             }
+        }
+        if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
+            event.accept(TPSBreakerModule.TPS_METER_ITEM.get());
+        }
+        if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
+            event.accept(AngelBlockModule.ANGEL_BLOCK_ITEM.get());
+            event.accept(TPSBreakerModule.TPS_METER_ITEM.get());
         }
     }
 

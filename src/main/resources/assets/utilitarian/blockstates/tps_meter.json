@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "utilitarian:block/tps_meter"
+    }
+  }
+}

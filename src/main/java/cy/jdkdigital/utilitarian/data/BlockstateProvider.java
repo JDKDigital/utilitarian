@@ -116,8 +116,6 @@ public class BlockstateProvider implements DataProvider
         protected void registerStatesAndModels(Consumer<BlockStateGenerator> blockStateOutput, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput) {
             this.blockStateOutput = blockStateOutput;
             this.modelOutput = modelOutput;
-
-
         }
     }
 }

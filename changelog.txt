@@ -1,3 +1,13 @@
+1.20.1-0.5.0
+
+- Added TPS Meter block. Outputs a redstone signal based on the TPS.
+
+
+1.20.1-0.4.0
+
+- Added angel block
+
+
 1.20.1-0.3.0
 
 - Added hoe planting module

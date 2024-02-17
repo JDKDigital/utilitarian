@@ -2,7 +2,9 @@ package cy.jdkdigital.utilitarian;
 
 import com.mojang.logging.LogUtils;
 import cy.jdkdigital.utilitarian.event.EventHandler;
+import cy.jdkdigital.utilitarian.module.AngelBlockModule;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -41,6 +43,8 @@ public class Utilitarian
         POI_TYPES.register(modEventBus);
 
         NoSolicitingModule.register();
+        AngelBlockModule.register();
+        TPSBreakerModule.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);

@@ -36,7 +36,7 @@ public class LootDataProvider implements DataProvider
 
     @Override
     public String getName() {
-        return "Productive Trees Block Loot Table datagen";
+        return "Utilitarian Block Loot Table datagen";
     }
 
     @Override
@@ -100,12 +100,21 @@ public class LootDataProvider implements DataProvider
             this.add(block, func.apply(otherBlock));
         }
 
+        public void dropNothing(@NotNull Block block) {
+            Function<Block, LootTable.Builder> func = functionTable.getOrDefault(block, LootProvider::genBlankBlockDrop);
+            this.add(block, func.apply(block));
+        }
+
         protected static LootTable.Builder genOptionalBlockDrop(Block block) {
             LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block).when(ExplosionCondition.survivesExplosion());
 
             return LootTable.lootTable().withPool(
                     LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                             .add(builder));
+        }
+
+        protected static LootTable.Builder genBlankBlockDrop(Block block) {
+            return LootTable.lootTable();
         }
     }
 }
