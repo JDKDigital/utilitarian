@@ -1,0 +1,40 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "quark"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "D": {
+            "item": "minecraft:dropper"
+          },
+          "R": {
+            "tag": "forge:rods/wooden"
+          },
+          "S": {
+            "tag": "forge:string"
+          }
+        },
+        "pattern": [
+          " RS",
+          "RDS",
+          " RS"
+        ],
+        "result": {
+          "item": "minecraft:dispenser"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

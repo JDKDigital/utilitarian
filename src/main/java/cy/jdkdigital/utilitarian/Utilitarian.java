@@ -5,6 +5,9 @@ import cy.jdkdigital.utilitarian.event.EventHandler;
 import cy.jdkdigital.utilitarian.module.AngelBlockModule;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -32,6 +35,8 @@ public class Utilitarian
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, MODID);
+
+    public static final TagKey<Item> BLACKLISTED_SEEDS = ItemTags.create(new ResourceLocation(MODID, "hoe_planting_blacklist"));
 
     public Utilitarian() {
         MinecraftForge.EVENT_BUS.register(EventHandler.class);

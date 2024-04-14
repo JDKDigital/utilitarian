@@ -3,6 +3,7 @@ package cy.jdkdigital.utilitarian.event;
 import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import net.minecraft.core.Direction;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -11,9 +12,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
@@ -61,7 +65,7 @@ public class EventHandler
     public static void blockToolModified(BlockEvent.BlockToolModificationEvent event) {
         if (Config.SERVER.HOE_PLANTING_ENABLED.get()) {
             if (!event.isSimulated() && event.getToolAction().equals(ToolActions.HOE_TILL) && event.getLevel() instanceof ServerLevel level) {
-                if (event.getPlayer() != null && level.getBlockState(event.getPos().above()).isAir()) {
+                if (event.getPlayer() != null && level.getBlockState(event.getPos().above()).canBeReplaced()) {
                     ItemStack seedStack = ItemStack.EMPTY;
                     if (event.getPlayer().getOffhandItem().is(Tags.Items.SEEDS)) {
                         seedStack = event.getPlayer().getOffhandItem();
@@ -76,14 +80,18 @@ public class EventHandler
                             }
                         }
                     }
-                    if (!seedStack.isEmpty() && seedStack.getItem() instanceof BlockItem blockItem) {
+                    if (!seedStack.isEmpty() && !seedStack.is(Utilitarian.BLACKLISTED_SEEDS) && seedStack.getItem() instanceof BlockItem blockItem) {
                         final ItemStack usedSeedStack = seedStack;
                         var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
                         executor.tell(new TickTask(0, () -> {
                             if (level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock) {
-                                level.setBlock(event.getPos().above(), blockItem.getBlock().defaultBlockState(), Block.UPDATE_ALL);
-                                if (!event.getPlayer().isCreative()) {
-                                    usedSeedStack.shrink(1);
+                                var hitResult = new BlockHitResult(Vec3.ZERO, Direction.UP, event.getPos(), false);
+                                var blockState = blockItem.getBlock().getStateForPlacement(new BlockPlaceContext(level, event.getPlayer(), event.getContext().getHand(), usedSeedStack, hitResult));
+                                if (blockState != null) {
+                                    level.setBlock(event.getPos().above(), blockItem.getBlock().defaultBlockState(), Block.UPDATE_ALL);
+                                    if (!event.getPlayer().isCreative()) {
+                                        usedSeedStack.shrink(1);
+                                    }
                                 }
                             }
                         }));

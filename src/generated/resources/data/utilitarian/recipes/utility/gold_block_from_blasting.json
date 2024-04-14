@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "blocks",
+  "cookingtime": 900,
+  "experience": 6.3,
+  "ingredient": {
+    "tag": "forge:storage_blocks/raw_gold"
+  },
+  "result": "minecraft:gold_block"
+}

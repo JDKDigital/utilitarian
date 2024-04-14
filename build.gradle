@@ -130,8 +130,9 @@ dependencies {
     implementation fg.deobf("curse.maven:jei-238222:4609866")
     implementation fg.deobf("curse.maven:the-one-probe-245211:4579432")
 
-    implementation fg.deobf("curse.maven:railcraft-reborn-901491:4774081")
     implementation fg.deobf("curse.maven:ender-io-64578:4800730")
+    implementation fg.deobf("curse.maven:titanium-287342:5151228")
+    implementation fg.deobf("curse.maven:sushigocrafting-452500:5143902")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

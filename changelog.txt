@@ -1,3 +1,9 @@
+1.20.1-0.5.1
+
+- Added support for non-land based seed
+- Removed Railcraft startup message from default config as they now have their own config for turning it off
+
+
 1.20.1-0.5.0
 
 - Added TPS Meter block. Outputs a redstone signal based on the TPS.

@@ -33,7 +33,7 @@ public class Config
                     .comment("Enable No Startup Messages module").define("noStartupMessagesEnabled", true);
             NO_STARTUP_MESSAGES_MESSAGE_STRINGS = builder
                     .comment("A list of word sequences that if contained in a message will be stopped.")
-                    .defineListAllowEmpty("noStartupMessagesMessages", List.of("Railcraft Reborn: A new version", "You are using a beta version of Railcraft Reborn", "You are using a development version of Railcraft Reborn", "This game is using an alpha build of Ender IO"), o -> true);
+                    .defineListAllowEmpty("noStartupMessagesMessages", List.of("This game is using an alpha build of Ender IO"), o -> true);
             builder.pop();
         }
     }
