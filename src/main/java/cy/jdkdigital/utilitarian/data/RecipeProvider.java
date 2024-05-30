@@ -1,9 +1,10 @@
 package cy.jdkdigital.utilitarian.data;
 
 import cy.jdkdigital.utilitarian.Utilitarian;
-import cy.jdkdigital.utilitarian.module.AngelBlockModule;
+import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
-import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
+import cy.jdkdigital.utilitarian.module.SnadModule;
+import cy.jdkdigital.utilitarian.module.TPSMeterModule;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.common.Tags;
@@ -21,9 +21,7 @@ import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -35,7 +33,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AngelBlockModule.ANGEL_BLOCK_ITEM.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.ANGEL_BLOCK_ITEM.get(), 1)
                 .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
                 .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIAN))
                 .unlockedBy("has_feather", has(Tags.Items.FEATHERS))
@@ -44,7 +42,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('O', Ingredient.of(Tags.Items.OBSIDIAN))
                 .define('F', Ingredient.of(Tags.Items.FEATHERS))
                 .save(consumer, new ResourceLocation(Utilitarian.MODID, "angel_block"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AngelBlockModule.ANGEL_BLOCK_ITEM.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.ANGEL_BLOCK_ITEM.get(), 1)
                 .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
                 .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIAN))
                 .unlockedBy("has_feather", has(Tags.Items.FEATHERS))
@@ -53,7 +51,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('O', Ingredient.of(Tags.Items.OBSIDIAN))
                 .define('F', Ingredient.of(Tags.Items.FEATHERS))
                 .save(consumer, new ResourceLocation(Utilitarian.MODID, "angel_block_rot"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TPSBreakerModule.TPS_METER_ITEM.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TPSMeterModule.TPS_METER_ITEM.get(), 1)
                 .unlockedBy(getHasName(Items.COMPARATOR), has(Items.COMPARATOR))
                 .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIAN))
                 .pattern(" # ").pattern("#O#").pattern(" # ")
@@ -90,7 +88,55 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                     .save(consumer, new ResourceLocation(Utilitarian.MODID, "no_soliciting/soliciting_carpets/" + dyeColor.getSerializedName() + "_trapped_soliciting_carpet"));
         });
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.FLUID_HOPPER_BLOCK.get(), 1)
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
+                .pattern("IPI").pattern("I#I").pattern(" I ")
+                .define('#', Ingredient.of(Items.BUCKET))
+                .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
+                .define('P', Ingredient.of(Tags.Items.DYES_WHITE))
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "fluid_hopper"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get(), 1)
+                .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
+                .pattern(" R ").pattern("R#R").pattern(" R ")
+                .define('#', Ingredient.of(Items.CHISELED_STONE_BRICKS))
+                .define('R', Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "redstone_clock"));
+
+        // Snad
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SnadModule.SNAD_BLOCK_ITEM.get(), 1)
+                .unlockedBy(getHasName(Items.SAND), has(Items.SAND))
+                .requires(Items.SAND).requires(Items.SAND)
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "snad/snad"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SnadModule.RED_SNAD_BLOCK_ITEM.get(), 1)
+                .unlockedBy(getHasName(Items.RED_SAND), has(Items.RED_SAND))
+                .requires(Items.RED_SAND).requires(Items.RED_SAND)
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "snad/red_snad"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SnadModule.SOUL_SNAD_BLOCK_ITEM.get(), 1)
+                .unlockedBy(getHasName(Items.SOUL_SAND), has(Items.SOUL_SAND))
+                .requires(Items.SOUL_SAND).requires(Items.SOUL_SAND)
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "snad/soul_snad"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SnadModule.DRIT_BLOCK_ITEM.get(), 1)
+                .unlockedBy(getHasName(Items.BONE), has(Items.BONE))
+                .unlockedBy(getHasName(Items.DIRT), has(Items.DIRT))
+                .pattern("###").pattern("#L#").pattern("###")
+                .define('L', Ingredient.of(Items.BONE))
+                .define('#', Ingredient.of(Items.DIRT))
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "snad/drit"));
+
         // Utility recipes
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.GLOW_INK_SAC, 1)
+                .unlockedBy(getHasName(Items.INK_SAC), has(Items.INK_SAC))
+                .unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
+                .requires(Items.INK_SAC).requires(Tags.Items.DUSTS_GLOWSTONE)
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "utility/glow_ink_sac"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.GREEN_DYE, 1)
+                .unlockedBy(getHasName(Items.BLUE_DYE), has(Items.BLUE_DYE))
+                .unlockedBy(getHasName(Items.YELLOW_DYE), has(Items.YELLOW_DYE))
+                .requires(Tags.Items.DYES_BLUE).requires(Tags.Items.DYES_YELLOW)
+                .save(consumer, new ResourceLocation(Utilitarian.MODID, "utility/green_dye"));
+
         ConditionalRecipe.builder().addCondition(not(modLoaded("quark"))).addRecipe(
                 ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST, 4)
                         .unlockedBy("has_log", has(ItemTags.LOGS))
@@ -186,7 +232,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
         WoodType.values().forEach(woodType -> {
             var isBamboo = woodType.name().equals("bamboo");
             var log = ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + (isBamboo ? "_block" : "_log")));
-            if (log == null) {
+            if (woodType.name().equals("warped") || woodType.name().equals("crimson")) {
                 log = ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + "_stem"));
             }
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + "_slab")), (isBamboo ? 12 : 24))
@@ -221,14 +267,14 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
 
             var slab = ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + "_slab"));
             ConditionalRecipe.builder().addCondition(not(modLoaded("quark"))).addRecipe(
-                    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + "_planks")), (isBamboo ? 2 : 4))
+                    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + "_planks")), 1)
                             .unlockedBy("has_slab", has(slab))
                             .pattern("#").pattern("#")
                             .define('#', Ingredient.of(slab))
                             ::save).build(consumer, new ResourceLocation(Utilitarian.MODID, "utility/" + woodType.name() + "_slab_to_block"));
 
             var boat = ForgeRegistries.ITEMS.getValue(new ResourceLocation(woodType.name() + (isBamboo ? "_raft" : "_boat")));
-            if (boat != null) {
+            if (boat != null && !boat.equals(Items.AIR)) {
                     ShapedRecipeBuilder.shaped(RecipeCategory.MISC, boat, (isBamboo ? 2 : 4))
                             .unlockedBy("has_log", has(log))
                             .pattern("# #").pattern("###")

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "cy.jdkdigital.utilitarian.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinServerAdvancementManager"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "utilitarian.refmap.json",
+  "minVersion": "0.8.5"
+}

@@ -1,5 +1,7 @@
 {
   "values": [
-    "utilitarian:tps_meter"
+    "utilitarian:tps_meter",
+    "utilitarian:fluid_hopper",
+    "utilitarian:redstone_clock"
   ]
 }

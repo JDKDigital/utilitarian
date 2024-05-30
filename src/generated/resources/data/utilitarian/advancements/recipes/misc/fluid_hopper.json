@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_log": {
+    "has_iron": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:air"
-            ]
+            "tag": "forge:ingots/iron"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "utilitarian:utility/warped_logs_to_boats"
+        "recipe": "utilitarian:fluid_hopper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_log",
+      "has_iron",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "utilitarian:utility/warped_logs_to_boats"
+      "utilitarian:fluid_hopper"
     ]
   },
   "sends_telemetry_event": false

@@ -2,6 +2,7 @@ package cy.jdkdigital.utilitarian.data;
 
 import com.google.common.collect.Maps;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -73,6 +74,8 @@ public class LootDataProvider implements DataProvider
             }
             dropSelf(NoSolicitingModule.NO_SOLICITING_BANNER.get());
             dropOther(NoSolicitingModule.NO_SOLICITING_WALL_BANNER.get(), NoSolicitingModule.NO_SOLICITING_BANNER.get());
+            dropSelf(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
+            dropSelf(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
         }
 
         @Override

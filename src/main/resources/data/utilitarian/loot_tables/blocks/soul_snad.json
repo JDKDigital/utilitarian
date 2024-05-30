@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "utilitarian:soul_snad"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "utilitarian:blocks/soul_snad"
+}

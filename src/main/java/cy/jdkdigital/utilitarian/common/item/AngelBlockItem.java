@@ -1,7 +1,6 @@
 package cy.jdkdigital.utilitarian.common.item;
 
-import cy.jdkdigital.utilitarian.Utilitarian;
-import cy.jdkdigital.utilitarian.module.AngelBlockModule;
+import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +25,7 @@ public class AngelBlockItem extends BlockItem
                 pos = pPlayer.blockPosition().below(1);
             }
             if (pLevel.getBlockState(pos).isAir()) {
-                pLevel.setBlockAndUpdate(pos, AngelBlockModule.ANGEL_BLOCK.get().defaultBlockState());
+                pLevel.setBlockAndUpdate(pos, UtilityBlockModule.ANGEL_BLOCK.get().defaultBlockState());
                 if (!pPlayer.isCreative()) {
                     pPlayer.getItemInHand(pUsedHand).shrink(1);
                 }

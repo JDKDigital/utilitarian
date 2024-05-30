@@ -1,6 +1,6 @@
 package cy.jdkdigital.utilitarian.common.block.entity;
 
-import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
+import cy.jdkdigital.utilitarian.module.TPSMeterModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -14,13 +14,13 @@ public class TPSMeterBlockEntity extends BlockEntity
     private int tickCounter = 80;
 
     public TPSMeterBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(TPSBreakerModule.TPS_METER_BLOCK_ENTITY.get(), pPos, pBlockState);
+        super(TPSMeterModule.TPS_METER_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
 
     public static <E extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, TPSMeterBlockEntity blockEntity) {
         if (++blockEntity.tickCounter >= 100 && level instanceof ServerLevel serverLevel) {
             blockEntity.tickCounter = 0;
-            int power = Mth.lerpInt((float) (TPSBreakerModule.getTPS(serverLevel)/20.0), 0, 15);
+            int power = Mth.lerpInt((float) (TPSMeterModule.getTPS(serverLevel)/20.0), 0, 15);
             if (blockState.getValue(BlockStateProperties.POWER) != power) {
                 level.setBlockAndUpdate(blockPos, blockState.setValue(BlockStateProperties.POWER, power));
             }

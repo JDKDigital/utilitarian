@@ -1,16 +1,31 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": []
-  },
-  "pattern": [
-    "# #",
-    "###"
-  ],
-  "result": {
-    "count": 4,
-    "item": "minecraft:air"
-  },
-  "show_notification": true
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "fireproofboats"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "#": {
+            "item": "minecraft:crimson_stem"
+          }
+        },
+        "pattern": [
+          "# #",
+          "###"
+        ],
+        "result": {
+          "count": 4,
+          "item": "minecraft:air"
+        },
+        "show_notification": true
+      }
+    }
+  ]
 }

@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.RegistryObject;
 
-public class TPSBreakerModule
+public class TPSMeterModule
 {
     public static RegistryObject<Block> TPS_METER;
     public static RegistryObject<BlockEntityType<TPSMeterBlockEntity>> TPS_METER_BLOCK_ENTITY;

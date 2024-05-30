@@ -1,3 +1,29 @@
+1.20.1-0.8.1
+
+- Fixed mineable tag for new blocks
+
+
+1.20.1-0.8.0
+
+- Added Fluid Hopper
+- Added Redstone Clock
+
+
+1.20.1-0.7.0
+
+- Added Snad, Red Snad, Soul Snad, Drit and Grrass blocks
+
+
+1.20.1-0.6.0
+
+- Added option to disable recipe advancements
+
+
+1.20.1-0.5.2
+
+- Added convenient utility recipes
+
+
 1.20.1-0.5.1
 
 - Added support for non-land based seed

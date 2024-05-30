@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "utilitarian:block/fluid_hopper/hopper"
+    },
+    "facing=east": {
+      "model": "utilitarian:block/fluid_hopper/hopper_side",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "utilitarian:block/fluid_hopper/hopper_side"
+    },
+    "facing=south": {
+      "model": "utilitarian:block/fluid_hopper/hopper_side",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "utilitarian:block/fluid_hopper/hopper_side",
+      "y": 270
+    }
+  }
+}

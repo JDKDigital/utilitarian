@@ -27,6 +27,8 @@ public class Config
         public final ForgeConfigSpec.BooleanValue NO_STARTUP_MESSAGES_ENABLED;
         public final ForgeConfigSpec.ConfigValue<List<? extends String>> NO_STARTUP_MESSAGES_MESSAGE_STRINGS;
 
+        public final ForgeConfigSpec.BooleanValue DISABLE_RECIPE_ADVANCEMENTS;
+
         Common(ForgeConfigSpec.Builder builder) {
             builder.push("No Startup Messages");
             NO_STARTUP_MESSAGES_ENABLED = builder
@@ -34,6 +36,11 @@ public class Config
             NO_STARTUP_MESSAGES_MESSAGE_STRINGS = builder
                     .comment("A list of word sequences that if contained in a message will be stopped.")
                     .defineListAllowEmpty("noStartupMessagesMessages", List.of("This game is using an alpha build of Ender IO"), o -> true);
+            builder.pop();
+
+            builder.push("Recipes");
+            DISABLE_RECIPE_ADVANCEMENTS = builder
+                    .comment("Disable recipe advancements").define("disableRecipeAdvancements", true);
             builder.pop();
         }
     }
@@ -46,6 +53,13 @@ public class Config
         public final ForgeConfigSpec.IntValue SOLICITING_CARPET_CHUNK_RANGE;
 
         public final ForgeConfigSpec.BooleanValue HOE_PLANTING_ENABLED;
+
+        public final ForgeConfigSpec.IntValue SNAD_ADDITIONAL_HEIGHT;
+        public final ForgeConfigSpec.IntValue SNAD_GROWTH_MULTIPLIER;
+        public final ForgeConfigSpec.DoubleValue SNAD_DRIT_DAMAGE;
+
+        public final ForgeConfigSpec.IntValue FLUID_HOPPER_TICK_RATE;
+        public final ForgeConfigSpec.IntValue REDSTONE_CLOCK_MIN_FREQUENCY;
 
         Server(ForgeConfigSpec.Builder builder) {
             Utilitarian.LOGGER.info("setting up server config");
@@ -66,6 +80,23 @@ public class Config
             builder.push("Hoe planting");
             HOE_PLANTING_ENABLED = builder
                     .comment("Enable Hoe planting module").define("hoePlantingEnabled", true);
+            builder.pop();
+
+            builder.push("Snad");
+            SNAD_ADDITIONAL_HEIGHT = builder
+                    .comment("Additional height for sugar cane and cactus when growing on snad").defineInRange("additionalGrowthHeight", 3, 0, Integer.MAX_VALUE);
+            SNAD_GROWTH_MULTIPLIER = builder
+                    .comment("How many extra growth ticks to apply when on snad").defineInRange("additionalGrowthTicks", 1, 0, Integer.MAX_VALUE);
+            SNAD_DRIT_DAMAGE = builder
+                    .comment("Damage done by drit when you step on it").defineInRange("dritDamage", 2.0, 0, Integer.MAX_VALUE);
+            builder.pop();
+
+            builder.push("Utility blocks");
+            FLUID_HOPPER_TICK_RATE = builder
+                    .comment("Tick rate for the fluid hopper. Lower number is faster ticking.").defineInRange("fluidHopperTickRate", 10, 1, Integer.MAX_VALUE);
+            REDSTONE_CLOCK_MIN_FREQUENCY = builder
+                    .comment("Minimum tick rate for the redstone clock. Set this higher if you're worried about performance.").defineInRange("minimumRedstoneClockTick", 5, 1, 24);
+            builder.pop();
         }
     }
 }

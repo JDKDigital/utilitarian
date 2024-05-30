@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "utilitarian:item/fluid_hopper"
+  }
+}

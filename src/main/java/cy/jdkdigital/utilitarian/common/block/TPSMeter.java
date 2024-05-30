@@ -1,7 +1,7 @@
 package cy.jdkdigital.utilitarian.common.block;
 
 import cy.jdkdigital.utilitarian.common.block.entity.TPSMeterBlockEntity;
-import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
+import cy.jdkdigital.utilitarian.module.TPSMeterModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -47,7 +47,7 @@ public class TPSMeter extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, TPSBreakerModule.TPS_METER_BLOCK_ENTITY.get(), TPSMeterBlockEntity::tick);
+        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, TPSMeterModule.TPS_METER_BLOCK_ENTITY.get(), TPSMeterBlockEntity::tick);
     }
 
     @SuppressWarnings("deprecation")

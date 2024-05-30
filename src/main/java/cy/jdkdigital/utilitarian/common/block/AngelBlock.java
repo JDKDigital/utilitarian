@@ -1,6 +1,6 @@
 package cy.jdkdigital.utilitarian.common.block;
 
-import cy.jdkdigital.utilitarian.module.AngelBlockModule;
+import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -23,10 +23,10 @@ public class AngelBlock extends Block
     public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
         super.playerDestroy(pLevel, pPlayer, pPos, pState, pBlockEntity, pTool);
         if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
-            pPlayer.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(AngelBlockModule.ANGEL_BLOCK_ITEM.get()));
+            pPlayer.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(UtilityBlockModule.ANGEL_BLOCK_ITEM.get()));
         } else {
             pPlayer.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-                var leftOver = ItemHandlerHelper.insertItemStacked(iItemHandler, new ItemStack(AngelBlockModule.ANGEL_BLOCK_ITEM.get()), false);
+                var leftOver = ItemHandlerHelper.insertItemStacked(iItemHandler, new ItemStack(UtilityBlockModule.ANGEL_BLOCK_ITEM.get()), false);
                 if (!leftOver.isEmpty()) {
                     popResource(pLevel, pPos, leftOver);
                 }

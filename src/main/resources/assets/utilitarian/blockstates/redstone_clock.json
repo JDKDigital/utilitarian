@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=true": {
+      "model": "utilitarian:block/redstone_clock"
+    },
+    "enabled=false": {
+      "model": "utilitarian:block/redstone_clock_inactive"
+    }
+  }
+}

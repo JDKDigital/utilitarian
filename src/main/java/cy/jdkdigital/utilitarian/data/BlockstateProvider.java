@@ -3,7 +3,6 @@ package cy.jdkdigital.utilitarian.data;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import cy.jdkdigital.utilitarian.Utilitarian;
-import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;

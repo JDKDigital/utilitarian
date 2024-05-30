@@ -2,9 +2,10 @@ package cy.jdkdigital.utilitarian;
 
 import com.mojang.logging.LogUtils;
 import cy.jdkdigital.utilitarian.event.EventHandler;
-import cy.jdkdigital.utilitarian.module.AngelBlockModule;
+import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
-import cy.jdkdigital.utilitarian.module.TPSBreakerModule;
+import cy.jdkdigital.utilitarian.module.SnadModule;
+import cy.jdkdigital.utilitarian.module.TPSMeterModule;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -48,8 +49,9 @@ public class Utilitarian
         POI_TYPES.register(modEventBus);
 
         NoSolicitingModule.register();
-        AngelBlockModule.register();
-        TPSBreakerModule.register();
+        UtilityBlockModule.register();
+        TPSMeterModule.register();
+        SnadModule.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
