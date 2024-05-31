@@ -1,3 +1,8 @@
+1.20.1-0.8.2
+
+- Less powerful snad, can't break through blocks anymore
+
+
 1.20.1-0.8.1
 
 - Fixed mineable tag for new blocks

@@ -43,26 +43,27 @@ public class SnadBlock extends SandBlock
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         super.tick(pState, pLevel, pPos, pRandom);
 
-        var aboveBlock = pLevel.getBlockState(pPos.above()).getBlock();
+        var plantBlock = pLevel.getBlockState(pPos.above()).getBlock();
 
-        if (aboveBlock instanceof IPlantable) {
+        if (plantBlock instanceof IPlantable) {
             // Find the first block above that's not the plant
             int i;
-            for(i = 2; pLevel.getBlockState(pPos.above(i)).is(aboveBlock); ++i) {}
+            for(i = 2; pLevel.getBlockState(pPos.above(i)).is(plantBlock); ++i) {}
 
             var state = pLevel.getBlockState(pPos.above(i - 1));
 
             if (
                 state.hasProperty(BlockStateProperties.AGE_15) &&
                 i < 4 + Config.SERVER.SNAD_ADDITIONAL_HEIGHT.get() &&
-                (pPos.above(i).getY()) < pLevel.getMaxBuildHeight()
+                (pPos.above(i).getY()) < pLevel.getMaxBuildHeight() &&
+                pLevel.getBlockState(pPos.above(i)).canBeReplaced()
             ) {
                 // additional growth to configured height
                 if (state.getValue(BlockStateProperties.AGE_15) == 15) {
                     if (ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, true)) {
-                        pLevel.setBlockAndUpdate(pPos.above(i), aboveBlock.defaultBlockState());
+                        pLevel.setBlockAndUpdate(pPos.above(i), plantBlock.defaultBlockState());
                         pLevel.setBlock(pPos.above(i - 1), state.setValue(BlockStateProperties.AGE_15, 0), Block.UPDATE_INVISIBLE);
-                        ForgeHooks.onCropsGrowPost(pLevel, pPos.above(), aboveBlock.defaultBlockState());
+                        ForgeHooks.onCropsGrowPost(pLevel, pPos.above(), plantBlock.defaultBlockState());
                     }
                 } else {
                     // Set growth
