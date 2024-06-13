@@ -61,6 +61,8 @@ public class Config
         public final ForgeConfigSpec.IntValue FLUID_HOPPER_TICK_RATE;
         public final ForgeConfigSpec.IntValue REDSTONE_CLOCK_MIN_FREQUENCY;
 
+        public final ForgeConfigSpec.BooleanValue BETTER_SLEEP_ENABLED;
+
         Server(ForgeConfigSpec.Builder builder) {
             Utilitarian.LOGGER.info("setting up server config");
             builder.push("No Soliciting");
@@ -96,6 +98,11 @@ public class Config
                     .comment("Tick rate for the fluid hopper. Lower number is faster ticking.").defineInRange("fluidHopperTickRate", 10, 1, Integer.MAX_VALUE);
             REDSTONE_CLOCK_MIN_FREQUENCY = builder
                     .comment("Minimum tick rate for the redstone clock. Set this higher if you're worried about performance.").defineInRange("minimumRedstoneClockTick", 5, 1, 24);
+            builder.pop();
+
+            builder.push("Better sleep");
+            BETTER_SLEEP_ENABLED = builder
+                    .comment("Get rid of the \"too far away\" and \"there are monsters nearby\" errors when trying to sleep.").define("betterSleepEnabled", true);
             builder.pop();
         }
     }
