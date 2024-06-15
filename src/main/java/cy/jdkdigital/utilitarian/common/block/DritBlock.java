@@ -28,7 +28,7 @@ public class DritBlock extends Block
         super.stepOn(pLevel, pPos, pState, pEntity);
         if (pEntity instanceof LivingEntity livingEntity) {
             Holder.Reference<DamageType> damageType = pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SnadModule.DRIT_DAMAGE);
-            livingEntity.hurt(new DamageSource(damageType), Config.SERVER.SNAD_DRIT_DAMAGE.get().floatValue());
+            livingEntity.hurt(new DamageSource(damageType), Config.SNAD_DRIT_DAMAGE.get().floatValue());
         }
     }
 

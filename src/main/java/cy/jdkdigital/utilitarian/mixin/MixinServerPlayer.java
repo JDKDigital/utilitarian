@@ -23,22 +23,22 @@ import java.util.Optional;
 @Mixin(value = ServerPlayer.class)
 public class MixinServerPlayer
 {
-    @Inject(
-            at = @At(value = "INVOKE",
-            target = "Ljava/util/List;isEmpty()Z"),
-            method = {"startSleepInBed"},
-            locals = LocalCapture.CAPTURE_FAILSOFT
-    )
-    public void utilitarian_startSleepInBed(BlockPos pAt, CallbackInfoReturnable<Boolean> ci, Optional<BlockPos> optAt, Player.BedSleepingProblem ret, Direction direction, double d0, double d1, Vec3 vec3, List<Monster> list) {
-        if (Config.SERVER.BETTER_SLEEP_ENABLED.get()) {
-            list.clear();
-        }
-    }
-
-    @Inject(at = @At(value = "RETURN"), method = {"bedInRange"}, cancellable = true)
-    public void utilitarian_bedInRange(BlockPos pos, Direction dir, CallbackInfoReturnable<Boolean> ci) {
-        if (Config.SERVER.BETTER_SLEEP_ENABLED.get() && dir != null) {
-            ci.setReturnValue(true);
-        }
-    }
+//    @Inject(
+//            at = @At(value = "INVOKE",
+//            target = "Ljava/util/List;isEmpty()Z"),
+//            method = {"startSleepInBed"},
+//            locals = LocalCapture.CAPTURE_FAILSOFT
+//    )
+//    public void utilitarian_startSleepInBed(BlockPos pAt, CallbackInfoReturnable<Boolean> ci, Optional<BlockPos> optAt, Player.BedSleepingProblem ret, Direction direction, double d0, double d1, Vec3 vec3, List<Monster> list) {
+//        if (Config.BETTER_SLEEP_ENABLED.get()) {
+//            list.clear();
+//        }
+//    }
+//
+//    @Inject(at = @At(value = "RETURN"), method = {"bedInRange"}, cancellable = true)
+//    public void utilitarian_bedInRange(BlockPos pos, Direction dir, CallbackInfoReturnable<Boolean> ci) {
+//        if (Config.BETTER_SLEEP_ENABLED.get() && dir != null) {
+//            ci.setReturnValue(true);
+//        }
+//    }
 }

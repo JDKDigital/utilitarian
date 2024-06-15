@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,12 +25,11 @@ public class SolicitingCarpet extends CarpetBlock
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-
-        pTooltip.add(Component.translatable("utilitarian.soliciting_carpet.tooltip").withStyle(ChatFormatting.GOLD));
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTootipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
+        pTootipComponents.add(Component.translatable("utilitarian.soliciting_carpet.tooltip").withStyle(ChatFormatting.GOLD));
         if (pStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock().defaultBlockState().is(NoSolicitingModule.TRAPPED_SOLICITING_CARPETS)) {
-            pTooltip.add(Component.translatable("utilitarian.soliciting_carpet.tooltip_trapped").withStyle(ChatFormatting.DARK_RED));
+            pTootipComponents.add(Component.translatable("utilitarian.soliciting_carpet.tooltip_trapped").withStyle(ChatFormatting.DARK_RED));
         }
     }
 

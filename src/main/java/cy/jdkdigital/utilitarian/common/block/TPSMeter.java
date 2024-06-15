@@ -1,5 +1,6 @@
 package cy.jdkdigital.utilitarian.common.block;
 
+import com.mojang.serialization.MapCodec;
 import cy.jdkdigital.utilitarian.common.block.entity.TPSMeterBlockEntity;
 import cy.jdkdigital.utilitarian.module.TPSMeterModule;
 import net.minecraft.core.BlockPos;
@@ -7,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -21,9 +23,16 @@ import javax.annotation.Nonnull;
 
 public class TPSMeter extends BaseEntityBlock
 {
+    public static final MapCodec<TPSMeter> CODEC = simpleCodec(TPSMeter::new);
+
     public TPSMeter(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.POWER, 0));
+    }
+
+    @Override
+    public MapCodec<TPSMeter> codec() {
+        return CODEC;
     }
 
     @Nullable

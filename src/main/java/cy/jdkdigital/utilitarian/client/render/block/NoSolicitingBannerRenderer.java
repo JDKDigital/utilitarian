@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 
 public class NoSolicitingBannerRenderer extends BannerRenderer
 {
-    static final Material BANNER_BASE = new Material(Sheets.BANNER_SHEET, new ResourceLocation(Utilitarian.MODID, "entity/no_soliciting_banner"));
+    static final Material BANNER_BASE = new Material(Sheets.BANNER_SHEET, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "entity/no_soliciting_banner"));
     private final ModelPart flag;
 
     public NoSolicitingBannerRenderer(BlockEntityRendererProvider.Context pContext) {
@@ -61,7 +61,7 @@ public class NoSolicitingBannerRenderer extends BannerRenderer
         float f2 = ((float)Math.floorMod(blockpos.getX() * 7L + blockpos.getY() * 9L + blockpos.getZ() * 13L + i, 100L) + pPartialTick) / 100.0F;
         this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(((float)Math.PI * 2F) * f2)) * (float)Math.PI;
         this.flag.y = -32.0F;
-        this.flag.render(pPoseStack, BANNER_BASE.buffer(pBuffer, RenderType::entityNoOutline), pPackedLight, pPackedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.flag.render(pPoseStack, BANNER_BASE.buffer(pBuffer, RenderType::entityNoOutline), pPackedLight, pPackedOverlay, 1);
         pPoseStack.popPose();
         pPoseStack.popPose();
     }

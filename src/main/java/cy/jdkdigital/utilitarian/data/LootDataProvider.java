@@ -3,6 +3,7 @@ package cy.jdkdigital.utilitarian.data;
 import com.google.common.collect.Maps;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -29,10 +30,12 @@ public class LootDataProvider implements DataProvider
 {
     private final PackOutput.PathProvider pathProvider;
     private final List<LootTableProvider.SubProviderEntry> subProviders;
+    private final CompletableFuture<HolderLookup.Provider> registries;
 
-    public LootDataProvider(PackOutput output, List<LootTableProvider.SubProviderEntry> providers) {
+    public LootDataProvider(PackOutput output, List<LootTableProvider.SubProviderEntry> providers, CompletableFuture<HolderLookup.Provider> pRegistries) {
         this.pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables");
         this.subProviders = providers;
+        this.registries = pRegistries;
     }
 
     @Override
@@ -41,19 +44,23 @@ public class LootDataProvider implements DataProvider
     }
 
     @Override
-    public CompletableFuture<?> run(CachedOutput cache) {
+    public CompletableFuture<?> run(CachedOutput pOutput) {
+        return this.registries.thenCompose(p_323117_ -> this.run(pOutput, p_323117_));
+    }
+
+    private CompletableFuture<?> run(CachedOutput pOutput, HolderLookup.Provider pProvider) {
         final Map<ResourceLocation, LootTable> map = Maps.newHashMap();
         this.subProviders.forEach((providerEntry) -> {
-            providerEntry.provider().get().generate((resourceLocation, builder) -> {
-                builder.setRandomSequence(resourceLocation);
-                if (map.put(resourceLocation, builder.setParamSet(providerEntry.paramSet()).build()) != null) {
-                    throw new IllegalStateException("Duplicate loot table " + resourceLocation);
+            providerEntry.provider().apply(pProvider).generate((lootTableResourceKey, builder) -> {
+                builder.setRandomSequence(lootTableResourceKey.location());
+                if (map.put(lootTableResourceKey.location(), builder.setParamSet(providerEntry.paramSet()).build()) != null) {
+                    throw new IllegalStateException("Duplicate loot table " + lootTableResourceKey);
                 }
             });
         });
 
         return CompletableFuture.allOf(map.entrySet().stream().map((entry) -> {
-            return DataProvider.saveStable(cache, LootDataType.TABLE.parser().toJsonTree(entry.getValue()), this.pathProvider.json(entry.getKey()));
+            return DataProvider.saveStable(pOutput, pProvider, LootDataType.TABLE.codec(), entry.getValue(), this.pathProvider.json(entry.getKey()));
         }).toArray(CompletableFuture[]::new));
     }
 
@@ -62,8 +69,8 @@ public class LootDataProvider implements DataProvider
         private static final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
         private List<Block> knownBlocks = new ArrayList<>();
 
-        public LootProvider() {
-            super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+        public LootProvider(HolderLookup.Provider pProvider) {
+            super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pProvider);
         }
 
         @Override

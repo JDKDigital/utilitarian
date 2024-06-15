@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lead": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:lead"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:rods/wooden"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "utilitarian:no_soliciting/no_soliciting_banner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lead",
+      "has_wool",
+      "has_stick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "utilitarian:no_soliciting/no_soliciting_banner"
+    ]
+  }
+}

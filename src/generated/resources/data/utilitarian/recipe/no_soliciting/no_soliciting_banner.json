@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "banner",
+  "key": {
+    "#": {
+      "tag": "minecraft:wool"
+    },
+    "L": {
+      "item": "minecraft:lead"
+    },
+    "|": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "###",
+    "#L#",
+    " | "
+  ],
+  "result": {
+    "count": 1,
+    "id": "utilitarian:no_soliciting_banner"
+  }
+}

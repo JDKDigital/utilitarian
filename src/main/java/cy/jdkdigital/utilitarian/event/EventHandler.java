@@ -15,22 +15,22 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.common.util.LogicalSidedProvider;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.util.LogicalSidedProvider;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
-@Mod.EventBusSubscriber(modid = Utilitarian.MODID)
+@EventBusSubscriber(modid = Utilitarian.MODID)
 public class EventHandler
 {
     @SubscribeEvent
     static void onEntitySpawn(EntityJoinLevelEvent event) {
-        if (Config.SERVER.NO_SOLICITING_ENABLED.get()) {
+        if (Config.NO_SOLICITING_ENABLED.get()) {
             if (!event.loadedFromDisk() && event.getLevel() instanceof ServerLevel serverLevel && event.getEntity() instanceof LivingEntity entity) {
                 if (entity.getType().is(NoSolicitingModule.ENTITY_BLACKLIST)) {
                     var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
@@ -60,7 +60,7 @@ public class EventHandler
 
     @SubscribeEvent
     public static void blockToolModified(BlockEvent.BlockToolModificationEvent event) {
-        if (Config.SERVER.HOE_PLANTING_ENABLED.get()) {
+        if (Config.HOE_PLANTING_ENABLED.get()) {
             if (!event.isSimulated() && event.getToolAction().equals(ToolActions.HOE_TILL) && event.getLevel() instanceof ServerLevel level) {
                 if (event.getPlayer() != null && level.getBlockState(event.getPos().above()).canBeReplaced()) {
                     ItemStack seedStack = ItemStack.EMPTY;
@@ -100,8 +100,8 @@ public class EventHandler
 
     @SubscribeEvent
     public static void onSystemMessage(ClientChatReceivedEvent.System event) {
-        if (Config.COMMON.NO_STARTUP_MESSAGES_ENABLED.get()) {
-            Config.COMMON.NO_STARTUP_MESSAGES_MESSAGE_STRINGS.get().forEach(s -> {
+        if (Config.NO_STARTUP_MESSAGES_ENABLED.get()) {
+            Config.NO_STARTUP_MESSAGES_MESSAGE_STRINGS.get().forEach(s -> {
                 if (event.getMessage().getString().contains(s)) {
                     Utilitarian.LOGGER.debug("Blocked message: \"" + event.getMessage().getString() + "\"");
                     event.setCanceled(true);

@@ -1,109 +1,67 @@
 package cy.jdkdigital.utilitarian;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.config.IConfigSpec;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Utilitarian.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Utilitarian.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config
 {
-    public static final Common COMMON;
-    public static final Server SERVER;
-    public static final ForgeConfigSpec COMMON_SPEC, SERVER_SPEC;
 
-    static {
-        final var commonPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        COMMON_SPEC = commonPair.getRight();
-        COMMON = commonPair.getLeft();
-
-        final var serverPair = new ForgeConfigSpec.Builder().configure(Server::new);
-        SERVER_SPEC = serverPair.getRight();
-        SERVER = serverPair.getLeft();
-    }
-
-    public static class Common
+    @SubscribeEvent
+    static void onLoad(final ModConfigEvent event)
     {
-        public final ForgeConfigSpec.BooleanValue NO_STARTUP_MESSAGES_ENABLED;
-        public final ForgeConfigSpec.ConfigValue<List<? extends String>> NO_STARTUP_MESSAGES_MESSAGE_STRINGS;
-
-        public final ForgeConfigSpec.BooleanValue DISABLE_RECIPE_ADVANCEMENTS;
-
-        Common(ForgeConfigSpec.Builder builder) {
-            builder.push("No Startup Messages");
-            NO_STARTUP_MESSAGES_ENABLED = builder
-                    .comment("Enable No Startup Messages module").define("noStartupMessagesEnabled", true);
-            NO_STARTUP_MESSAGES_MESSAGE_STRINGS = builder
-                    .comment("A list of word sequences that if contained in a message will be stopped.")
-                    .defineListAllowEmpty("noStartupMessagesMessages", List.of("This game is using an alpha build of Ender IO"), o -> true);
-            builder.pop();
-
-            builder.push("Recipes");
-            DISABLE_RECIPE_ADVANCEMENTS = builder
-                    .comment("Disable recipe advancements").define("disableRecipeAdvancements", true);
-            builder.pop();
-        }
     }
 
-    public static class Server
-    {
-        public final ForgeConfigSpec.BooleanValue NO_SOLICITING_ENABLED;
-        public final ForgeConfigSpec.IntValue NO_SOLICITING_BANNER_CHUNK_RANGE;
-        public final ForgeConfigSpec.IntValue NO_SOLICITING_PLAYER_CHUNK_RANGE;
-        public final ForgeConfigSpec.IntValue SOLICITING_CARPET_CHUNK_RANGE;
+    private static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
 
-        public final ForgeConfigSpec.BooleanValue HOE_PLANTING_ENABLED;
+    public static final ModConfigSpec.BooleanValue NO_STARTUP_MESSAGES_ENABLED = COMMON_BUILDER
+            .comment("Enable No Startup Messages module").define("noStartupMessagesEnabled", true);
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> NO_STARTUP_MESSAGES_MESSAGE_STRINGS = COMMON_BUILDER
+            .comment("A list of word sequences that if contained in a message will be stopped.")
+            .defineListAllowEmpty("noStartupMessagesMessages", List.of("This game is using an alpha build of Ender IO"), o -> true);
 
-        public final ForgeConfigSpec.IntValue SNAD_ADDITIONAL_HEIGHT;
-        public final ForgeConfigSpec.IntValue SNAD_GROWTH_MULTIPLIER;
-        public final ForgeConfigSpec.DoubleValue SNAD_DRIT_DAMAGE;
+    public static final ModConfigSpec.BooleanValue DISABLE_RECIPE_ADVANCEMENTS = COMMON_BUILDER
+            .comment("Disable recipe advancements").define("disableRecipeAdvancements", true);
 
-        public final ForgeConfigSpec.IntValue FLUID_HOPPER_TICK_RATE;
-        public final ForgeConfigSpec.IntValue REDSTONE_CLOCK_MIN_FREQUENCY;
+    static ModConfigSpec COMMON_SPEC = COMMON_BUILDER.build();
 
-        public final ForgeConfigSpec.BooleanValue BETTER_SLEEP_ENABLED;
 
-        Server(ForgeConfigSpec.Builder builder) {
-            Utilitarian.LOGGER.info("setting up server config");
-            builder.push("No Soliciting");
-            NO_SOLICITING_ENABLED = builder
-                    .comment("Enable No Soliciting module").define("noSolicitingEnabled", true);
-            NO_SOLICITING_BANNER_CHUNK_RANGE = builder
-                    .comment("Range in chunks for no soliciting banner.")
-                    .defineInRange("noSolicitingChunkRangeBanner", 6, 1, Integer.MAX_VALUE);
-            NO_SOLICITING_PLAYER_CHUNK_RANGE = builder
-                    .comment("Range in chunks for players holding a restraining order.")
-                    .defineInRange("noSolicitingChunkRangePlayer", 6, 1, Integer.MAX_VALUE);
-            SOLICITING_CARPET_CHUNK_RANGE = builder
-                    .comment("Range in chunks for players holding a restraining order.")
-                    .defineInRange("noSolicitingChunkRangeCarpet", 6, 1, Integer.MAX_VALUE);
-            builder.pop();
+    private static final ModConfigSpec.Builder SERVER_BUILDER = new ModConfigSpec.Builder();
 
-            builder.push("Hoe planting");
-            HOE_PLANTING_ENABLED = builder
-                    .comment("Enable Hoe planting module").define("hoePlantingEnabled", true);
-            builder.pop();
+    public static final ModConfigSpec.BooleanValue NO_SOLICITING_ENABLED = SERVER_BUILDER
+            .comment("Enable No Soliciting module").define("noSolicitingEnabled", true);
+    public static final ModConfigSpec.IntValue NO_SOLICITING_BANNER_CHUNK_RANGE = SERVER_BUILDER
+            .comment("Range in chunks for no soliciting banner.")
+            .defineInRange("noSolicitingChunkRangeBanner", 6, 1, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue NO_SOLICITING_PLAYER_CHUNK_RANGE = SERVER_BUILDER
+            .comment("Range in chunks for players holding a restraining order.")
+            .defineInRange("noSolicitingChunkRangePlayer", 6, 1, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue SOLICITING_CARPET_CHUNK_RANGE = SERVER_BUILDER
+            .comment("Range in chunks for players holding a restraining order.")
+            .defineInRange("noSolicitingChunkRangeCarpet", 6, 1, Integer.MAX_VALUE);
 
-            builder.push("Snad");
-            SNAD_ADDITIONAL_HEIGHT = builder
-                    .comment("Additional height for sugar cane and cactus when growing on snad").defineInRange("additionalGrowthHeight", 3, 0, Integer.MAX_VALUE);
-            SNAD_GROWTH_MULTIPLIER = builder
-                    .comment("How many extra growth ticks to apply when on snad").defineInRange("additionalGrowthTicks", 1, 0, Integer.MAX_VALUE);
-            SNAD_DRIT_DAMAGE = builder
-                    .comment("Damage done by drit when you step on it").defineInRange("dritDamage", 2.0, 0, Integer.MAX_VALUE);
-            builder.pop();
+    public static final ModConfigSpec.BooleanValue HOE_PLANTING_ENABLED = SERVER_BUILDER
+            .comment("Enable Hoe planting module").define("hoePlantingEnabled", true);
 
-            builder.push("Utility blocks");
-            FLUID_HOPPER_TICK_RATE = builder
-                    .comment("Tick rate for the fluid hopper. Lower number is faster ticking.").defineInRange("fluidHopperTickRate", 10, 1, Integer.MAX_VALUE);
-            REDSTONE_CLOCK_MIN_FREQUENCY = builder
-                    .comment("Minimum tick rate for the redstone clock. Set this higher if you're worried about performance.").defineInRange("minimumRedstoneClockTick", 5, 1, 24);
-            builder.pop();
+    public static final ModConfigSpec.IntValue SNAD_ADDITIONAL_HEIGHT = SERVER_BUILDER
+            .comment("Additional height for sugar cane and cactus when growing on snad").defineInRange("additionalGrowthHeight", 3, 0, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue SNAD_GROWTH_MULTIPLIER = SERVER_BUILDER
+            .comment("How many extra growth ticks to apply when on snad").defineInRange("additionalGrowthTicks", 1, 0, Integer.MAX_VALUE);
+    public static final ModConfigSpec.DoubleValue SNAD_DRIT_DAMAGE = SERVER_BUILDER
+            .comment("Damage done by drit when you step on it").defineInRange("dritDamage", 2.0, 0, Integer.MAX_VALUE);
 
-            builder.push("Better sleep");
-            BETTER_SLEEP_ENABLED = builder
-                    .comment("Get rid of the \"too far away\" and \"there are monsters nearby\" errors when trying to sleep.").define("betterSleepEnabled", true);
-            builder.pop();
-        }
-    }
+    public static final ModConfigSpec.IntValue FLUID_HOPPER_TICK_RATE = SERVER_BUILDER
+            .comment("Tick rate for the fluid hopper. Lower number is faster ticking.").defineInRange("fluidHopperTickRate", 10, 1, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue REDSTONE_CLOCK_MIN_FREQUENCY = SERVER_BUILDER
+            .comment("Minimum tick rate for the redstone clock. Set this higher if you're worried about performance.").defineInRange("minimumRedstoneClockTick", 5, 1, 24);
+
+    public static final ModConfigSpec.BooleanValue BETTER_SLEEP_ENABLED = SERVER_BUILDER
+            .comment("Get rid of the \"too far away\" and \"there are monsters nearby\" errors when trying to sleep.").define("betterSleepEnabled", true);
+
+    static ModConfigSpec SERVER_SPEC = SERVER_BUILDER.build();
 }

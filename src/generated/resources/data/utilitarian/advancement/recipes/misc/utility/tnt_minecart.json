@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iron": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/iron"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "utilitarian:utility/tnt_minecart"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tnt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:tnt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tnt",
+      "has_iron"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "utilitarian:utility/tnt_minecart"
+    ]
+  }
+}

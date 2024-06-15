@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -29,9 +28,9 @@ public class RestrainingOrder extends Item
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        super.appendHoverText(stack, level, pTooltipComponents, pIsAdvanced);
-        if (isActive(stack)) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        if (isActive(pStack)) {
             pTooltipComponents.add(Component.translatable("utilitarian.restraining_order.status.active").withStyle(ChatFormatting.GOLD));
         } else {
             pTooltipComponents.add(Component.translatable("utilitarian.restraining_order.status.inactive").withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -39,20 +38,17 @@ public class RestrainingOrder extends Item
     }
 
     private void toggleActive(ItemStack stack) {
-        var tag = stack.getOrCreateTag();
-        if (tag.contains("active")) {
-            tag.putBoolean("active", !tag.getBoolean("active"));
+        var active = stack.get(NoSolicitingModule.ACTIVE);
+        if (active != null) {
+            stack.set(NoSolicitingModule.ACTIVE, !active);
         } else {
-            tag.putBoolean("active", true);
+            stack.set(NoSolicitingModule.ACTIVE, true);
         }
     }
 
     public static boolean isActive(ItemStack stack) {
-        var tag = stack.getTag();
-        if (tag != null && tag.contains("active")) {
-            return tag.getBoolean("active");
-        }
-        return true;
+        var active = stack.get(NoSolicitingModule.ACTIVE);
+        return active != null && active;
     }
 
     public static boolean isEnabledRestrainingOrder(ItemStack itemStack) {

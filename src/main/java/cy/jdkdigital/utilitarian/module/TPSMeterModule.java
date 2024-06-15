@@ -10,16 +10,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class TPSMeterModule
 {
-    public static RegistryObject<Block> TPS_METER;
-    public static RegistryObject<BlockEntityType<TPSMeterBlockEntity>> TPS_METER_BLOCK_ENTITY;
-    public static RegistryObject<Item> TPS_METER_ITEM;
+    public static DeferredHolder<Block, Block> TPS_METER;
+    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<TPSMeterBlockEntity>> TPS_METER_BLOCK_ENTITY;
+    public static DeferredHolder<Item, Item> TPS_METER_ITEM;
 
     public static void register() {
-        TPS_METER = Utilitarian.BLOCKS.register("tps_meter", () -> new TPSMeter(BlockBehaviour.Properties.copy(Blocks.STONE)));
+        TPS_METER = Utilitarian.BLOCKS.register("tps_meter", () -> new TPSMeter(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
         TPS_METER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("tps_meter", () -> BlockEntityType.Builder.of(TPSMeterBlockEntity::new, TPS_METER.get()).build(null));
         TPS_METER_ITEM = Utilitarian.ITEMS.register("tps_meter", () -> new TPSMeterItem(TPS_METER.get(), new Item.Properties()));
     }

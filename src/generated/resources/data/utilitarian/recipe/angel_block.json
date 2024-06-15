@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/gold"
+    },
+    "F": {
+      "tag": "c:feathers"
+    },
+    "O": {
+      "tag": "c:obsidians"
+    }
+  },
+  "pattern": [
+    " F ",
+    "#O#",
+    " F "
+  ],
+  "result": {
+    "count": 1,
+    "id": "utilitarian:angel_block"
+  }
+}

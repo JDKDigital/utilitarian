@@ -8,8 +8,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoulSandBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.PlantType;
+import net.neoforged.neoforge.common.IPlantable;
+import net.neoforged.neoforge.common.PlantType;
 
 public class SoulSnadBlock extends SoulSandBlock
 {
@@ -18,7 +18,7 @@ public class SoulSnadBlock extends SoulSandBlock
     }
 
     @Override
-    public boolean canSustainPlant(BlockState state, BlockGetter level, BlockPos pos, Direction facing, IPlantable plantable) {
+    public boolean canSustainPlant(BlockState state, BlockGetter level, BlockPos pos, net.minecraft.core.Direction facing, IPlantable plantable) {
         return plantable.getPlantType(level, pos).equals(PlantType.NETHER);
     }
 
@@ -31,12 +31,13 @@ public class SoulSnadBlock extends SoulSandBlock
         if (aboveBlock instanceof IPlantable) {
             // Find the first block above that's not the plant
             int i;
-            for(i = 2; pLevel.getBlockState(pPos.above(i)).is(aboveBlock); ++i) {}
+            for (i = 2; pLevel.getBlockState(pPos.above(i)).is(aboveBlock); ++i) {
+            }
 
             var state = pLevel.getBlockState(pPos.above(i - 1));
 
-            for (int u = 0; u < Config.SERVER.SNAD_GROWTH_MULTIPLIER.get(); u++) {
-                state.getBlock().randomTick(state, pLevel, pPos.above(i), pRandom);
+            for (int u = 0; u < Config.SNAD_GROWTH_MULTIPLIER.get(); u++) {
+                state.randomTick(pLevel, pPos.above(i), pRandom);
             }
         }
     }

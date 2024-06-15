@@ -3,6 +3,7 @@ package cy.jdkdigital.utilitarian.data;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import cy.jdkdigital.utilitarian.Utilitarian;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -13,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,14 +63,14 @@ public class BlockstateProvider implements DataProvider
         PackOutput.PathProvider modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
 
         // No Soliciting
-        for (DyeColor color: DyeColor.values()) {
+        for (DyeColor color : DyeColor.values()) {
 
 //            addBlockItemParentModel(NoSolicitingModule.SOLICITING_CARPET_ITEM.get(color).get(), itemModels);
         }
 
         List<CompletableFuture<?>> output = new ArrayList<>();
         blockModels.forEach((block, supplier) -> {
-            output.add(DataProvider.saveStable(cache, supplier.get(), blockstatePathProvider.json(ForgeRegistries.BLOCKS.getKey(block))));
+            output.add(DataProvider.saveStable(cache, supplier.get(), blockstatePathProvider.json(BuiltInRegistries.BLOCK.getKey(block))));
         });
         itemModels.forEach((rLoc, supplier) -> {
             output.add(DataProvider.saveStable(cache, supplier.get(), modelPathProvider.json(rLoc)));
@@ -91,14 +91,14 @@ public class BlockstateProvider implements DataProvider
     private void addBlockItemModel(Block block, String base, Map<ResourceLocation, Supplier<JsonElement>> itemModels) {
         Item item = Item.BY_BLOCK.get(block);
         if (item != null) {
-            addItemModel(item, new DelegatedModel(new ResourceLocation(Utilitarian.MODID, "block/" + base)), itemModels);
+            addItemModel(item, new DelegatedModel(ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "block/" + base)), itemModels);
         }
     }
 
     private void addBlockItemParentModel(Block block, Map<ResourceLocation, Supplier<JsonElement>> itemModels) {
         Item item = Item.BY_BLOCK.get(block);
         if (item != null) {
-            addItemModel(item, new DelegatedModel(ForgeRegistries.BLOCKS.getKey(block)), itemModels);
+            addItemModel(item, new DelegatedModel(BuiltInRegistries.BLOCK.getKey(block)), itemModels);
         }
     }
 

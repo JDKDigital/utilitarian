@@ -4,6 +4,7 @@ import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -23,8 +24,8 @@ public class RedstoneClockBlockEntity extends BlockEntity
 
     public static <E extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, RedstoneClockBlockEntity blockEntity) {
         if (level instanceof ServerLevel && blockState.getValue(BlockStateProperties.ENABLED)) {
-            if (blockEntity.rate < Config.SERVER.REDSTONE_CLOCK_MIN_FREQUENCY.get()) {
-                blockEntity.rate = Config.SERVER.REDSTONE_CLOCK_MIN_FREQUENCY.get();
+            if (blockEntity.rate < Config.REDSTONE_CLOCK_MIN_FREQUENCY.get()) {
+                blockEntity.rate = Config.REDSTONE_CLOCK_MIN_FREQUENCY.get();
             }
             if (!blockState.getValue(BlockStateProperties.POWERED) && ++blockEntity.tickCounter >= blockEntity.rate) {
                 blockEntity.tickCounter = blockEntity.poweredCounter = 0;
@@ -42,18 +43,18 @@ public class RedstoneClockBlockEntity extends BlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
         pTag.putInt("rate", this.rate);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
         if (pTag.contains("rate")) {
             this.rate = pTag.getInt("rate");
         } else {
-            this.rate = Config.SERVER.REDSTONE_CLOCK_MIN_FREQUENCY.get();
+            this.rate = Config.REDSTONE_CLOCK_MIN_FREQUENCY.get();
         }
     }
 }

@@ -1,5 +1,6 @@
 package cy.jdkdigital.utilitarian.common.block;
 
+import com.mojang.serialization.MapCodec;
 import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.common.block.entity.RedstoneClockBlockEntity;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
@@ -10,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -31,10 +33,18 @@ import java.util.List;
 
 public class RedstoneClockBlock extends BaseEntityBlock
 {
+    public static final MapCodec<RedstoneClockBlock> CODEC = simpleCodec(RedstoneClockBlock::new);
+
     public RedstoneClockBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.ENABLED, true).setValue(BlockStateProperties.POWERED, false));
     }
+
+    @Override
+    public MapCodec<RedstoneClockBlock> codec() {
+        return CODEC;
+    }
+
 
     @Nullable
     @Override
@@ -66,11 +76,11 @@ public class RedstoneClockBlock extends BaseEntityBlock
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide && pPlayer.getItemInHand(pHand).isEmpty() && pLevel.getBlockEntity(pPos) instanceof RedstoneClockBlockEntity redstoneClockBlockEntity) {
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof RedstoneClockBlockEntity redstoneClockBlockEntity) {
             int newValue = redstoneClockBlockEntity.rate + (pPlayer.isShiftKeyDown() ? 10 : 1);
-            if (newValue < Config.SERVER.REDSTONE_CLOCK_MIN_FREQUENCY.get() || newValue > 100) {
-                newValue = Config.SERVER.REDSTONE_CLOCK_MIN_FREQUENCY.get();
+            if (newValue < Config.REDSTONE_CLOCK_MIN_FREQUENCY.get() || newValue > 100) {
+                newValue = Config.REDSTONE_CLOCK_MIN_FREQUENCY.get();
             }
             redstoneClockBlockEntity.rate = newValue;
             pPlayer.displayClientMessage(Component.translatable("block.utilitarian.redstone_clock.message", newValue), true);
@@ -98,11 +108,11 @@ public class RedstoneClockBlock extends BaseEntityBlock
             pLevel.setBlock(pPos, pState.setValue(BlockStateProperties.ENABLED, noSignal), pFlags);
         }
     }
-    
+
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(Component.translatable("block.utilitarian.redstone_clock.description").withStyle(ChatFormatting.GOLD));
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTootipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
+        pTootipComponents.add(Component.translatable("block.utilitarian.redstone_clock.description").withStyle(ChatFormatting.GOLD));
     }
 
     @Override
