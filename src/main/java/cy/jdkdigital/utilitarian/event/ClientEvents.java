@@ -45,10 +45,13 @@ public class ClientEvents
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 event.accept(NoSolicitingModule.RESTRAINING_ORDER.get());
+                event.accept(NoSolicitingModule.SOLICITING_CARPET_ITEM.get(DyeColor.WHITE).get());
+                event.accept(NoSolicitingModule.TRAPPED_SOLICITING_CARPET_ITEM.get(DyeColor.WHITE).get());
+                event.accept(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
+                event.accept(UtilityBlockModule.ANGEL_BLOCK.get());
+                event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
             }
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) || event.getTabKey().equals(CreativeModeTabs.COLORED_BLOCKS)) {
-                event.accept(NoSolicitingModule.RESTRAINING_ORDER.get());
-
+            if (event.getTabKey().equals(CreativeModeTabs.COLORED_BLOCKS)) {
                 for (DyeColor color: DyeColor.values()) {
                     event.accept(NoSolicitingModule.SOLICITING_CARPET_ITEM.get(color).get());
                     event.accept(NoSolicitingModule.TRAPPED_SOLICITING_CARPET_ITEM.get(color).get());
@@ -57,6 +60,7 @@ public class ClientEvents
         }
         if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
             event.accept(TPSMeterModule.TPS_METER_ITEM.get());
+            event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
         }
         if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
             event.accept(UtilityBlockModule.ANGEL_BLOCK_ITEM.get());
