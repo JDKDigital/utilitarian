@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.142'
+    id 'net.neoforged.gradle.userdev' version '7.0.145'
 }
 
 version = mod_version
@@ -83,12 +83,8 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
-//    implementation "curse.maven:jei-238222:4609866"
+    implementation "curse.maven:jei-238222:5466551"
 //    implementation "curse.maven:the-one-probe-245211:4579432"
-//
-//    implementation "curse.maven:ender-io-64578:4800730"
 }
 
 tasks.withType(ProcessResources).configureEach {

@@ -63,5 +63,8 @@ public class Config
     public static final ModConfigSpec.BooleanValue BETTER_SLEEP_ENABLED = SERVER_BUILDER
             .comment("Get rid of the \"too far away\" and \"there are monsters nearby\" errors when trying to sleep.").define("betterSleepEnabled", true);
 
+    public static final ModConfigSpec.BooleanValue NO_TRAMPLE_ENABLED = SERVER_BUILDER
+            .comment("Enable No Trampling module").define("noTramplingEnabled", true);
+
     static ModConfigSpec SERVER_SPEC = SERVER_BUILDER.build();
 }

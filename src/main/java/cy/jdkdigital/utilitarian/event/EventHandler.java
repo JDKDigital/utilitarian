@@ -8,6 +8,7 @@ import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -23,6 +24,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.ToolActions;
 import net.neoforged.neoforge.common.util.LogicalSidedProvider;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber(modid = Utilitarian.MODID)
@@ -56,7 +58,18 @@ public class EventHandler
         }
     }
 
-
+    @SubscribeEvent
+    public static void canSleep(CanPlayerSleepEvent canPlayerSleepEvent) {
+        if (Config.BETTER_SLEEP_ENABLED.get()) {
+            if (canPlayerSleepEvent.getVanillaProblem() != null) {
+                if (canPlayerSleepEvent.getVanillaProblem().equals(Player.BedSleepingProblem.TOO_FAR_AWAY)) {
+                    canPlayerSleepEvent.setProblem(null);
+                } else if (canPlayerSleepEvent.getVanillaProblem().equals(Player.BedSleepingProblem.NOT_SAFE)) {
+                    canPlayerSleepEvent.setProblem(null);
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void blockToolModified(BlockEvent.BlockToolModificationEvent event) {
@@ -107,6 +120,15 @@ public class EventHandler
                     event.setCanceled(true);
                 }
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onTrample(BlockEvent.FarmlandTrampleEvent event) {
+        if (Config.NO_TRAMPLE_ENABLED.get()) {
+            if (!event.getEntity().getType().is(Utilitarian.TRAMPLING_ENTITIES)) {
+                event.setCanceled(true);
+            }
         }
     }
 }
