@@ -8,6 +8,8 @@ import cy.jdkdigital.utilitarian.common.block.SoulSnadBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.BlockItem;
@@ -21,6 +23,9 @@ public class SnadModule
 {
     public static final ResourceKey<DamageType> DRIT_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "drit"));
     public static final ResourceKey<DamageType> GRRASS_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "grrass"));
+
+    public static final TagKey<Block> SAND_GROWABLES = BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", "sand_growables"));
+    public static final TagKey<Block> SOUL_SAND_GROWABLES = BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", "soul_sand_growables"));
 
     public static DeferredHolder<Block, Block> SNAD_BLOCK;
     public static DeferredHolder<Block, Block> RED_SNAD_BLOCK;

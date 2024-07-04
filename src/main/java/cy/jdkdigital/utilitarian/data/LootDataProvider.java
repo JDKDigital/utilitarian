@@ -33,7 +33,7 @@ public class LootDataProvider implements DataProvider
     private final CompletableFuture<HolderLookup.Provider> registries;
 
     public LootDataProvider(PackOutput output, List<LootTableProvider.SubProviderEntry> providers, CompletableFuture<HolderLookup.Provider> pRegistries) {
-        this.pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables");
+        this.pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "loot_table");
         this.subProviders = providers;
         this.registries = pRegistries;
     }

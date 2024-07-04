@@ -51,7 +51,7 @@ public class Config
     public static final ModConfigSpec.IntValue SNAD_ADDITIONAL_HEIGHT = SERVER_BUILDER
             .comment("Additional height for sugar cane and cactus when growing on snad").defineInRange("additionalGrowthHeight", 3, 0, Integer.MAX_VALUE);
     public static final ModConfigSpec.IntValue SNAD_GROWTH_MULTIPLIER = SERVER_BUILDER
-            .comment("How many extra growth ticks to apply when on snad").defineInRange("additionalGrowthTicks", 1, 0, Integer.MAX_VALUE);
+            .comment("How many extra growth ticks to apply when on snad").defineInRange("additionalGrowthTicks", 5, 0, Integer.MAX_VALUE);
     public static final ModConfigSpec.DoubleValue SNAD_DRIT_DAMAGE = SERVER_BUILDER
             .comment("Damage done by drit when you step on it").defineInRange("dritDamage", 2.0, 0, Integer.MAX_VALUE);
 

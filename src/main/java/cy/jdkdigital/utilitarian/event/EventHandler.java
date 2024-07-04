@@ -20,8 +20,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.ToolActions;
 import net.neoforged.neoforge.common.util.LogicalSidedProvider;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent;
@@ -74,7 +74,7 @@ public class EventHandler
     @SubscribeEvent
     public static void blockToolModified(BlockEvent.BlockToolModificationEvent event) {
         if (Config.HOE_PLANTING_ENABLED.get()) {
-            if (!event.isSimulated() && event.getToolAction().equals(ToolActions.HOE_TILL) && event.getLevel() instanceof ServerLevel level) {
+            if (!event.isSimulated() && event.getItemAbility().equals(ItemAbilities.HOE_TILL) && event.getLevel() instanceof ServerLevel level) {
                 if (event.getPlayer() != null && level.getBlockState(event.getPos().above()).canBeReplaced()) {
                     ItemStack seedStack = ItemStack.EMPTY;
                     if (event.getPlayer().getOffhandItem().is(Tags.Items.SEEDS)) {
