@@ -4,13 +4,17 @@ import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import net.minecraft.core.Direction;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.windcharge.WindCharge;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
@@ -25,11 +29,19 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.LogicalSidedProvider;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber(modid = Utilitarian.MODID)
 public class EventHandler
 {
+    @SubscribeEvent
+    static void onTooltip(ItemTooltipEvent event) {
+        if (event.getItemStack().is(Items.WIND_CHARGE)) {
+            event.getToolTip().add(Component.translatable(Utilitarian.MODID + ".wind_charge.tooltip").withStyle(ChatFormatting.AQUA));
+        }
+    }
+
     @SubscribeEvent
     static void onEntitySpawn(EntityJoinLevelEvent event) {
         if (Config.NO_SOLICITING_ENABLED.get()) {
@@ -53,6 +65,13 @@ public class EventHandler
                             }
                         }
                     }));
+                }
+            }
+        }
+        if (Config.WIND_CHARGE_AIR_SUPPLY_ENABLED.get() && !event.getLevel().isClientSide) {
+            if (event.getEntity() instanceof WindCharge windCharge) {
+                if (windCharge.getOwner() instanceof Player player && player.getAirSupply() < player.getMaxAirSupply()) {
+                    player.setAirSupply(Math.min(player.getMaxAirSupply(), player.getAirSupply() + Config.WIND_CHARGE_AIR_AMOUNT.get()));
                 }
             }
         }

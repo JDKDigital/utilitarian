@@ -66,5 +66,10 @@ public class Config
     public static final ModConfigSpec.BooleanValue NO_TRAMPLE_ENABLED = SERVER_BUILDER
             .comment("Enable No Trampling module").define("noTramplingEnabled", true);
 
+    public static final ModConfigSpec.BooleanValue WIND_CHARGE_AIR_SUPPLY_ENABLED = SERVER_BUILDER
+            .comment("When true using a wind charge will replenish some of the players air supply").define("windChargeAirSupplyEnabled", true);
+    public static final ModConfigSpec.IntValue WIND_CHARGE_AIR_AMOUNT = SERVER_BUILDER
+            .comment("How much air should a charge refill. Full air supply for a player is 300.").defineInRange("windChargeAirAmount", 100, 1, Integer.MAX_VALUE);
+
     static ModConfigSpec SERVER_SPEC = SERVER_BUILDER.build();
 }

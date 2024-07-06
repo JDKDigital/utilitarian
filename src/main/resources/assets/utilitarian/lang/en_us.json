@@ -53,5 +53,6 @@
   "utilitarian.soliciting_carpet.tooltip": "Arriving traders will end up on this block instead of in your face.",
   "utilitarian.soliciting_carpet.tooltip_trapped": "This carpet is trapped and will kill the trader...you monster :D",
   "utilitarian.restraining_order.status.inactive": "Draft. Sneak right click to activate.",
-  "utilitarian.restraining_order.status.active": "Stamped and enforced. Sneak right click to deactivate."
+  "utilitarian.restraining_order.status.active": "Stamped and enforced. Sneak right click to deactivate.",
+  "utilitarian.wind_charge.tooltip": "Replenishes your breath under water."
 }
