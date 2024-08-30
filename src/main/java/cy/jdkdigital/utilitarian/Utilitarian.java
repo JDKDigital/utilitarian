@@ -1,10 +1,7 @@
 package cy.jdkdigital.utilitarian;
 
 import com.mojang.logging.LogUtils;
-import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
-import cy.jdkdigital.utilitarian.module.SnadModule;
-import cy.jdkdigital.utilitarian.module.TPSMeterModule;
-import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
+import cy.jdkdigital.utilitarian.module.*;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -52,6 +49,7 @@ public class Utilitarian
 
         NoSolicitingModule.register();
         UtilityBlockModule.register();
+        UtilityItemModule.register();
         TPSMeterModule.register();
         SnadModule.register();
 

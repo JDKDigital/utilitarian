@@ -4,7 +4,7 @@
   "cookingtime": 1800,
   "experience": 6.3,
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_iron"
+    "tag": "c:storage_blocks/raw_iron"
   },
   "result": {
     "count": 1,

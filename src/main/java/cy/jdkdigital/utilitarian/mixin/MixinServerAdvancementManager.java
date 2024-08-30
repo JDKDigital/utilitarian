@@ -3,6 +3,7 @@ package cy.jdkdigital.utilitarian.mixin;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import cy.jdkdigital.utilitarian.Config;
+import cy.jdkdigital.utilitarian.Utilitarian;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ServerAdvancementManager;

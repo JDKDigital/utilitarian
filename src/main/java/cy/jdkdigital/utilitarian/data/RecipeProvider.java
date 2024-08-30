@@ -1,10 +1,7 @@
 package cy.jdkdigital.utilitarian.data;
 
 import cy.jdkdigital.utilitarian.Utilitarian;
-import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
-import cy.jdkdigital.utilitarian.module.SnadModule;
-import cy.jdkdigital.utilitarian.module.TPSMeterModule;
-import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
+import cy.jdkdigital.utilitarian.module.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -100,6 +97,13 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
                 .define('P', Ingredient.of(Tags.Items.DYES_WHITE))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "fluid_hopper"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityItemModule.TROWEL.get(), 1)
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
+                .pattern("S  ").pattern(" II")
+                .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
+                .define('S', Ingredient.of(Tags.Items.RODS_WOODEN))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "trowel"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get(), 1)
                 .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
@@ -218,10 +222,17 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
                 .save (pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/tnt_minecart"));
 
-                ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.PAPER, 3)
-                        .unlockedBy(getHasName(Items.SUGAR_CANE), has(Items.SUGAR_CANE))
-                        .requires(Items.SUGAR_CANE).requires(Items.SUGAR_CANE).requires(Items.SUGAR_CANE)
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/paper"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.PAPER, 3)
+                .unlockedBy(getHasName(Items.SUGAR_CANE), has(Items.SUGAR_CANE))
+                .pattern("##").pattern("# ")
+                .define('#', Ingredient.of(Items.SUGAR_CANE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/paper"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.BREAD, 1)
+                .unlockedBy(getHasName(Items.WHEAT), has(Items.WHEAT))
+                .pattern("##").pattern("# ")
+                .define('#', Ingredient.of(Items.WHEAT))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/bread"));
 
 
         WoodType.values().forEach(woodType -> {
@@ -263,7 +274,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
             var slab = BuiltInRegistries.ITEM.get(ResourceLocation.parse(woodType.name() + "_slab"));
                     ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(woodType.name() + "_planks")), 1)
                             .unlockedBy("has_slab", has(slab))
-                            .pattern("#").pattern("#")
+                            .pattern("# ").pattern(" #")
                             .define('#', Ingredient.of(slab))
                             .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/" + woodType.name() + "_slab_to_block"));
 
@@ -297,8 +308,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
     }
 
     void blockSmelt(String resource, RecipeOutput pRecipeOutput) {
-        var rawItem = ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", "raw_materials/" + resource));
-        var rawBlock = ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", "storage_blocks/raw_" + resource));
+        var rawItem = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "raw_materials/" + resource));
+        var rawBlock = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/raw_" + resource));
 
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawBlock), RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.parse(resource + "_block")), 6.3F, 1800)
                 .unlockedBy("has_raw_" + resource, has(rawItem))

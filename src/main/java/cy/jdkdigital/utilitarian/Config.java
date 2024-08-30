@@ -28,6 +28,11 @@ public class Config
     public static final ModConfigSpec.BooleanValue DISABLE_RECIPE_ADVANCEMENTS = COMMON_BUILDER
             .comment("Disable recipe advancements").define("disableRecipeAdvancements", true);
 
+    public static final ModConfigSpec.BooleanValue DING_DONG_ENABLED = COMMON_BUILDER
+            .comment("Enable startup ding sound").define("enableDingDongStartupSound", true);
+    public static final ModConfigSpec.ConfigValue<String> DING_DONG_SOUND = COMMON_BUILDER
+            .comment("Name of sound to play. Default is entity.experience_orb.pickup").define("dingDongSound", "entity.experience_orb.pickup");
+
     static ModConfigSpec COMMON_SPEC = COMMON_BUILDER.build();
 
 

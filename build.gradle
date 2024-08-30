@@ -83,8 +83,7 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    implementation "curse.maven:jei-238222:5466551"
-//    implementation "curse.maven:the-one-probe-245211:4579432"
+    implementation "curse.maven:jei-238222:5537216"
 }
 
 tasks.withType(ProcessResources).configureEach {

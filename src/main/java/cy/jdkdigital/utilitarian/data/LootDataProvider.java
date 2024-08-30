@@ -2,6 +2,8 @@ package cy.jdkdigital.utilitarian.data;
 
 import com.google.common.collect.Maps;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import cy.jdkdigital.utilitarian.module.SnadModule;
+import cy.jdkdigital.utilitarian.module.TPSMeterModule;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
@@ -32,10 +34,10 @@ public class LootDataProvider implements DataProvider
     private final List<LootTableProvider.SubProviderEntry> subProviders;
     private final CompletableFuture<HolderLookup.Provider> registries;
 
-    public LootDataProvider(PackOutput output, List<LootTableProvider.SubProviderEntry> providers, CompletableFuture<HolderLookup.Provider> pRegistries) {
+    public LootDataProvider(PackOutput output, List<LootTableProvider.SubProviderEntry> providers, CompletableFuture<HolderLookup.Provider> registries) {
         this.pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "loot_table");
         this.subProviders = providers;
-        this.registries = pRegistries;
+        this.registries = registries;
     }
 
     @Override
@@ -45,22 +47,22 @@ public class LootDataProvider implements DataProvider
 
     @Override
     public CompletableFuture<?> run(CachedOutput pOutput) {
-        return this.registries.thenCompose(p_323117_ -> this.run(pOutput, p_323117_));
+        return this.registries.thenCompose(provider -> this.run(pOutput, provider));
     }
 
     private CompletableFuture<?> run(CachedOutput pOutput, HolderLookup.Provider pProvider) {
         final Map<ResourceLocation, LootTable> map = Maps.newHashMap();
         this.subProviders.forEach((providerEntry) -> {
-            providerEntry.provider().apply(pProvider).generate((lootTableResourceKey, builder) -> {
-                builder.setRandomSequence(lootTableResourceKey.location());
-                if (map.put(lootTableResourceKey.location(), builder.setParamSet(providerEntry.paramSet()).build()) != null) {
-                    throw new IllegalStateException("Duplicate loot table " + lootTableResourceKey);
+            providerEntry.provider().apply(pProvider).generate((resourceKey, builder) -> {
+                builder.setRandomSequence(resourceKey.location());
+                if (map.put(resourceKey.location(), builder.setParamSet(providerEntry.paramSet()).build()) != null) {
+                    throw new IllegalStateException("Duplicate loot table " + resourceKey.location());
                 }
             });
         });
 
         return CompletableFuture.allOf(map.entrySet().stream().map((entry) -> {
-            return DataProvider.saveStable(pOutput, pProvider, LootDataType.TABLE.codec(), entry.getValue(), this.pathProvider.json(entry.getKey()));
+            return DataProvider.saveStable(pOutput, pProvider, LootTable.DIRECT_CODEC, entry.getValue(), this.pathProvider.json(entry.getKey()));
         }).toArray(CompletableFuture[]::new));
     }
 
@@ -83,6 +85,12 @@ public class LootDataProvider implements DataProvider
             dropOther(NoSolicitingModule.NO_SOLICITING_WALL_BANNER.get(), NoSolicitingModule.NO_SOLICITING_BANNER.get());
             dropSelf(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
             dropSelf(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
+            dropSelf(TPSMeterModule.TPS_METER.get());
+            dropSelf(SnadModule.SNAD_BLOCK.get());
+            dropSelf(SnadModule.RED_SNAD_BLOCK.get());
+            dropSelf(SnadModule.SOUL_SNAD_BLOCK.get());
+            dropSelf(SnadModule.DRIT_BLOCK.get());
+//            dropSelf(SnadModule.GRRASS_BLOCK.get());
         }
 
         @Override
@@ -108,11 +116,6 @@ public class LootDataProvider implements DataProvider
         public void dropOther(@NotNull Block block, @NotNull Block otherBlock) {
             Function<Block, LootTable.Builder> func = functionTable.getOrDefault(block, LootProvider::genOptionalBlockDrop);
             this.add(block, func.apply(otherBlock));
-        }
-
-        public void dropNothing(@NotNull Block block) {
-            Function<Block, LootTable.Builder> func = functionTable.getOrDefault(block, LootProvider::genBlankBlockDrop);
-            this.add(block, func.apply(block));
         }
 
         protected static LootTable.Builder genOptionalBlockDrop(Block block) {

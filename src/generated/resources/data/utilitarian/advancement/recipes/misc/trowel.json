@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_gold": {
+    "has_iron": {
       "conditions": {
         "items": [
           {
-            "items": "#c:raw_materials/gold"
+            "items": "#c:ingots/iron"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "utilitarian:utility/gold_block_from_smelting"
+        "recipe": "utilitarian:trowel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_raw_gold"
+      "has_iron"
     ]
   ],
   "rewards": {
     "recipes": [
-      "utilitarian:utility/gold_block_from_smelting"
+      "utilitarian:trowel"
     ]
   }
 }

@@ -2,16 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:spruce_slab"
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
-    "# ",
-    " #"
+    "S  ",
+    " II"
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:spruce_planks"
+    "id": "utilitarian:trowel"
   }
 }

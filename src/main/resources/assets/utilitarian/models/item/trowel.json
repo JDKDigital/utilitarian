@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "utilitarian:item/trowel"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "extended": 1.0
+      },
+      "model": "utilitarian:item/trowel_extended"
+    }
+  ]
+}
