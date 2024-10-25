@@ -112,6 +112,23 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('R', Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "redstone_clock"));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityItemModule.TINY_COAL.get(), 8)
+                .unlockedBy(getHasName(Items.COAL), has(Items.COAL))
+                .requires(Items.COAL)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "tiny_fuel/tiny_coal"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.COAL, 1)
+                .unlockedBy(getHasName(UtilityItemModule.TINY_COAL.get()), has(UtilityItemModule.TINY_COAL.get()))
+                .requires(UtilityItemModule.TINY_COAL.get(), 8)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "tiny_fuel/coal"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityItemModule.TINY_CHARCOAL.get(), 8)
+                .unlockedBy(getHasName(Items.CHARCOAL), has(Items.CHARCOAL))
+                .requires(Items.CHARCOAL)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "tiny_fuel/tiny_charcoal"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.CHARCOAL, 1)
+                .unlockedBy(getHasName(UtilityItemModule.TINY_CHARCOAL.get()), has(UtilityItemModule.TINY_CHARCOAL.get()))
+                .requires(UtilityItemModule.TINY_CHARCOAL.get(), 8)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "tiny_fuel/charcoal"));
+
         // Snad
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SnadModule.SNAD_BLOCK_ITEM.get(), 1)
                 .unlockedBy(getHasName(Items.SAND), has(Items.SAND))

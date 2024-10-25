@@ -50,9 +50,9 @@ public class EventHandler
                     var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
                     executor.tell(new TickTask(0, () -> {
                         var nearbySoliciting = NoSolicitingModule.locateNearbySoliciting(serverLevel, event.getEntity().blockPosition());
-                        if (nearbySoliciting.size() > 0) {
+                        if (!nearbySoliciting.isEmpty()) {
                             // TP to nearest soliciting carpet
-                            var pos = nearbySoliciting.get(0);
+                            var pos = nearbySoliciting.getFirst();
                             entity.setPos(pos.getX(), pos.getY(), pos.getZ());
                             if (serverLevel.getBlockState(pos).is(NoSolicitingModule.TRAPPED_SOLICITING_CARPETS)) {
                                 // and die

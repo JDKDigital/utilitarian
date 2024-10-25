@@ -26,11 +26,12 @@ public class UtilitarianDataProvider
 
 //        gen.addProvider(event.includeClient(), new LanguageProvider(output));
 
-        gen.addProvider(event.includeClient(), new BlockstateProvider(output));
+        gen.addProvider(event.includeClient(), new ModelProvider(output));
 
         gen.addProvider(event.includeServer(), new LootDataProvider(output, List.of(new LootTableProvider.SubProviderEntry(LootDataProvider.LootProvider::new, LootContextParamSets.BLOCK)), provider));
         gen.addProvider(event.includeServer(), new RecipeProvider(output, provider));
 //        gen.addProvider(event.includeServer(), new FeatureProvider(output));
+        gen.addProvider(event.includeServer(), new DataMapProvider(output, provider));
 
 //        BlockTagProvider blockTags = new BlockTagProvider(output, provider, helper);
 //        gen.addProvider(event.includeServer(), blockTags);

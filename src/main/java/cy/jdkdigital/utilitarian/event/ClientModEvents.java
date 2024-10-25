@@ -47,6 +47,8 @@ public class ClientModEvents
                 event.accept(UtilityBlockModule.ANGEL_BLOCK.get());
                 event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
                 event.accept(UtilityItemModule.TROWEL.get());
+                event.accept(UtilityItemModule.TINY_COAL.get());
+                event.accept(UtilityItemModule.TINY_CHARCOAL.get());
             }
             if (event.getTabKey().equals(CreativeModeTabs.COLORED_BLOCKS)) {
                 for (DyeColor color: DyeColor.values()) {

@@ -9,8 +9,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.blockstates.BlockStateGenerator;
-import net.minecraft.data.models.model.DelegatedModel;
-import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -25,13 +24,13 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class BlockstateProvider implements DataProvider
+public class ModelProvider implements DataProvider
 {
     protected final PackOutput packOutput;
 
     protected final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
 
-    public BlockstateProvider(PackOutput packOutput) {
+    public ModelProvider(PackOutput packOutput) {
         this.packOutput = packOutput;
     }
 
@@ -63,6 +62,10 @@ public class BlockstateProvider implements DataProvider
         PackOutput.PathProvider blockstatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
         PackOutput.PathProvider modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
 
+
+        generateFlatItem(UtilityItemModule.TINY_COAL.get(), "item/", modelOutput);
+        generateFlatItem(UtilityItemModule.TINY_CHARCOAL.get(), "item/", modelOutput);
+
         // No Soliciting
         for (DyeColor color : DyeColor.values()) {
 
@@ -78,6 +81,22 @@ public class BlockstateProvider implements DataProvider
         });
 
         return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+    }
+
+    private void generateFlatItem(Item item, String prefix, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput) {
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), getFlatItemTextureMap(item, prefix), modelOutput);
+    }
+
+    private static TextureMapping getFlatItemTextureMap(Item item, String prefix) {
+        return getFlatItemTextureMap(item, prefix, "");
+    }
+
+    private static TextureMapping getFlatItemTextureMap(Item item, String prefix, String suffix) {
+        return getFlatItemTextureMap(BuiltInRegistries.ITEM.getKey(item), prefix, suffix);
+    }
+
+    private static TextureMapping getFlatItemTextureMap(ResourceLocation resourceLocation, String prefix, String suffix) {
+        return (new TextureMapping()).put(TextureSlot.LAYER0, resourceLocation.withPrefix(prefix).withSuffix(suffix));
     }
 
     private void addItemModel(Item item, Supplier<JsonElement> supplier, Map<ResourceLocation, Supplier<JsonElement>> itemModels) {

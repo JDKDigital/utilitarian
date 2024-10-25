@@ -3,7 +3,9 @@ package cy.jdkdigital.utilitarian.module;
 import com.mojang.serialization.Codec;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.common.item.TrowelItem;
+import cy.jdkdigital.utilitarian.common.item.YankingRopeItem;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -19,8 +21,18 @@ public class UtilityItemModule
     public static final TagKey<Item> TROWEL_BLACKLIST = ItemTags.create(ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "trowel_blacklist"));
 
     public static DeferredHolder<Item, Item> TROWEL;
+    public static DeferredHolder<Item, Item> TINY_COAL;
+    public static DeferredHolder<Item, Item> TINY_CHARCOAL;
+//    public static DeferredHolder<Item, Item> YANKING_ROPE;
+    // TODO angel ring
+    //    No weird cost (xp power etc, it’s not a jet pack and the price should be in the creation)
+    //    Speed should be based on the players speed same way XU2 did it, can you run real fast? Well you can fly real fast too!
+    //    I would hope for something visual, like wings or (idea as I’m typing) a gold halo above the players head could be real fucking cool and easier to do than wings
 
     public static void register() {
         TROWEL = Utilitarian.ITEMS.register("trowel", () -> new TrowelItem(new Item.Properties().stacksTo(1)));
+        TINY_COAL = Utilitarian.ITEMS.register("tiny_coal", () -> new Item(new Item.Properties()));
+        TINY_CHARCOAL = Utilitarian.ITEMS.register("tiny_charcoal", () -> new Item(new Item.Properties()));
+//        YANKING_ROPE = Utilitarian.ITEMS.register("yanking_rope", () -> new YankingRopeItem(new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
     }
 }

@@ -49,6 +49,7 @@ public class NoSolicitingModule
     public static Map<DyeColor, DeferredHolder<Item, Item>> TRAPPED_SOLICITING_CARPET_ITEM = new HashMap<>();
     public static DeferredHolder<Item, Item> RESTRAINING_ORDER;
     public static DeferredHolder<PoiType, PoiType> NO_SOLICITING_POI;
+    public static DeferredHolder<PoiType, PoiType> SOLICITING_POI;
 
     public static TagKey<EntityType<?>> ENTITY_BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "traders"));
     public static TagKey<PoiType> NO_SOLICITING_POI_TAG = TagKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "no_soliciting"));
@@ -79,7 +80,7 @@ public class NoSolicitingModule
             blockStates.addAll(NO_SOLICITING_WALL_BANNER.get().getStateDefinition().getPossibleStates());
             return new PoiType(blockStates, 1, 1);
         });
-        NO_SOLICITING_POI = Utilitarian.POI_TYPES.register("soliciting", () -> {
+        SOLICITING_POI = Utilitarian.POI_TYPES.register("soliciting", () -> {
             Set<BlockState> blockStates = new HashSet<>();
             for (DyeColor color : DyeColor.values()) {
                 blockStates.addAll(SOLICITING_CARPET.get(color).get().getStateDefinition().getPossibleStates());
@@ -91,7 +92,7 @@ public class NoSolicitingModule
 
     public static int locateNearbyNoSoliciting(ServerLevel level, BlockPos spawnPosition) {
         PoiManager poiManager = level.getPoiManager();
-        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NoSolicitingModule.NO_SOLICITING_POI_TAG), spawnPosition, Config.NO_SOLICITING_BANNER_CHUNK_RANGE.get() * 16, PoiManager.Occupancy.ANY);
+        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NO_SOLICITING_POI_TAG), spawnPosition, Config.NO_SOLICITING_BANNER_CHUNK_RANGE.get() * 16, PoiManager.Occupancy.ANY);
         var posList = stream.map(PoiRecord::getPos).filter(blockPos -> level.getBlockState(blockPos).is(NO_SOLICITING_BANNER.get()) || level.getBlockState(blockPos).is(NO_SOLICITING_WALL_BANNER.get())).toList();
         if (!posList.isEmpty()) {
             return posList.size();

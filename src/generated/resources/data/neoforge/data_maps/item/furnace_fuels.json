@@ -1,0 +1,10 @@
+{
+  "values": {
+    "utilitarian:tiny_charcoal": {
+      "burn_time": 200
+    },
+    "utilitarian:tiny_coal": {
+      "burn_time": 200
+    }
+  }
+}

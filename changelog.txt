@@ -1,10 +1,11 @@
 1.21.1-0.13.3
 
-- Redstone Clock recipe is back from vacation
+- Added tiny coal and charcoal
 
 
 1.21.1-0.13.2
 
+- Redstone Clock recipe is back from vacation
 - Added option to blacklist blocks from being used by the trowel
 
 
