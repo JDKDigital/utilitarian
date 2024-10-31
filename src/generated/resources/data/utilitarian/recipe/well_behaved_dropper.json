@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:dropper"
+    },
+    "I": {
+      "tag": "c:nuggets/gold"
+    }
+  },
+  "pattern": [
+    " I ",
+    "I#I",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "utilitarian:well_behaved_dropper"
+  }
+}

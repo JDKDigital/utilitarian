@@ -4,8 +4,10 @@ import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.common.block.AngelBlock;
 import cy.jdkdigital.utilitarian.common.block.FluidHopperBlock;
 import cy.jdkdigital.utilitarian.common.block.RedstoneClockBlock;
+import cy.jdkdigital.utilitarian.common.block.WellBehavedDropperBlock;
 import cy.jdkdigital.utilitarian.common.block.entity.FluidHopperBlockEntity;
 import cy.jdkdigital.utilitarian.common.block.entity.RedstoneClockBlockEntity;
+import cy.jdkdigital.utilitarian.common.block.entity.WellBehavedDropperBlockEntity;
 import cy.jdkdigital.utilitarian.common.item.AngelBlockItem;
 import cy.jdkdigital.utilitarian.common.item.YankingRopeItem;
 import net.minecraft.core.component.DataComponents;
@@ -32,6 +34,10 @@ public class UtilityBlockModule
     public static DeferredHolder<Item, Item> REDSTONE_CLOCK_BLOCK_ITEM;
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<RedstoneClockBlockEntity>> REDSTONE_CLOCK_BLOCK_ENTITY;
 
+    public static DeferredHolder<Block, Block> WELL_BEHAVED_DROPPER;
+    public static DeferredHolder<Item, Item> WELL_BEHAVED_DROPPER_ITEM;
+    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<WellBehavedDropperBlockEntity>> WELL_BEHAVED_DROPPER_BLOCK_ENTITY;
+
     public static void register() {
         ANGEL_BLOCK = Utilitarian.BLOCKS.register("angel_block", () -> new AngelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
         ANGEL_BLOCK_ITEM = Utilitarian.ITEMS.register("angel_block", () -> new AngelBlockItem(ANGEL_BLOCK.get(), new Item.Properties()));
@@ -43,5 +49,9 @@ public class UtilityBlockModule
         REDSTONE_CLOCK_BLOCK = Utilitarian.BLOCKS.register("redstone_clock", () -> new RedstoneClockBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).isRedstoneConductor((pState, pLevel, pPos) -> false)));
         REDSTONE_CLOCK_BLOCK_ITEM = Utilitarian.ITEMS.register("redstone_clock", () -> new BlockItem(REDSTONE_CLOCK_BLOCK.get(), new Item.Properties()));
         REDSTONE_CLOCK_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("redstone_clock", () -> BlockEntityType.Builder.of(RedstoneClockBlockEntity::new, REDSTONE_CLOCK_BLOCK.get()).build(null));
+
+        WELL_BEHAVED_DROPPER = Utilitarian.BLOCKS.register("well_behaved_dropper", () -> new WellBehavedDropperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DROPPER).isRedstoneConductor((pState, pLevel, pPos) -> false)));
+        WELL_BEHAVED_DROPPER_ITEM = Utilitarian.ITEMS.register("well_behaved_dropper", () -> new BlockItem(WELL_BEHAVED_DROPPER.get(), new Item.Properties()));
+        WELL_BEHAVED_DROPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("well_behaved_dropper", () -> BlockEntityType.Builder.of(WellBehavedDropperBlockEntity::new, WELL_BEHAVED_DROPPER.get()).build(null));
     }
 }

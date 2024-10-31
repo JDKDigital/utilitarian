@@ -98,6 +98,13 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('P', Ingredient.of(Tags.Items.DYES_WHITE))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "fluid_hopper"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.WELL_BEHAVED_DROPPER.get(), 1)
+                .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
+                .pattern(" I ").pattern("I#I").pattern(" I ")
+                .define('#', Ingredient.of(Items.DROPPER))
+                .define('I', Ingredient.of(Tags.Items.NUGGETS_GOLD))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "well_behaved_dropper"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityItemModule.TROWEL.get(), 1)
                 .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
                 .pattern("S  ").pattern(" II")

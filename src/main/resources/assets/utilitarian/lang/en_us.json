@@ -41,6 +41,7 @@
   "block.utilitarian.drit": "Drit",
   "block.utilitarian.grrass": "Grrass Block",
   "block.utilitarian.fluid_hopper": "Fluid Hopper",
+  "block.utilitarian.well_behaved_dropper": "Well Behaved Dropper",
   "block.utilitarian.redstone_clock": "Redstone Clock",
   "block.utilitarian.redstone_clock.description": "Right click the redstone clock block with an empty hand to change pulse frequency, sneak to increase faster.",
   "block.utilitarian.redstone_clock.message": "Clock frequency: %s",

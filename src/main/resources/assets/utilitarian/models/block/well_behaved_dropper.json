@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "utilitarian:block/well_behaved_dropper_side",
+    "down": "minecraft:block/dropper_front_vertical",
+    "up": "minecraft:block/furnace_top",
+    "north": "#particle",
+    "east": "#particle",
+    "south": "#particle",
+    "west": "#particle"
+  }
+}
