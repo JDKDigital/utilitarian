@@ -35,6 +35,7 @@ public class Utilitarian
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, MODID);
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MODID);
 
+    public static final TagKey<Item> TERRACOTTAS = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "terracottas"));
     public static final TagKey<Item> BLACKLISTED_SEEDS = ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "hoe_planting_blacklist"));
     public static final TagKey<Block> FARMLAND_CAN_SURVIVE = BlockTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "farmland_cansurvive"));
     public static final TagKey<EntityType<?>> TRAMPLING_ENTITIES = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "trampling_entities"));

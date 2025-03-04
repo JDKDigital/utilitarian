@@ -8,6 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -28,6 +30,7 @@ import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.LogicalSidedProvider;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 import net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -147,6 +150,23 @@ public class EventHandler
         if (Config.NO_TRAMPLE_ENABLED.get()) {
             if (!event.getEntity().getType().is(Utilitarian.TRAMPLING_ENTITIES)) {
                 event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBoneMeal(BonemealEvent event) {
+        if (Config.FLOWER_DUPLICATION_ENABLED.get()) {
+            if (event.getLevel().getBlockState(event.getPos()).is(BlockTags.SMALL_FLOWERS)) {
+                if (!event.getLevel().isClientSide) {
+                    if (event.getPlayer() != null) {
+                        event.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
+                    }
+                    event.getLevel().levelEvent(2011, event.getPos(), 15);
+                    Block.popResource(event.getLevel(), event.getPos(), event.getLevel().getBlockState(event.getPos()).getBlock().asItem().getDefaultInstance());
+                    event.getStack().shrink(1);
+                }
+                event.setSuccessful(true);
             }
         }
     }

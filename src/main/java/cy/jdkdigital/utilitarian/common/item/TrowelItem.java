@@ -31,7 +31,7 @@ public class TrowelItem extends Item
     public InteractionResult useOn(UseOnContext pContext) {
         var level  = pContext.getLevel();
         var pos = level.getBlockState(pContext.getClickedPos()).canBeReplaced() ? pContext.getClickedPos() : pContext.getClickedPos().relative(pContext.getClickedFace());
-        if (pContext.getPlayer() != null && level.getBlockState(pos).canBeReplaced()) {
+        if (pContext.getPlayer() != null) {
             boolean extended = isExtended(pContext.getPlayer().getItemInHand(pContext.getHand()));
             Map<ItemStack, Integer> placeables = new HashMap<>();
             int total = 0;
@@ -54,7 +54,7 @@ public class TrowelItem extends Item
                         }
                     }
                     if (!randomItem.isEmpty() && randomItem.getItem() instanceof BlockItem blockItem) {
-                        var result = blockItem.place(new BlockPlaceContext(level, pContext.getPlayer(), pContext.getHand(), randomItem, new BlockHitResult(pos.getCenter(), pContext.getPlayer().getDirection(), pos, false)));
+                        var result = blockItem.place(new BlockPlaceContext(level, pContext.getPlayer(), pContext.getHand(), randomItem, new BlockHitResult(pContext.getClickLocation(), pContext.getPlayer().getDirection(), pos, false)));
                         if (result.consumesAction()) {
                             var blockState = blockItem.getBlock().defaultBlockState();
                             SoundType soundtype = blockState.getSoundType(level, pos, pContext.getPlayer());

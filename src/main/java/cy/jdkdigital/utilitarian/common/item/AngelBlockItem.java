@@ -24,7 +24,7 @@ public class AngelBlockItem extends BlockItem
             } else if (pPlayer.getXRot() > 70) {
                 pos = pPlayer.blockPosition().below(1);
             }
-            if (pLevel.getBlockState(pos).isAir()) {
+            if (pLevel.getBlockState(pos).isAir() && !pLevel.isOutsideBuildHeight(pos)) {
                 pLevel.setBlockAndUpdate(pos, UtilityBlockModule.ANGEL_BLOCK.get().defaultBlockState());
                 if (!pPlayer.isCreative()) {
                     pPlayer.getItemInHand(pUsedHand).shrink(1);

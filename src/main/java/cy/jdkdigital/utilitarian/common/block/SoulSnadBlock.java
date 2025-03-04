@@ -25,10 +25,15 @@ public class SoulSnadBlock extends SoulSandBlock
     @Override
     protected void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         super.randomTick(pState, pLevel, pPos, pRandom);
+        tick(pState, pLevel, pPos, pRandom);
+    }
+
+    @Override
+    protected void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        super.tick(pState, pLevel, pPos, pRandom);
 
         var aboveBlock = pLevel.getBlockState(pPos.above());
         if (aboveBlock.is(SnadModule.SOUL_SAND_GROWABLES)) {
-            // Find the first block above that's not the plant
             for (int u = 0; u < Config.SNAD_GROWTH_MULTIPLIER.get(); u++) {
                 aboveBlock.randomTick(pLevel, pPos.above(), pRandom);
             }
