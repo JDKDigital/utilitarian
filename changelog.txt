@@ -1,3 +1,29 @@
+1.21.1-0.13.8
+
+- Added Japanese (Abbage230)
+- Added re-dying recipes for glass, glass panes, terracotta, concrete, concrete powder, candles
+- Replaced vanilla wool, bed and carpet dying recipes to use tags instead of an item list
+
+
+1.21.1-0.13.7
+
+- Made snad work with kelp
+- Removed debug output spam
+
+
+1.21.1-0.13.6
+
+- Fixed snad making sugarcane grow through stuff
+
+
+1.21.1-0.13.5
+
+- Added small flower duplication with bone meal
+- Fixed trowel item not placing stairs and the like in the correct orientation
+- Fixed soul snad not being faster
+- Fixed angel blocks placed outside built height being deleted
+
+
 1.21.1-0.13.4
 
 - Added Well Behaved Dropper, drops items straight down instead of all over the place

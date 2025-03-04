@@ -170,17 +170,17 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .requires(Tags.Items.DYES_BLUE).requires(Tags.Items.DYES_YELLOW)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/green_dye"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST, 4)
-                        .unlockedBy("has_log", has(ItemTags.LOGS))
-                        .pattern("###").pattern("# #").pattern("###")
-                        .define('#', Ingredient.of(ItemTags.LOGS))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_chests"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST, 4)
+                .unlockedBy("has_log", has(ItemTags.LOGS))
+                .pattern("###").pattern("# #").pattern("###")
+                .define('#', Ingredient.of(ItemTags.LOGS))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_chests"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STICK, 16)
-                        .unlockedBy("has_log", has(ItemTags.LOGS))
-                        .pattern("#").pattern("#")
-                        .define('#', Ingredient.of(ItemTags.LOGS))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_sticks"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STICK, 16)
+                .unlockedBy("has_log", has(ItemTags.LOGS))
+                .pattern("#").pattern("#")
+                .define('#', Ingredient.of(ItemTags.LOGS))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_sticks"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.BOWL, 12)
                 .unlockedBy("has_log", has(ItemTags.LOGS))
@@ -188,55 +188,55 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('#', Ingredient.of(ItemTags.LOGS))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_bowls"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LADDER, 24)
-                        .unlockedBy("has_log", has(ItemTags.LOGS))
-                        .pattern("# #").pattern("###").pattern("# #")
-                        .define('#', Ingredient.of(ItemTags.LOGS))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_ladders"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.LADDER, 24)
+                .unlockedBy("has_log", has(ItemTags.LOGS))
+                .pattern("# #").pattern("###").pattern("# #")
+                .define('#', Ingredient.of(ItemTags.LOGS))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_ladders"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.HOPPER, 1)
-                        .unlockedBy("has_log", has(ItemTags.LOGS))
-                        .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
-                        .pattern("I#I").pattern("I#I").pattern(" I ")
-                        .define('#', Ingredient.of(ItemTags.LOGS))
-                        .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_hopper"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.HOPPER, 1)
+                .unlockedBy("has_log", has(ItemTags.LOGS))
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
+                .pattern("I#I").pattern("I#I").pattern(" I ")
+                .define('#', Ingredient.of(ItemTags.LOGS))
+                .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/logs_to_hopper"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.DISPENSER, 1)
-                        .unlockedBy(getHasName(Items.DISPENSER), has(Items.DROPPER))
-                        .unlockedBy("has_string", has(Tags.Items.STRINGS))
-                        .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
-                        .pattern(" RS").pattern("RDS").pattern(" RS")
-                        .define('R', Ingredient.of(Tags.Items.RODS_WOODEN))
-                        .define('S', Ingredient.of(Tags.Items.STRINGS))
-                        .define('D', Ingredient.of(Items.DROPPER))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/dispenser"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.DISPENSER, 1)
+                .unlockedBy(getHasName(Items.DISPENSER), has(Items.DROPPER))
+                .unlockedBy("has_string", has(Tags.Items.STRINGS))
+                .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
+                .pattern(" RS").pattern("RDS").pattern(" RS")
+                .define('R', Ingredient.of(Tags.Items.RODS_WOODEN))
+                .define('S', Ingredient.of(Tags.Items.STRINGS))
+                .define('D', Ingredient.of(Items.DROPPER))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/dispenser"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.REPEATER, 1)
-                        .unlockedBy(getHasName(Items.DISPENSER), has(Items.STONE))
-                        .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
-                        .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
-                        .pattern("D D").pattern("RDR").pattern("SSS")
-                        .define('R', Ingredient.of(Tags.Items.RODS_WOODEN))
-                        .define('S', Ingredient.of(Items.STONE))
-                        .define('D', Ingredient.of(Tags.Items.DUSTS_REDSTONE))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/repeater"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.REPEATER, 1)
+                .unlockedBy(getHasName(Items.DISPENSER), has(Items.STONE))
+                .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
+                .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
+                .pattern("D D").pattern("RDR").pattern("SSS")
+                .define('R', Ingredient.of(Tags.Items.RODS_WOODEN))
+                .define('S', Ingredient.of(Items.STONE))
+                .define('D', Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/repeater"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
-                        .unlockedBy("has_chest", has(Tags.Items.CHESTS))
-                        .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
-                        .pattern("ICI").pattern("III")
-                        .define('C', Ingredient.of(Tags.Items.CHESTS))
-                        .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/chest_minecart"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
+                .unlockedBy("has_chest", has(Tags.Items.CHESTS))
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
+                .pattern("ICI").pattern("III")
+                .define('C', Ingredient.of(Tags.Items.CHESTS))
+                .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/chest_minecart"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
-                        .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
-                        .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
-                        .pattern("IHI").pattern("III")
-                        .define('H', Ingredient.of(Items.HOPPER))
-                        .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
-                        .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/hopper_minecart"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
+                .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
+                .pattern("IHI").pattern("III")
+                .define('H', Ingredient.of(Items.HOPPER))
+                .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/hopper_minecart"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
                 .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
@@ -258,6 +258,105 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('#', Ingredient.of(Items.WHEAT))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/bread"));
 
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
+            // concrete re-dying
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_concrete")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_concrete", has(Tags.Items.CONCRETES))
+                    .requires(dyeColor.getTag()).requires(Tags.Items.CONCRETES)
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_concrete_single"));
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_concrete_powder")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_concrete", has(Tags.Items.CONCRETE_POWDERS))
+                    .requires(dyeColor.getTag()).requires(Tags.Items.CONCRETE_POWDERS)
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_concrete_powder_single"));
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_concrete")), 8)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_concrete", has(Tags.Items.CONCRETES))
+                    .pattern("###").pattern("#D#").pattern("###")
+                    .define('#', Ingredient.of(Tags.Items.CONCRETES))
+                    .define('D', Ingredient.of(dyeColor.getTag()))
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_concrete"));
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_concrete_powder")), 8)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_concrete", has(Tags.Items.CONCRETE_POWDERS))
+                    .pattern("###").pattern("#D#").pattern("###")
+                    .define('#', Ingredient.of(Tags.Items.CONCRETE_POWDERS))
+                    .define('D', Ingredient.of(dyeColor.getTag()))
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_concrete_powder"));
+
+            // Glass re-dying
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_stained_glass")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_glass", has(Tags.Items.GLASS_BLOCKS_CHEAP))
+                    .requires(dyeColor.getTag()).requires(Tags.Items.GLASS_BLOCKS_CHEAP)
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_stained_glass_single"));
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_stained_glass")), 8)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_glass", has(Tags.Items.GLASS_BLOCKS_CHEAP))
+                    .pattern("###").pattern("#D#").pattern("###")
+                    .define('#', Ingredient.of(Tags.Items.GLASS_BLOCKS_CHEAP))
+                    .define('D', Ingredient.of(dyeColor.getTag()))
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_stained_glass"));
+
+            // Glass pane re-dying
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_stained_glass_pane")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_glass_pane", has(Tags.Items.GLASS_PANES))
+                    .requires(dyeColor.getTag()).requires(Tags.Items.GLASS_PANES)
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_stained_glass_pane_single"));
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_stained_glass_pane")), 8)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_glass_pane", has(Tags.Items.GLASS_PANES))
+                    .pattern("###").pattern("#D#").pattern("###")
+                    .define('#', Ingredient.of(Tags.Items.GLASS_PANES))
+                    .define('D', Ingredient.of(dyeColor.getTag()))
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_stained_glass_pane"));
+
+            // Terracotta re-dying
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_terracotta")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_terracotta", has(ItemTags.TERRACOTTA))
+                    .requires(dyeColor.getTag()).requires(ItemTags.TERRACOTTA)
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_terracotta_single"));
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_terracotta")), 8)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_terracotta", has(ItemTags.TERRACOTTA))
+                    .pattern("###").pattern("#D#").pattern("###")
+                    .define('#', Ingredient.of(ItemTags.TERRACOTTA))
+                    .define('D', Ingredient.of(dyeColor.getTag()))
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_terracotta"));
+
+            // Candle re-dying
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_candle")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_terracotta", has(ItemTags.CANDLES))
+                    .requires(dyeColor.getTag()).requires(ItemTags.CANDLES)
+                    .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/redying/" + dyeColor.getSerializedName() + "_candle"));
+
+            // Overwrite wool, bed and carpet dying to use tags
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_wool")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_wool", has(ItemTags.WOOL))
+                    .requires(dyeColor.getTag()).requires(ItemTags.WOOL)
+                    .save(pRecipeOutput, ResourceLocation.withDefaultNamespace("dye_" + dyeColor.getSerializedName() + "_wool"));
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_bed")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_wool", has(ItemTags.BEDS))
+                    .requires(dyeColor.getTag()).requires(ItemTags.BEDS)
+                    .save(pRecipeOutput, ResourceLocation.withDefaultNamespace("dye_" + dyeColor.getSerializedName() + "_bed"));
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(dyeColor.getSerializedName() + "_carpet")), 1)
+                    .unlockedBy("has_dye", has(dyeColor.getTag()))
+                    .unlockedBy("has_wool", has(ItemTags.WOOL_CARPETS))
+                    .requires(dyeColor.getTag()).requires(ItemTags.WOOL_CARPETS)
+                    .save(pRecipeOutput, ResourceLocation.withDefaultNamespace("dye_" + dyeColor.getSerializedName() + "_carpet"));
+        });
 
         WoodType.values().forEach(woodType -> {
             var isBamboo = woodType.name().equals("bamboo");
@@ -304,7 +403,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
 
 //            var boat = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(woodType.name() + (isBamboo ? "_raft" : "_boat")));
 //            if (!boat.equals(Items.AIR)) {
-//                Utilitarian.LOGGER.info("boat " + boat);
 //                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, boat, (isBamboo ? 2 : 4))
 //                        .unlockedBy("has_log", has(log))
 //                        .pattern("# #").pattern("###")

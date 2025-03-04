@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dyes/green"
+    },
+    {
+      "tag": "c:glass_blocks/cheap"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:green_stained_glass"
+  }
+}

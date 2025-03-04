@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dyes/black"
+    },
+    {
+      "tag": "c:concrete_powders"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:black_concrete_powder"
+  }
+}

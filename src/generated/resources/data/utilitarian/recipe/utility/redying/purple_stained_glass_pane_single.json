@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dyes/purple"
+    },
+    {
+      "tag": "c:glass_panes"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:purple_stained_glass_pane"
+  }
+}

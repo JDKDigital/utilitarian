@@ -20,6 +20,9 @@ license="${mod_license}"
     authors="${mod_authors}"
     description='''${mod_description}'''
 
+[[accessTransformers]]
+    file="META-INF/accesstransformer.cfg"
+
 [[mixins]]
     config="utilitarian.mixin.json"
 
