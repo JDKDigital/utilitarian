@@ -1,3 +1,9 @@
+1.21.1-0.13.9
+
+- Make crying obsidian work for nether portal frames
+- Added Russian (BazZziliuS)
+
+
 1.21.1-0.13.8
 
 - Added Japanese (Abbage230)
