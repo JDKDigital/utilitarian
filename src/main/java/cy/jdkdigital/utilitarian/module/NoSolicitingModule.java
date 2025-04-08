@@ -8,6 +8,7 @@ import cy.jdkdigital.utilitarian.common.block.NoSolicitingWallBanner;
 import cy.jdkdigital.utilitarian.common.block.SolicitingCarpet;
 import cy.jdkdigital.utilitarian.common.block.entity.NoSolicitingBannerBlockEntity;
 import cy.jdkdigital.utilitarian.common.item.RestrainingOrder;
+import cy.jdkdigital.utilitarian.util.Helper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -88,31 +89,5 @@ public class NoSolicitingModule
             }
             return new PoiType(blockStates, 1, 1);
         });
-    }
-
-    public static int locateNearbyNoSoliciting(ServerLevel level, BlockPos spawnPosition) {
-        PoiManager poiManager = level.getPoiManager();
-        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NO_SOLICITING_POI_TAG), spawnPosition, Config.NO_SOLICITING_BANNER_CHUNK_RANGE.get() * 16, PoiManager.Occupancy.ANY);
-        var posList = stream.map(PoiRecord::getPos).filter(blockPos -> level.getBlockState(blockPos).is(NO_SOLICITING_BANNER.get()) || level.getBlockState(blockPos).is(NO_SOLICITING_WALL_BANNER.get())).toList();
-        if (!posList.isEmpty()) {
-            return posList.size();
-        }
-        var range = Config.NO_SOLICITING_BANNER_CHUNK_RANGE.get() * 16D;
-        List<Player> players = level.getEntitiesOfClass(Player.class, (new AABB(new BlockPos(spawnPosition))).inflate(range, range, range)).stream().filter(player -> {
-            for (ItemStack itemStack : player.getInventory().items) {
-                if (RestrainingOrder.isEnabledRestrainingOrder(itemStack)) {
-                    return true;
-                }
-            }
-            return false;
-        }).toList();
-        return players.size();
-    }
-
-    public static List<BlockPos> locateNearbySoliciting(ServerLevel level, BlockPos spawnPosition) {
-        PoiManager poiManager = level.getPoiManager();
-        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NoSolicitingModule.SOLICITING_POI_TAG), spawnPosition, Config.SOLICITING_CARPET_CHUNK_RANGE.get() * 16, PoiManager.Occupancy.ANY);
-        return stream.map(PoiRecord::getPos)
-                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(spawnPosition))).toList();
     }
 }

@@ -62,7 +62,6 @@ public class ModelProvider implements DataProvider
         PackOutput.PathProvider blockstatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
         PackOutput.PathProvider modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
 
-
         generateFlatItem(UtilityItemModule.TINY_COAL.get(), "item/", modelOutput);
         generateFlatItem(UtilityItemModule.TINY_CHARCOAL.get(), "item/", modelOutput);
 

@@ -1,6 +1,16 @@
+1.21.1-0.13.11
+
+- Added lapis lamp that only lights up client side
+
+
+1.21.1-0.13.10
+
+- Added sound muffler blocks
+
+
 1.21.1-0.13.9
 
-- Make crying obsidian work for nether portal frames
+- Make crying obsidian work for nether portals
 - Added Russian (BazZziliuS)
 
 

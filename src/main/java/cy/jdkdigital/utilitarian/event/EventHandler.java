@@ -3,6 +3,9 @@ package cy.jdkdigital.utilitarian.event;
 import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
+import cy.jdkdigital.utilitarian.util.Helper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,6 +23,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -29,6 +33,7 @@ import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.LogicalSidedProvider;
+import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 import net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent;
@@ -43,6 +48,9 @@ public class EventHandler
         if (event.getItemStack().is(Items.WIND_CHARGE)) {
             event.getToolTip().add(Component.translatable(Utilitarian.MODID + ".wind_charge.tooltip").withStyle(ChatFormatting.AQUA));
         }
+        if (event.getItemStack().is(UtilityBlockModule.SOUND_MUFFLER_ITEM)) {
+            event.getToolTip().add(Component.translatable(Utilitarian.MODID + ".sound_muffler.tooltip", Config.SOUND_MUFFLER_BLOCK_RANGE.get()).withStyle(ChatFormatting.AQUA));
+        }
     }
 
     @SubscribeEvent
@@ -52,7 +60,7 @@ public class EventHandler
                 if (entity.getType().is(NoSolicitingModule.ENTITY_BLACKLIST)) {
                     var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
                     executor.tell(new TickTask(0, () -> {
-                        var nearbySoliciting = NoSolicitingModule.locateNearbySoliciting(serverLevel, event.getEntity().blockPosition());
+                        var nearbySoliciting = Helper.locateNearbySoliciting(serverLevel, event.getEntity().blockPosition());
                         if (!nearbySoliciting.isEmpty()) {
                             // TP to nearest soliciting carpet
                             var pos = nearbySoliciting.getFirst();
@@ -62,7 +70,7 @@ public class EventHandler
                                 entity.kill();
                             }
                         } else {
-                            var nearbyNoSolicitingCount = NoSolicitingModule.locateNearbyNoSoliciting(serverLevel, event.getEntity().blockPosition());
+                            var nearbyNoSolicitingCount = Helper.locateNearbyNoSoliciting(serverLevel, event.getEntity().blockPosition());
                             if (nearbyNoSolicitingCount > 0) {
                                 entity.discard();
                             }
@@ -77,6 +85,31 @@ public class EventHandler
                     player.setAirSupply(Math.min(player.getMaxAirSupply(), player.getAirSupply() + Config.WIND_CHARGE_AIR_AMOUNT.get()));
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    static void onSoundAtPosition(PlayLevelSoundEvent.AtPosition event) {
+        var position = new BlockPos((int) event.getPosition().x, (int) event.getPosition().y, (int) event.getPosition().z);
+        if (event.getLevel() instanceof ServerLevel level) {
+            var nearbySoundMufflers = Helper.locateNearbySoundMuffler(level, position, UtilityBlockModule.SOUND_MUFFLER_POI_TAG);
+            event.setCanceled(!nearbySoundMufflers.isEmpty());
+        } else {
+            boolean hasNearbySoundMuffler = BlockPos.betweenClosedStream(new AABB(position).inflate(Config.SOUND_MUFFLER_BLOCK_RANGE.get())).anyMatch(blockPos -> event.getLevel().getBlockState(blockPos).is(UtilityBlockModule.SOUND_MUFFLER));
+            event.setCanceled(hasNearbySoundMuffler);
+        }
+    }
+
+    @SubscribeEvent
+    static void onSoundAtEntity(PlayLevelSoundEvent.AtEntity event) {
+        if (event.getLevel() instanceof ServerLevel level) {
+            var nearbySoundMuffler = Helper.locateNearbySoundMuffler(level, event.getEntity().blockPosition(), UtilityBlockModule.SOUND_MUFFLER_POI_TAG);
+            if (!nearbySoundMuffler.isEmpty()) {
+                event.setCanceled(true);
+            }
+        } else {
+            boolean hasNearbySoundMuffler = BlockPos.betweenClosedStream(new AABB(event.getEntity().blockPosition()).inflate(Config.SOUND_MUFFLER_BLOCK_RANGE.get())).anyMatch(blockPos -> event.getLevel().getBlockState(blockPos).is(UtilityBlockModule.SOUND_MUFFLER));
+            event.setCanceled(hasNearbySoundMuffler);
         }
     }
 

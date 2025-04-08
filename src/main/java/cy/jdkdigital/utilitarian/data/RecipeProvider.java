@@ -53,6 +53,16 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('O', Ingredient.of(Tags.Items.OBSIDIANS))
                 .define('F', Ingredient.of(Tags.Items.FEATHERS))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "angel_block_rot"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityBlockModule.LAPIS_LAMP.get(), 1)
+                .unlockedBy("has_lapis", has(Tags.Items.GEMS_LAPIS))
+                .unlockedBy(getHasName(Items.REDSTONE_LAMP), has(Items.REDSTONE_LAMP))
+                .requires(Tags.Items.GEMS_LAPIS).requires(Items.REDSTONE_LAMP)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "lapis_lamp"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityBlockModule.SOUND_MUFFLER_ITEM.get(), 1)
+                .unlockedBy("has_wool", has(ItemTags.WOOL))
+                .unlockedBy(getHasName(Items.NOTE_BLOCK), has(Items.NOTE_BLOCK))
+                .requires(ItemTags.WOOL).requires(Items.NOTE_BLOCK)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "sound_muffler"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TPSMeterModule.TPS_METER_ITEM.get(), 1)
                 .unlockedBy(getHasName(Items.COMPARATOR), has(Items.COMPARATOR))
                 .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIANS))

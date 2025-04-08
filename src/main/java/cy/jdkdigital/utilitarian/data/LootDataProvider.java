@@ -83,9 +83,11 @@ public class LootDataProvider implements DataProvider
             }
             dropSelf(NoSolicitingModule.NO_SOLICITING_BANNER.get());
             dropOther(NoSolicitingModule.NO_SOLICITING_WALL_BANNER.get(), NoSolicitingModule.NO_SOLICITING_BANNER.get());
+            dropSelf(UtilityBlockModule.SOUND_MUFFLER.get());
             dropSelf(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
             dropSelf(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
             dropSelf(UtilityBlockModule.WELL_BEHAVED_DROPPER.get());
+            dropSelf(UtilityBlockModule.LAPIS_LAMP.get());
             dropSelf(TPSMeterModule.TPS_METER.get());
             dropSelf(SnadModule.SNAD_BLOCK.get());
             dropSelf(SnadModule.RED_SNAD_BLOCK.get());

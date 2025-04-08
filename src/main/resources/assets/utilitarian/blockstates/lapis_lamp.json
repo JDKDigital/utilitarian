@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "utilitarian:block/lapis_lamp"
+    },
+    "lit=true": {
+      "model": "utilitarian:block/lapis_lamp_on"
+    }
+  }
+}

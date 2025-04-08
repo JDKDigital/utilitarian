@@ -60,9 +60,11 @@ public class ClientModEvents
         if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
             event.accept(TPSMeterModule.TPS_METER_ITEM.get());
             event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
+            event.accept(UtilityBlockModule.LAPIS_LAMP.get());
         }
         if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
             event.accept(UtilityBlockModule.ANGEL_BLOCK_ITEM.get());
+            event.accept(UtilityBlockModule.SOUND_MUFFLER_ITEM.get());
             event.accept(TPSMeterModule.TPS_METER_ITEM.get());
             event.accept(SnadModule.SNAD_BLOCK_ITEM.get());
             event.accept(SnadModule.RED_SNAD_BLOCK_ITEM.get());

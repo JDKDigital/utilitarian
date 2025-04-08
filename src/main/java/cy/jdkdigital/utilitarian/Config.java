@@ -50,6 +50,10 @@ public class Config
             .comment("Range in chunks for players holding a restraining order.")
             .defineInRange("noSolicitingChunkRangeCarpet", 6, 1, Integer.MAX_VALUE);
 
+    public static final ModConfigSpec.IntValue SOUND_MUFFLER_BLOCK_RANGE = SERVER_BUILDER
+            .comment("Block range for muffling sounds with the sound muffler.")
+            .defineInRange("soundMufflerBlockRange", 8, 1, Integer.MAX_VALUE);
+
     public static final ModConfigSpec.BooleanValue HOE_PLANTING_ENABLED = SERVER_BUILDER
             .comment("Enable Hoe planting module").define("hoePlantingEnabled", true);
 

@@ -12,7 +12,6 @@ public class ModEventHandler
 {
     @SubscribeEvent
     public static void registerBlockEntityCapabilities(RegisterCapabilitiesEvent event) {
-        // Hives
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 UtilityBlockModule.WELL_BEHAVED_DROPPER_BLOCK_ENTITY.get(),
