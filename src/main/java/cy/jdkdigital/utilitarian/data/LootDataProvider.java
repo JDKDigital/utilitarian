@@ -88,6 +88,8 @@ public class LootDataProvider implements DataProvider
             dropSelf(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
             dropSelf(UtilityBlockModule.WELL_BEHAVED_DROPPER.get());
             dropSelf(UtilityBlockModule.LAPIS_LAMP.get());
+            dropSelf(UtilityBlockModule.INVERTED_LAPIS_LAMP.get());
+            dropSelf(UtilityBlockModule.INVERTED_REDSTONE_LAMP.get());
             dropSelf(TPSMeterModule.TPS_METER.get());
             dropSelf(SnadModule.SNAD_BLOCK.get());
             dropSelf(SnadModule.RED_SNAD_BLOCK.get());

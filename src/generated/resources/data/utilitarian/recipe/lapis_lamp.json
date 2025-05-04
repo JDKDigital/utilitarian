@@ -1,13 +1,18 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    {
+  "key": {
+    "#": {
       "tag": "c:gems/lapis"
     },
-    {
+    "L": {
       "item": "minecraft:redstone_lamp"
     }
+  },
+  "pattern": [
+    " # ",
+    "#L#",
+    " # "
   ],
   "result": {
     "count": 1,

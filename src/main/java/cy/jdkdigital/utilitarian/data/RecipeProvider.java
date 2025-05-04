@@ -53,11 +53,23 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('O', Ingredient.of(Tags.Items.OBSIDIANS))
                 .define('F', Ingredient.of(Tags.Items.FEATHERS))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "angel_block_rot"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityBlockModule.LAPIS_LAMP.get(), 1)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityBlockModule.INVERTED_REDSTONE_LAMP.get(), 1)
+                .unlockedBy(getHasName(Items.LEVER), has(Items.LEVER))
+                .unlockedBy(getHasName(Items.REDSTONE_LAMP), has(Items.REDSTONE_LAMP))
+                .requires(Items.LEVER).requires(Items.REDSTONE_LAMP)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "inverted_redstone_lamp"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.LAPIS_LAMP.get(), 1)
                 .unlockedBy("has_lapis", has(Tags.Items.GEMS_LAPIS))
                 .unlockedBy(getHasName(Items.REDSTONE_LAMP), has(Items.REDSTONE_LAMP))
-                .requires(Tags.Items.GEMS_LAPIS).requires(Items.REDSTONE_LAMP)
+                .pattern(" # ").pattern("#L#").pattern(" # ")
+                .define('#', Ingredient.of(Tags.Items.GEMS_LAPIS))
+                .define('L', Ingredient.of(Items.REDSTONE_LAMP))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "lapis_lamp"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityBlockModule.INVERTED_LAPIS_LAMP.get(), 1)
+                .unlockedBy(getHasName(Items.LEVER), has(Items.LEVER))
+                .unlockedBy(getHasName(UtilityBlockModule.LAPIS_LAMP.get()), has(UtilityBlockModule.LAPIS_LAMP.get()))
+                .requires(Items.LEVER).requires(UtilityBlockModule.LAPIS_LAMP.get())
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "inverted_lapis_lamp"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityBlockModule.SOUND_MUFFLER_ITEM.get(), 1)
                 .unlockedBy("has_wool", has(ItemTags.WOOL))
                 .unlockedBy(getHasName(Items.NOTE_BLOCK), has(Items.NOTE_BLOCK))

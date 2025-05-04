@@ -1,6 +1,12 @@
+1.21.1-0.13.12
+
+- Made axe the default mining tool for heads and skull
+
+
 1.21.1-0.13.11
 
 - Added lapis lamp that only lights up client side
+- Added inverted redstone and lapis lamps
 
 
 1.21.1-0.13.10

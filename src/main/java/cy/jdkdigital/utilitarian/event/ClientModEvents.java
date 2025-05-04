@@ -61,6 +61,8 @@ public class ClientModEvents
             event.accept(TPSMeterModule.TPS_METER_ITEM.get());
             event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
             event.accept(UtilityBlockModule.LAPIS_LAMP.get());
+            event.accept(UtilityBlockModule.INVERTED_LAPIS_LAMP.get());
+            event.accept(UtilityBlockModule.INVERTED_REDSTONE_LAMP.get());
         }
         if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
             event.accept(UtilityBlockModule.ANGEL_BLOCK_ITEM.get());

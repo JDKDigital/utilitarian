@@ -15,9 +15,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RedstoneLampBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -39,6 +41,12 @@ public class UtilityBlockModule
     public static DeferredHolder<Block, Block> LAPIS_LAMP;
     public static DeferredHolder<Item, Item> LAPIS_LAMP_ITEM;
 
+    public static DeferredHolder<Block, Block> INVERTED_LAPIS_LAMP;
+    public static DeferredHolder<Item, Item> INVERTED_LAPIS_LAMP_ITEM;
+
+    public static DeferredHolder<Block, Block> INVERTED_REDSTONE_LAMP;
+    public static DeferredHolder<Item, Item> INVERTED_REDSTONE_LAMP_ITEM;
+
     public static DeferredHolder<Block, Block> FLUID_HOPPER_BLOCK;
     public static DeferredHolder<Item, Item> FLUID_HOPPER_BLOCK_ITEM;
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidHopperBlockEntity>> FLUID_HOPPER_BLOCK_ENTITY;
@@ -58,8 +66,14 @@ public class UtilityBlockModule
         ANGEL_BLOCK = Utilitarian.BLOCKS.register("angel_block", () -> new AngelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
         ANGEL_BLOCK_ITEM = Utilitarian.ITEMS.register("angel_block", () -> new AngelBlockItem(ANGEL_BLOCK.get(), new Item.Properties()));
 
-        LAPIS_LAMP = Utilitarian.BLOCKS.register("lapis_lamp", () -> new LapisLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> 0)));
+        LAPIS_LAMP = Utilitarian.BLOCKS.register("lapis_lamp", () -> new LapisLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> 0), false));
         LAPIS_LAMP_ITEM = Utilitarian.ITEMS.register("lapis_lamp", () -> new BlockItem(LAPIS_LAMP.get(), new Item.Properties()));
+
+        INVERTED_LAPIS_LAMP = Utilitarian.BLOCKS.register("inverted_lapis_lamp", () -> new LapisLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> 0), true));
+        INVERTED_LAPIS_LAMP_ITEM = Utilitarian.ITEMS.register("inverted_lapis_lamp", () -> new BlockItem(INVERTED_LAPIS_LAMP.get(), new Item.Properties()));
+
+        INVERTED_REDSTONE_LAMP = Utilitarian.BLOCKS.register("inverted_redstone_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 0 : 15)));
+        INVERTED_REDSTONE_LAMP_ITEM = Utilitarian.ITEMS.register("inverted_redstone_lamp", () -> new BlockItem(INVERTED_REDSTONE_LAMP.get(), new Item.Properties()));
 
         SOUND_MUFFLER = Utilitarian.BLOCKS.register("sound_muffler", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
         SOUND_MUFFLER_ITEM = Utilitarian.ITEMS.register("sound_muffler", () -> new AngelBlockItem(SOUND_MUFFLER.get(), new Item.Properties()));

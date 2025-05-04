@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
+          "name": "utilitarian:inverted_lapis_lamp"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "utilitarian:blocks/inverted_lapis_lamp"
+}
