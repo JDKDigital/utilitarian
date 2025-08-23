@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_banner": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:banners"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_crossbow": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crossbow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "utilitarian:no_soliciting/no_raider_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:white_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wool",
+      "has_banner",
+      "has_crossbow"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "utilitarian:no_soliciting/no_raider_block"
+    ]
+  }
+}

@@ -28,3 +28,5 @@ src\generated\resources\.cache
 forge*changelog.txt
 
 /run-data/*
+
+src/generated/resources/.cache

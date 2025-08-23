@@ -2,16 +2,21 @@ package cy.jdkdigital.utilitarian.common.block;
 
 import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.module.SnadModule;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
@@ -19,6 +24,8 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
+
+import java.util.List;
 
 public class GrrassBlock extends SnowyDirtBlock
 {
@@ -36,11 +43,17 @@ public class GrrassBlock extends SnowyDirtBlock
     }
 
     @Override
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (!canBeGrass(pState, pLevel, pPos)) {
-            if (!pLevel.isAreaLoaded(pPos, 1)) return;
-            pLevel.setBlockAndUpdate(pPos, SnadModule.DRIT_BLOCK.get().defaultBlockState());
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!canBeGrass(state, level, pos)) {
+            if (!level.isAreaLoaded(pos, 1)) return;
+            level.setBlockAndUpdate(pos, SnadModule.DRIT_BLOCK.get().defaultBlockState());
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        tooltipComponents.add(Component.translatable("utilitarian.grrass.description").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
     }
 
     private static boolean canBeGrass(BlockState pState, LevelReader pLevelReader, BlockPos pPos) {
@@ -57,4 +70,5 @@ public class GrrassBlock extends SnowyDirtBlock
             return i < pLevelReader.getMaxLightLevel();
         }
     }
+
 }

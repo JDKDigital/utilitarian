@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "minecraft:block/dirt",
+    "side": "utilitarian:block/cursed_grrass_side",
+    "top": "utilitarian:block/cursed_grrass_top"
+  }
+}

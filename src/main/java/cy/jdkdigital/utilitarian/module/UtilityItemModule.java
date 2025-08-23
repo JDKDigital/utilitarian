@@ -3,6 +3,7 @@ package cy.jdkdigital.utilitarian.module;
 import com.mojang.serialization.Codec;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.common.item.TrowelItem;
+import cy.jdkdigital.utilitarian.common.item.UnnameTagItem;
 import cy.jdkdigital.utilitarian.common.item.YankingRopeItem;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -23,6 +24,7 @@ public class UtilityItemModule
     public static DeferredHolder<Item, Item> TROWEL;
     public static DeferredHolder<Item, Item> TINY_COAL;
     public static DeferredHolder<Item, Item> TINY_CHARCOAL;
+    public static DeferredHolder<Item, Item> UNNAME_TAG;
 //    public static DeferredHolder<Item, Item> YANKING_ROPE;
     // TODO angel ring
     //    No weird cost (xp power etc, it’s not a jet pack and the price should be in the creation)
@@ -33,6 +35,7 @@ public class UtilityItemModule
         TROWEL = Utilitarian.ITEMS.register("trowel", () -> new TrowelItem(new Item.Properties().stacksTo(1)));
         TINY_COAL = Utilitarian.ITEMS.register("tiny_coal", () -> new Item(new Item.Properties()));
         TINY_CHARCOAL = Utilitarian.ITEMS.register("tiny_charcoal", () -> new Item(new Item.Properties()));
+        UNNAME_TAG = Utilitarian.ITEMS.register("unname_tag", () -> new UnnameTagItem(new Item.Properties()));
 //        YANKING_ROPE = Utilitarian.ITEMS.register("yanking_rope", () -> new YankingRopeItem(new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
     }
 }

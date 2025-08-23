@@ -24,7 +24,7 @@ license="${mod_license}"
     file="META-INF/accesstransformer.cfg"
 
 [[mixins]]
-    config="utilitarian.mixin.json"
+    config="${mod_id}.mixin.json"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"

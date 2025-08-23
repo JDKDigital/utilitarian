@@ -75,8 +75,8 @@ public class UtilityBlockModule
         INVERTED_REDSTONE_LAMP = Utilitarian.BLOCKS.register("inverted_redstone_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 0 : 15)));
         INVERTED_REDSTONE_LAMP_ITEM = Utilitarian.ITEMS.register("inverted_redstone_lamp", () -> new BlockItem(INVERTED_REDSTONE_LAMP.get(), new Item.Properties()));
 
-        SOUND_MUFFLER = Utilitarian.BLOCKS.register("sound_muffler", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
-        SOUND_MUFFLER_ITEM = Utilitarian.ITEMS.register("sound_muffler", () -> new AngelBlockItem(SOUND_MUFFLER.get(), new Item.Properties()));
+        SOUND_MUFFLER = Utilitarian.BLOCKS.register("sound_muffler", () -> new SoundMufflerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+        SOUND_MUFFLER_ITEM = Utilitarian.ITEMS.register("sound_muffler", () -> new BlockItem(SOUND_MUFFLER.get(), new Item.Properties()));
 
         FLUID_HOPPER_BLOCK = Utilitarian.BLOCKS.register("fluid_hopper", () -> new FluidHopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER)));
         FLUID_HOPPER_BLOCK_ITEM = Utilitarian.ITEMS.register("fluid_hopper", () -> new BlockItem(FLUID_HOPPER_BLOCK.get(), new Item.Properties()));

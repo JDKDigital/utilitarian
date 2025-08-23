@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.SoulSandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.TriState;
@@ -38,5 +39,11 @@ public class SoulSnadBlock extends SoulSandBlock
                 aboveBlock.randomTick(pLevel, pPos.above(), pRandom);
             }
         }
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        pLevel.scheduleTick(pCurrentPos, this, 2);
+        return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 }

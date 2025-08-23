@@ -33,8 +33,10 @@ public class UtilitarianDataProvider
 //        gen.addProvider(event.includeServer(), new FeatureProvider(output));
         gen.addProvider(event.includeServer(), new DataMapProvider(output, provider));
 
-//        BlockTagProvider blockTags = new BlockTagProvider(output, provider, helper);
-//        gen.addProvider(event.includeServer(), blockTags);
-//        gen.addProvider(event.includeServer(), new ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
+        BlockTagProvider blockTags = new BlockTagProvider(output, provider, helper);
+        gen.addProvider(event.includeServer(), blockTags);
+        gen.addProvider(event.includeServer(), new ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
+        gen.addProvider(event.includeServer(), new EntityTypeTagProvider(output, provider, helper));
+        gen.addProvider(event.includeServer(), new StructureTagProvider(output, provider, helper));
     }
 }

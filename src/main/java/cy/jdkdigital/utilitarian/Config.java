@@ -17,6 +17,13 @@ public class Config
     {
     }
 
+    private static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
+
+    public static final ModConfigSpec.DoubleValue POTION_EFFECT_TRANSPARENCY = CLIENT_BUILDER
+            .comment("Potions effect stink lines transparency in first person").defineInRange("positonEffectTransparency", 0.2d, 0d, 1d);
+
+    static ModConfigSpec CLIENT_SPEC = CLIENT_BUILDER.build();
+
     private static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
 
     public static final ModConfigSpec.BooleanValue NO_STARTUP_MESSAGES_ENABLED = COMMON_BUILDER
@@ -50,6 +57,9 @@ public class Config
             .comment("Range in chunks for players holding a restraining order.")
             .defineInRange("noSolicitingChunkRangeCarpet", 6, 1, Integer.MAX_VALUE);
 
+    public static final ModConfigSpec.BooleanValue NO_RAIDER_ENABLED = SERVER_BUILDER
+            .comment("Enable No Raider module").define("noRaiderEnabled", true);
+
     public static final ModConfigSpec.IntValue SOUND_MUFFLER_BLOCK_RANGE = SERVER_BUILDER
             .comment("Block range for muffling sounds with the sound muffler.")
             .defineInRange("soundMufflerBlockRange", 8, 1, Integer.MAX_VALUE);
@@ -78,10 +88,16 @@ public class Config
     public static final ModConfigSpec.BooleanValue FLOWER_DUPLICATION_ENABLED = SERVER_BUILDER
             .comment("Enable Flower Duplication. Duplicate small flowers when bonemealed just like tall flowers").define("flowerDuplicationEnabled", true);
 
+    public static final ModConfigSpec.BooleanValue DESPAWN_WHEN_HOLDING_ITEMS_ENABLED = SERVER_BUILDER
+            .comment("Enable to let mobs despawn despite them holding items").define("despawnWhenHoldingItems", true);
+
     public static final ModConfigSpec.BooleanValue WIND_CHARGE_AIR_SUPPLY_ENABLED = SERVER_BUILDER
             .comment("When true using a wind charge will replenish some of the players air supply").define("windChargeAirSupplyEnabled", true);
     public static final ModConfigSpec.IntValue WIND_CHARGE_AIR_AMOUNT = SERVER_BUILDER
             .comment("How much air should a charge refill. Full air supply for a player is 300.").defineInRange("windChargeAirAmount", 100, 1, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.BooleanValue CURSED_EARTH_ENABLED = SERVER_BUILDER
+            .comment("Enable Cursed Earth module").define("cursedEarthEnabled", true);
 
     static ModConfigSpec SERVER_SPEC = SERVER_BUILDER.build();
 }

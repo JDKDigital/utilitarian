@@ -4,6 +4,7 @@ import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -13,6 +14,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -21,20 +23,23 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider implements IConditionBuilder
 {
-    public RecipeProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pRegistries) {
-        super(pOutput, pRegistries);
+    private final CompletableFuture<HolderLookup.Provider> registries;
+
+    public RecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries);
+        this.registries = registries;
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput pRecipeOutput) {
+    protected void buildRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider holderLookup) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.ANGEL_BLOCK_ITEM.get(), 1)
                 .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
                 .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIANS))
@@ -88,6 +93,17 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .unlockedBy(getHasName(Items.LEAD), has(Items.LEAD))
                 .requires(Items.PAPER).requires(Items.LEAD)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "no_soliciting/restraining_order"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NoSolicitingModule.NO_RAIDER_BLOCK.get(), 1)
+                .unlockedBy("has_wool", has(Items.WHITE_WOOL))
+                .unlockedBy("has_banner", has(ItemTags.BANNERS))
+                .unlockedBy("has_crossbow", has(Items.CROSSBOW))
+                .pattern(" C ").pattern("WBW").pattern(" W ")
+                .define('W', Ingredient.of(Items.WHITE_WOOL))
+                .define('B', DataComponentIngredient.of(true, Raid.getLeaderBannerInstance(holderLookup.lookupOrThrow(Registries.BANNER_PATTERN))))
+                .define('C', Ingredient.of(Items.CROSSBOW))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "no_soliciting/no_raider_block"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NoSolicitingModule.NO_SOLICITING_BANNER_ITEM.get(), 1)
                 .group("banner")
                 .unlockedBy(getHasName(Items.LEAD), has(Items.LEAD))
@@ -158,6 +174,13 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .requires(UtilityItemModule.TINY_CHARCOAL.get(), 8)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "tiny_fuel/charcoal"));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, UtilityItemModule.UNNAME_TAG.get(), 1)
+                .unlockedBy(getHasName(Items.NAME_TAG), has(Items.NAME_TAG))
+                .unlockedBy("has_white_dye", has(Tags.Items.DYES_WHITE))
+                .requires(Items.NAME_TAG)
+                .requires(Tags.Items.DYES_WHITE)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "unname_tag"));
+
         // Snad
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SnadModule.SNAD_BLOCK_ITEM.get(), 1)
                 .unlockedBy(getHasName(Items.SAND), has(Items.SAND))
@@ -185,6 +208,31 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE))
                 .requires(Items.INK_SAC).requires(Tags.Items.DUSTS_GLOWSTONE)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/glow_ink_sac"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.QUARTZ, 4)
+                .unlockedBy(getHasName(Items.QUARTZ), has(Items.QUARTZ))
+                .requires(Items.QUARTZ_BLOCK)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/quartz"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.AMETHYST_SHARD, 4)
+                .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
+                .requires(Items.AMETHYST_BLOCK)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/amethyst"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.NETHER_WART, 9)
+                .unlockedBy(getHasName(Items.NETHER_WART), has(Items.NETHER_WART))
+                .requires(Items.NETHER_WART_BLOCK)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/nether_wart"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.PACKED_ICE, 9)
+                .unlockedBy(getHasName(Items.PACKED_ICE), has(Items.PACKED_ICE))
+                .requires(Items.BLUE_ICE)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/packed_ice"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.ICE, 9)
+                .unlockedBy(getHasName(Items.ICE), has(Items.ICE))
+                .requires(Items.PACKED_ICE)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/ice"));
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.GREEN_DYE, 1)
                 .unlockedBy(getHasName(Items.BLUE_DYE), has(Items.BLUE_DYE))

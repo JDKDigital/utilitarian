@@ -3,13 +3,17 @@
   "package": "cy.jdkdigital.utilitarian.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MixinServerAdvancementManager",
+    "MixinCryingObsidianBlock",
     "MixinFarmBlock",
-    "MixinCryingObsidianBlock"
+    "MixinMob",
+    "MixinServerAdvancementManager"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "refmap": "utilitarian.refmap.json",
-  "minVersion": "0.8.5"
+  "minVersion": "0.8.5",
+  "client": [
+    "client.MixinSpellParticle"
+  ]
 }

@@ -1,5 +1,6 @@
 {
-  "exhaustion": 0.1,
+  "exhaustion": 0.0,
+  "effects": "poking",
   "message_id": "utilitarian.drit",
   "scaling": "when_caused_by_living_non_player"
 }
