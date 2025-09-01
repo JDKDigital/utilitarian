@@ -8,14 +8,11 @@ import cy.jdkdigital.utilitarian.module.SnadModule;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import cy.jdkdigital.utilitarian.network.SyncSoundMufflerData;
 import cy.jdkdigital.utilitarian.util.Helper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
@@ -39,7 +36,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -52,7 +48,6 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.LogicalSidedProvider;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.EffectParticleModificationEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.*;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -266,14 +261,14 @@ public class EventHandler
 
     @SubscribeEvent
     public static void onBoneMeal(BonemealEvent event) {
-        if (Config.FLOWER_DUPLICATION_ENABLED.get() && Minecraft.getInstance().hitResult != null) {
+        if (Config.FLOWER_DUPLICATION_ENABLED.get()) {
             if (event.getState().is(BlockTags.SMALL_FLOWERS)) {
                 if (!event.getLevel().isClientSide) {
                     if (event.getPlayer() != null) {
                         event.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                     }
                     event.getLevel().levelEvent(2011, event.getPos(), 15);
-                    Block.popResource(event.getLevel(), event.getPos(), event.getState().getBlock().getCloneItemStack(event.getState(), Minecraft.getInstance().hitResult, event.getLevel(), event.getPos(), event.getPlayer()));
+                    Block.popResource(event.getLevel(), event.getPos(), event.getState().getBlock().getCloneItemStack(event.getState(), new BlockHitResult(event.getPos().getCenter(), Direction.DOWN, event.getPos(), false), event.getLevel(), event.getPos(), event.getPlayer()));
                     event.getStack().shrink(1);
                 }
                 event.setSuccessful(true);

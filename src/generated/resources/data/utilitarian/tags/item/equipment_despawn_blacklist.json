@@ -1,5 +1,22 @@
 {
   "values": [
-    "minecraft:stone_sword"
+    "minecraft:leather_helmet",
+    "minecraft:leather_chestplate",
+    "minecraft:leather_leggings",
+    "minecraft:leather_boots",
+    "minecraft:stone_sword",
+    "minecraft:fishing_rod",
+    "minecraft:iron_sword",
+    "minecraft:iron_shovel",
+    "minecraft:iron_axe",
+    "minecraft:golden_helmet",
+    "minecraft:golden_chestplate",
+    "minecraft:golden_leggings",
+    "minecraft:golden_boots",
+    "minecraft:golden_axe",
+    "minecraft:golden_sword",
+    "minecraft:crossbow",
+    "minecraft:shield",
+    "minecraft:bow"
   ]
 }

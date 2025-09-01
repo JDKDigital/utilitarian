@@ -127,6 +127,8 @@ dependencies {
     implementation "curse.maven:security-craft-64760:6485073"
 //    implementation "curse.maven:let-me-despawn-663477:6311236"
 //    implementation "curse.maven:almanac-lib-1115285:5803531"
+//    implementation "curse.maven:despawn-tweaks-1191080:6145369"
+//    implementation "curse.maven:txnilib-1104882:6533725"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

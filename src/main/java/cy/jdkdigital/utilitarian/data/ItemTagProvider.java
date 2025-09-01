@@ -20,7 +20,25 @@ public class ItemTagProvider extends ItemTagsProvider
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(Utilitarian.EQUIPMENT_DESPAWN_BLACKLIST).add(Items.STONE_SWORD);
+        tag(Utilitarian.EQUIPMENT_DESPAWN_BLACKLIST)
+                .add(Items.LEATHER_HELMET)
+                .add(Items.LEATHER_CHESTPLATE)
+                .add(Items.LEATHER_LEGGINGS)
+                .add(Items.LEATHER_BOOTS)
+                .add(Items.STONE_SWORD)
+                .add(Items.FISHING_ROD)
+                .add(Items.IRON_SWORD)
+                .add(Items.IRON_SHOVEL)
+                .add(Items.IRON_AXE)
+                .add(Items.GOLDEN_HELMET)
+                .add(Items.GOLDEN_CHESTPLATE)
+                .add(Items.GOLDEN_LEGGINGS)
+                .add(Items.GOLDEN_BOOTS)
+                .add(Items.GOLDEN_AXE)
+                .add(Items.GOLDEN_SWORD)
+                .add(Items.CROSSBOW)
+                .add(Items.SHIELD)
+                .add(Items.BOW);
     }
 
     @Override

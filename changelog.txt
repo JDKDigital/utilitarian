@@ -1,3 +1,16 @@
+1.21.1-0.16.1
+
+- Automatically disable despawn rules for entities that have picked up items when Let Me Despawn is installed
+
+
+1.21.1-0.16.0
+
+- Added functionality to make entities despawn despite having picked up equipment. Equipment will drop on despawn.
+- Added PT_BR translation (PrincessStelllar)
+- Fixed charcoal from campfire recipe input
+- Fixed crash on servers when bonemealing a small flower
+
+
 1.21.1-0.15.0
 
 - Added Un-Name Tag that removes custom names from mobs

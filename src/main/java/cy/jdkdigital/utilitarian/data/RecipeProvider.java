@@ -491,7 +491,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
         });
 
         // Smelting recipes
-        campfire(ItemTags.LOGS, Items.CHARCOAL, pRecipeOutput);
+        campfire(ItemTags.LOGS_THAT_BURN, Items.CHARCOAL, pRecipeOutput);
 
         List<String> metals = List.of("iron", "copper", "gold"); // , "aluminum", "bismuth", "iridium", "lead", "netherite", "nickel", "osmium", "platinum", "uranium", "silver", "tin", "titanium", "tungsten", "zinc"
         metals.forEach(s -> {
