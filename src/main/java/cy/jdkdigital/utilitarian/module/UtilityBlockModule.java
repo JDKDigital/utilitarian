@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -59,6 +58,9 @@ public class UtilityBlockModule
     public static DeferredHolder<Item, Item> WELL_BEHAVED_DROPPER_ITEM;
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<WellBehavedDropperBlockEntity>> WELL_BEHAVED_DROPPER_BLOCK_ENTITY;
 
+    public static DeferredHolder<Block, Block> MAGNET;
+    public static DeferredHolder<Item, Item> MAGNET_ITEM;
+
     public static TagKey<PoiType> SOUND_MUFFLER_POI_TAG = TagKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "sound_muffler"));
     public static DeferredHolder<PoiType, PoiType> SOUND_MUFFLER_POI;
 
@@ -89,6 +91,9 @@ public class UtilityBlockModule
         WELL_BEHAVED_DROPPER = Utilitarian.BLOCKS.register("well_behaved_dropper", () -> new WellBehavedDropperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DROPPER).isRedstoneConductor((pState, pLevel, pPos) -> false)));
         WELL_BEHAVED_DROPPER_ITEM = Utilitarian.ITEMS.register("well_behaved_dropper", () -> new BlockItem(WELL_BEHAVED_DROPPER.get(), new Item.Properties()));
         WELL_BEHAVED_DROPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("well_behaved_dropper", () -> BlockEntityType.Builder.of(WellBehavedDropperBlockEntity::new, WELL_BEHAVED_DROPPER.get()).build(null));
+
+        MAGNET = Utilitarian.BLOCKS.register("magnet", () -> new MagnetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).noOcclusion()));
+        MAGNET_ITEM = Utilitarian.ITEMS.register("magnet", () -> new BlockItem(MAGNET.get(), new Item.Properties()));
 
         SOUND_MUFFLER_POI = Utilitarian.POI_TYPES.register("sound_muffler", () -> {
             Set<BlockState> blockStates = new HashSet<>(SOUND_MUFFLER.get().getStateDefinition().getPossibleStates());

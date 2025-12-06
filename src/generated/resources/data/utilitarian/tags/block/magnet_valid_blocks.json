@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#minecraft:anvil",
+    "#c:storage_blocks/iron",
+    {
+      "id": "#c:storage_blocks/steel",
+      "required": false
+    }
+  ]
+}

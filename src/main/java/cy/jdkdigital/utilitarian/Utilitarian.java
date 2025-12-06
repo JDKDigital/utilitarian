@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import cy.jdkdigital.utilitarian.module.*;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -39,6 +40,7 @@ public class Utilitarian
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MODID);
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, MODID);
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MODID);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
@@ -47,6 +49,7 @@ public class Utilitarian
     public static final TagKey<Item> NITWIT_CONVERT = ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "nitwit_convert"));
     public static final TagKey<Item> EQUIPMENT_DESPAWN_BLACKLIST = ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "equipment_despawn_blacklist"));
     public static final TagKey<Block> FARMLAND_CAN_SURVIVE = BlockTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "farmland_cansurvive"));
+    public static final TagKey<Block> MAGNET_VALID_BLOCKS = BlockTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "magnet_valid_blocks"));
     public static final TagKey<EntityType<?>> TRAMPLING_ENTITIES = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "trampling_entities"));
     public static final TagKey<EntityType<?>> ALWAYS_PERSIST_WITH_EQUIPMENT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "always_persist_with_equipment"));
 
@@ -58,6 +61,7 @@ public class Utilitarian
         BLOCKS.register(modEventBus);
         BLOCK_ENTITY.register(modEventBus);
         ITEMS.register(modEventBus);
+        ENTITIES.register(modEventBus);
         POI_TYPES.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
@@ -65,6 +69,7 @@ public class Utilitarian
         NoSolicitingModule.register();
         UtilityBlockModule.register();
         UtilityItemModule.register();
+        UtilityEntityModule.register();
         TPSMeterModule.register();
         SnadModule.register();
 

@@ -123,23 +123,23 @@ public class EventHandler
                 });
             }
         }
-        if (Config.NO_RAIDER_ENABLED.get() && event.getLevel() instanceof ServerLevel serverLevel && event.getEntity().getType().is(NoSolicitingModule.RAIDER_BLACKLIST)) {
-            Registry<Structure> registry = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
-            registry.getTag(NoSolicitingModule.RAIDER_OUTPOSTS).ifPresent(holders -> {
-                Pair<BlockPos, Holder<Structure>> pair = serverLevel.getChunkSource()
-                        .getGenerator()
-                        .findNearestMapStructure(serverLevel, holders, event.getEntity().blockPosition(), 4, false);
+        if (!event.loadedFromDisk() && Config.NO_RAIDER_ENABLED.get() && event.getLevel() instanceof ServerLevel serverLevel && event.getEntity().getType().is(NoSolicitingModule.RAIDER_BLACKLIST)) {
+            var nearbySoliciting = Helper.locateNearbyNoRaider(serverLevel, event.getEntity().blockPosition());
+            if (!nearbySoliciting.isEmpty()) {
+                Registry<Structure> registry = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
+                registry.getTag(NoSolicitingModule.RAIDER_OUTPOSTS).ifPresent(holders -> {
+                    Pair<BlockPos, Holder<Structure>> pair = serverLevel.getChunkSource()
+                            .getGenerator()
+                            .findNearestMapStructure(serverLevel, holders, event.getEntity().blockPosition(), 4, false);
 
-                if (pair != null) {
-                    var nearbySoliciting = Helper.locateNearbyNoRaider(serverLevel, pair.getFirst());
-                    if (!nearbySoliciting.isEmpty()) {
+                    if (pair != null) {
                         var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
                         executor.tell(new TickTask(0, () -> {
                             event.getEntity().discard();
                         }));
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -222,7 +222,7 @@ public class EventHandler
                         final ItemStack usedSeedStack = seedStack;
                         var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
                         executor.tell(new TickTask(0, () -> {
-                            if (level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock) {
+                            if (!usedSeedStack.isEmpty() && level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock) {
                                 var hitResult = new BlockHitResult(Vec3.ZERO, Direction.UP, event.getPos(), false);
                                 var blockState = blockItem.place(new BlockPlaceContext(level, event.getPlayer(), event.getContext().getHand(), usedSeedStack, hitResult));
                                 if (blockState.consumesAction()) {

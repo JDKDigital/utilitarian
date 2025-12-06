@@ -16,12 +16,13 @@ import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Debug(export = true)
+//@Debug(export = true)
 @Mixin(value = Mob.class)
 public abstract class MixinMob extends Entity
 {
@@ -29,7 +30,7 @@ public abstract class MixinMob extends Entity
     @Unique
     private boolean utilitarian$existingPersistenceRequired = false;
     @Unique
-    private boolean utilitarian$hasPickedUpEqupment = false;
+    private boolean utilitarian$hasPickedUpEquipment = false;
 
     public MixinMob(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -45,7 +46,7 @@ public abstract class MixinMob extends Entity
     @Inject(at = {@At("TAIL")}, method = {"setItemSlotAndDropWhenKilled"})
     public void setItemSlotAndDropWhenKilledTail(EquipmentSlot slot, ItemStack stack, CallbackInfo ci) {
         if (utilitarian$isEnabled()) {
-            this.utilitarian$hasPickedUpEqupment = true;
+            this.utilitarian$hasPickedUpEquipment = true;
             // entities in the tag will have default despawn prevention
             this.persistenceRequired = utilitarian$existingPersistenceRequired || this.getType().is(Utilitarian.ALWAYS_PERSIST_WITH_EQUIPMENT);
         }
@@ -54,7 +55,7 @@ public abstract class MixinMob extends Entity
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Mob;discard()V"), method = {"checkDespawn()V"})
     private void dropOnDespawn(Mob instance) {
         Mob mob = (Mob) (Object) this;
-        if (utilitarian$isEnabled() && this.utilitarian$hasPickedUpEqupment) {
+        if (utilitarian$isEnabled() && this.utilitarian$hasPickedUpEquipment) {
             for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
                 ItemStack itemStack = mob.getItemBySlot(equipmentSlot);
                 if (!itemStack.isEmpty() && (!itemStack.is(Utilitarian.EQUIPMENT_DESPAWN_BLACKLIST) || EnchantmentHelper.hasAnyEnchantments(itemStack)) && !EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP)) {
@@ -70,19 +71,19 @@ public abstract class MixinMob extends Entity
     @Inject(at = {@At("TAIL")}, method = {"addAdditionalSaveData"})
     public void addAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         if (utilitarian$isEnabled()) {
-            compound.putBoolean("hasPickedUpEquipment", this.utilitarian$hasPickedUpEqupment);
+            compound.putBoolean("hasPickedUpEquipment", this.utilitarian$hasPickedUpEquipment);
         }
     }
 
     @Inject(at = {@At("TAIL")}, method = {"readAdditionalSaveData"})
     public void readAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         if (utilitarian$isEnabled() && compound.contains("hasPickedUpEquipment")) {
-            this.utilitarian$hasPickedUpEqupment = compound.getBoolean("hasPickedUpEquipment");
+            this.utilitarian$hasPickedUpEquipment = compound.getBoolean("hasPickedUpEquipment");
         }
     }
 
     @Unique
     private static boolean utilitarian$isEnabled() {
-        return !ModList.get().isLoaded("letmedespawn") && !ModList.get().isLoaded("despawntweaks") && Config.DESPAWN_WHEN_HOLDING_ITEMS_ENABLED.get();
+        return Config.DESPAWN_WHEN_HOLDING_ITEMS_ENABLED.get();
     }
 }

@@ -12,6 +12,7 @@
     "defaultRequire": 1
   },
   "refmap": "utilitarian.refmap.json",
+  "plugin": "cy.jdkdigital.utilitarian.mixin.UtilitarianMixinPlugin",
   "minVersion": "0.8.5",
   "client": [
     "client.MixinSpellParticle"

@@ -300,7 +300,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/chest_minecart"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.HOPPER_MINECART, 1)
                 .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
                 .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
                 .pattern("IHI").pattern("III")
@@ -308,7 +308,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('I', Ingredient.of(Tags.Items.INGOTS_IRON))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "utility/hopper_minecart"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.CHEST_MINECART, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.TNT_MINECART, 1)
                 .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
                 .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
                 .pattern("ITI").pattern("III")
