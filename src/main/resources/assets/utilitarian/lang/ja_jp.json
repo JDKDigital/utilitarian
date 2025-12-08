@@ -50,6 +50,7 @@
   "block.utilitarian.lapis_lamp.tooltip": "これがブルーライト？",
   "block.utilitarian.lapis_lamp.tooltip2": "クライアント側でのみ周囲を照らします。実際には暗いままですが、あなたには明るく見えるようになります。",
   "block.utilitarian.inverted_redstone_lamp": "反転したレッドストーンランプ",
+  "block.utilitarian.magnet": "ブロック電磁石",
   "block.utilitarian.redstone_clock": "レッドストーンクロック",
   "block.utilitarian.redstone_clock.description": "手に何も持たずに右クリックでパルスの間隔を変更できます。スニーク中は変更速度が増加します",
   "block.utilitarian.redstone_clock.message": "クロック間隔：%s",
