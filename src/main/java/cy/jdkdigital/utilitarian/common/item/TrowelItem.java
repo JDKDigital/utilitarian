@@ -1,6 +1,5 @@
 package cy.jdkdigital.utilitarian.common.item;
 
-import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.UtilityItemModule;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.BlockHitResult;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TrowelItem extends Item
 {

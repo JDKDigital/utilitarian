@@ -4,7 +4,6 @@ import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.StructureTagsProvider;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;

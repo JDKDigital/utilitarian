@@ -2,7 +2,7 @@ package cy.jdkdigital.utilitarian.common.block;
 
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
-import cy.jdkdigital.utilitarian.network.SyncSoundMufflerData;
+import cy.jdkdigital.utilitarian.network.SyncMufflerData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -13,9 +13,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-public class SoundMufflerBlock extends Block
+public class MufflerBlock extends Block
 {
-    public SoundMufflerBlock(Properties properties) {
+    public MufflerBlock(Properties properties) {
         super(properties);
     }
 
@@ -29,13 +29,13 @@ public class SoundMufflerBlock extends Block
 
     private void syncToClient(ServerLevel serverLevel, BlockPos pos) {
         var chunk = serverLevel.getChunkAt(pos);
-        var mufflerData = new ArrayList<>(chunk.getData(Utilitarian.SOUND_MUFFLER_BLOCK_LIST));
+        var mufflerData = new ArrayList<>(chunk.getData(Utilitarian.MUFFLER_BLOCK_LIST));
         // clear invalid entries in the list
-        mufflerData.removeIf(s -> !serverLevel.getBlockState(BlockPos.of(Long.parseLong(s))).is(UtilityBlockModule.SOUND_MUFFLER));
+        mufflerData.removeIf(s -> !serverLevel.getBlockState(BlockPos.of(Long.parseLong(s))).is(UtilityBlockModule.MUFFLERS));
         // add new muffler position
         mufflerData.add(String.valueOf(pos.asLong()));
-        chunk.setData(Utilitarian.SOUND_MUFFLER_BLOCK_LIST, mufflerData);
+        chunk.setData(Utilitarian.MUFFLER_BLOCK_LIST, mufflerData);
         // sync to client
-        PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(pos), new SyncSoundMufflerData(mufflerData, pos));
+        PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(pos), new SyncMufflerData(mufflerData, pos));
     }
 }

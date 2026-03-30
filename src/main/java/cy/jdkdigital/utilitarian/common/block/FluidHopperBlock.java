@@ -3,7 +3,6 @@ package cy.jdkdigital.utilitarian.common.block;
 import cy.jdkdigital.utilitarian.common.block.entity.FluidHopperBlockEntity;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

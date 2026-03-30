@@ -2,11 +2,10 @@ package cy.jdkdigital.utilitarian.module;
 
 import com.mojang.serialization.Codec;
 import cy.jdkdigital.utilitarian.Utilitarian;
+import cy.jdkdigital.utilitarian.common.item.SlimeBucketItem;
 import cy.jdkdigital.utilitarian.common.item.TrowelItem;
 import cy.jdkdigital.utilitarian.common.item.UnnameTagItem;
-import cy.jdkdigital.utilitarian.common.item.YankingRopeItem;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -19,12 +18,14 @@ import java.util.function.Supplier;
 public class UtilityItemModule
 {
     public static final Supplier<? extends DataComponentType<? super Boolean>> TROWEL_STATE = Utilitarian.DATA_COMPONENT_TYPES.register("extended", () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build());
+    public static final Supplier<? extends DataComponentType<? super Boolean>> SLIME_STATE = Utilitarian.DATA_COMPONENT_TYPES.register("slimed", () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build());
     public static final TagKey<Item> TROWEL_BLACKLIST = ItemTags.create(ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "trowel_blacklist"));
 
     public static DeferredHolder<Item, Item> TROWEL;
     public static DeferredHolder<Item, Item> TINY_COAL;
     public static DeferredHolder<Item, Item> TINY_CHARCOAL;
     public static DeferredHolder<Item, Item> UNNAME_TAG;
+    public static DeferredHolder<Item, Item> SLIME_BUCKET;
 //    public static DeferredHolder<Item, Item> YANKING_ROPE;
     // TODO angel ring
     //    No weird cost (xp power etc, it’s not a jet pack and the price should be in the creation)
@@ -36,6 +37,7 @@ public class UtilityItemModule
         TINY_COAL = Utilitarian.ITEMS.register("tiny_coal", () -> new Item(new Item.Properties()));
         TINY_CHARCOAL = Utilitarian.ITEMS.register("tiny_charcoal", () -> new Item(new Item.Properties()));
         UNNAME_TAG = Utilitarian.ITEMS.register("unname_tag", () -> new UnnameTagItem(new Item.Properties()));
+        SLIME_BUCKET = Utilitarian.ITEMS.register("slime_bucket", () -> new SlimeBucketItem(new Item.Properties().stacksTo(1).component(UtilityItemModule.SLIME_STATE.get(), false)));
 //        YANKING_ROPE = Utilitarian.ITEMS.register("yanking_rope", () -> new YankingRopeItem(new Item.Properties().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
     }
 }

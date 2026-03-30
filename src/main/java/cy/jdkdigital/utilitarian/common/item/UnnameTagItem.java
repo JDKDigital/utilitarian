@@ -1,8 +1,5 @@
 package cy.jdkdigital.utilitarian.common.item;
 
-import cy.jdkdigital.utilitarian.Utilitarian;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;

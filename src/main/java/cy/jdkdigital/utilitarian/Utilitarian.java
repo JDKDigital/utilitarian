@@ -53,8 +53,8 @@ public class Utilitarian
     public static final TagKey<EntityType<?>> TRAMPLING_ENTITIES = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "trampling_entities"));
     public static final TagKey<EntityType<?>> ALWAYS_PERSIST_WITH_EQUIPMENT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "always_persist_with_equipment"));
 
-    public static final Supplier<AttachmentType<List<String>>> SOUND_MUFFLER_BLOCK_LIST = ATTACHMENT_TYPES.register(
-            "sound_mufflers", () -> AttachmentType.<List<String>>builder(() -> new ArrayList<>()).serialize(Codec.STRING.listOf()).build()
+    public static final Supplier<AttachmentType<List<String>>> MUFFLER_BLOCK_LIST = ATTACHMENT_TYPES.register(
+            "mufflers", () -> AttachmentType.<List<String>>builder(() -> new ArrayList<>()).serialize(Codec.STRING.listOf()).build()
     );
 
     public Utilitarian(IEventBus modEventBus, ModContainer modContainer) {

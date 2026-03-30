@@ -4,7 +4,6 @@ import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.common.item.RestrainingOrder;
 import cy.jdkdigital.utilitarian.integration.CuriosIntegration;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
-import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -13,10 +12,10 @@ import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.fml.ModList;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -45,24 +44,27 @@ public class Helper
         return players.size();
     }
 
-    public static List<BlockPos> locateNearbySoliciting(ServerLevel level, BlockPos spawnPosition) {
+    public static List<BlockPos> locateNearbySoliciting(ServerLevel level, BlockPos sourcePos) {
+        if (!level.isLoaded(sourcePos)) return new ArrayList<>();
         PoiManager poiManager = level.getPoiManager();
-        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NoSolicitingModule.SOLICITING_POI_TAG), spawnPosition, Config.SOLICITING_CARPET_CHUNK_RANGE.get() * 16, PoiManager.Occupancy.ANY);
+        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NoSolicitingModule.SOLICITING_POI_TAG), sourcePos, Config.SOLICITING_CARPET_CHUNK_RANGE.get() * 16, PoiManager.Occupancy.ANY);
         return stream.map(PoiRecord::getPos)
-                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(spawnPosition))).toList();
+                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(sourcePos))).toList();
     }
 
-    public static List<BlockPos> locateNearbySoundMuffler(ServerLevel level, BlockPos spawnPosition, TagKey<PoiType> poiTag) {
+    public static List<BlockPos> locateNearbySoundMuffler(ServerLevel level, BlockPos sourcePos, TagKey<PoiType> poiTag) {
+        if (!level.isLoaded(sourcePos)) return new ArrayList<>();
         PoiManager poiManager = level.getPoiManager();
-        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(poiTag), spawnPosition, Config.SOUND_MUFFLER_BLOCK_RANGE.get(), PoiManager.Occupancy.ANY);
+        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(poiTag), sourcePos, Config.SOUND_MUFFLER_BLOCK_RANGE.get(), PoiManager.Occupancy.ANY);
         return stream.map(PoiRecord::getPos)
-                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(spawnPosition))).toList();
+                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(sourcePos))).toList();
     }
 
-    public static List<BlockPos> locateNearbyNoRaider(ServerLevel level, BlockPos spawnPosition) {
+    public static List<BlockPos> locateNearbyNoRaider(ServerLevel level, BlockPos sourcePos) {
+        if (!level.isLoaded(sourcePos)) return new ArrayList<>();
         PoiManager poiManager = level.getPoiManager();
-        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NoSolicitingModule.NO_RAIDER_POI), spawnPosition, 200, PoiManager.Occupancy.ANY);
+        Stream<PoiRecord> stream = poiManager.getInRange((poi) -> poi.is(NoSolicitingModule.NO_RAIDER_POI), sourcePos, 200, PoiManager.Occupancy.ANY);
         return stream.map(PoiRecord::getPos)
-                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(spawnPosition))).toList();
+                .sorted(Comparator.comparingDouble((vec) -> vec.distSqr(sourcePos))).toList();
     }
 }

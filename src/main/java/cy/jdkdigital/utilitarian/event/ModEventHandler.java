@@ -3,7 +3,7 @@ package cy.jdkdigital.utilitarian.event;
 import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.*;
-import cy.jdkdigital.utilitarian.network.SyncSoundMufflerData;
+import cy.jdkdigital.utilitarian.network.SyncMufflerData;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -31,11 +31,11 @@ public class ModEventHandler
     public static void register(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar(Utilitarian.MODID).versioned("1");
         registrar.playToClient(
-                SyncSoundMufflerData.TYPE,
-                SyncSoundMufflerData.STREAM_CODEC,
+                SyncMufflerData.TYPE,
+                SyncMufflerData.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(
-                        SyncSoundMufflerData::clientHandle,
-                        SyncSoundMufflerData::serverHandle
+                        SyncMufflerData::clientHandle,
+                        SyncMufflerData::serverHandle
                 )
         );
     }
@@ -54,16 +54,8 @@ public class ModEventHandler
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 event.accept(NoSolicitingModule.RESTRAINING_ORDER.get());
                 event.accept(NoSolicitingModule.NO_SOLICITING_BANNER_ITEM.get());
-                event.accept(NoSolicitingModule.NO_RAIDER_BLOCK_ITEM.get());
                 event.accept(NoSolicitingModule.SOLICITING_CARPET_ITEM.get(DyeColor.WHITE).get());
                 event.accept(NoSolicitingModule.TRAPPED_SOLICITING_CARPET_ITEM.get(DyeColor.WHITE).get());
-                event.accept(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
-                event.accept(UtilityBlockModule.ANGEL_BLOCK.get());
-                event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
-                event.accept(UtilityItemModule.TROWEL.get());
-                event.accept(UtilityItemModule.TINY_COAL.get());
-                event.accept(UtilityItemModule.TINY_CHARCOAL.get());
-                event.accept(UtilityItemModule.UNNAME_TAG.get());
             }
             if (event.getTabKey().equals(CreativeModeTabs.COLORED_BLOCKS)) {
                 for (DyeColor color: DyeColor.values()) {
@@ -72,6 +64,19 @@ public class ModEventHandler
                 }
             }
         }
+
+        if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+            event.accept(NoSolicitingModule.NO_RAIDER_BLOCK_ITEM.get());
+            event.accept(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
+            event.accept(UtilityBlockModule.ANGEL_BLOCK.get());
+            event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
+            event.accept(UtilityItemModule.TROWEL.get());
+            event.accept(UtilityItemModule.TINY_COAL.get());
+            event.accept(UtilityItemModule.TINY_CHARCOAL.get());
+            event.accept(UtilityItemModule.UNNAME_TAG.get());
+            event.accept(UtilityItemModule.SLIME_BUCKET.get());
+        }
+
         if (event.getTabKey().equals(CreativeModeTabs.REDSTONE_BLOCKS)) {
             event.accept(TPSMeterModule.TPS_METER_ITEM.get());
             event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());

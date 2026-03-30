@@ -1,6 +1,5 @@
 package cy.jdkdigital.utilitarian.common.entity;
 
-import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.UtilityEntityModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;

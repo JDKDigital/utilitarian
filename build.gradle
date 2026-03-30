@@ -125,10 +125,7 @@ dependencies {
     implementation "curse.maven:curios-309927:6529130"
     implementation "curse.maven:construction-sticks-1156098:6641229"
     implementation "curse.maven:security-craft-64760:6485073"
-    implementation "curse.maven:let-me-despawn-663477:6311236"
-    implementation "curse.maven:almanac-lib-1115285:5803531"
-//    implementation "curse.maven:despawn-tweaks-1191080:6145369"
-//    implementation "curse.maven:txnilib-1104882:6533725"
+    implementation "curse.maven:framedblocks-441647:7584453"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

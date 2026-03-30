@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "utilitarian:item/slime_bucket/inactive"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "slimed": 1.0
+      },
+      "model": "utilitarian:item/active_slime_bucket"
+    }
+  ]
+}

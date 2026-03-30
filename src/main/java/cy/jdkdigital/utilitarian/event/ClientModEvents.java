@@ -1,11 +1,14 @@
 package cy.jdkdigital.utilitarian.event;
 
-import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.client.render.block.NoSolicitingBannerRenderer;
 import cy.jdkdigital.utilitarian.common.item.RestrainingOrder;
+import cy.jdkdigital.utilitarian.common.item.SlimeBucketItem;
 import cy.jdkdigital.utilitarian.common.item.TrowelItem;
-import cy.jdkdigital.utilitarian.module.*;
+import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
+import cy.jdkdigital.utilitarian.module.SnadModule;
+import cy.jdkdigital.utilitarian.module.UtilityEntityModule;
+import cy.jdkdigital.utilitarian.module.UtilityItemModule;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -13,8 +16,6 @@ import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
@@ -23,8 +24,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 @EventBusSubscriber(modid = Utilitarian.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ClientModEvents
@@ -41,6 +40,7 @@ public class ClientModEvents
         event.enqueueWork(() -> {
             ItemProperties.register(NoSolicitingModule.RESTRAINING_ORDER.get(), ResourceLocation.withDefaultNamespace("active"), (stack, world, entity, i) -> RestrainingOrder.isActive(stack) ? 1.0F : 0.0F);
             ItemProperties.register(UtilityItemModule.TROWEL.get(), ResourceLocation.withDefaultNamespace("extended"), (stack, world, entity, i) -> TrowelItem.isExtended(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(UtilityItemModule.SLIME_BUCKET.get(), ResourceLocation.withDefaultNamespace("slimed"), (stack, world, entity, i) -> SlimeBucketItem.isInSlime(stack) ? 1.0F : 0.0F);
             ItemBlockRenderTypes.setRenderLayer(SnadModule.GRRASS_BLOCK.get(), RenderType.cutoutMipped());
         });
     }

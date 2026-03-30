@@ -6,11 +6,12 @@ import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.SnadModule;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
-import cy.jdkdigital.utilitarian.network.SyncSoundMufflerData;
+import cy.jdkdigital.utilitarian.module.UtilityItemModule;
+import cy.jdkdigital.utilitarian.network.SyncMufflerData;
 import cy.jdkdigital.utilitarian.util.Helper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -23,6 +24,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
@@ -49,7 +51,10 @@ import net.neoforged.neoforge.common.util.LogicalSidedProvider;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.player.*;
+import net.neoforged.neoforge.event.entity.player.BonemealEvent;
+import net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -148,15 +153,18 @@ public class EventHandler
     static void onSoundAtPosition(PlayLevelSoundEvent.AtPosition event) {
         var position = new BlockPos((int) event.getPosition().x, (int) event.getPosition().y, (int) event.getPosition().z);
         if (event.getLevel() instanceof ServerLevel level) {
-            var nearbySoundMufflers = Helper.locateNearbySoundMuffler(level, position, UtilityBlockModule.SOUND_MUFFLER_POI_TAG);
-            event.setCanceled(!nearbySoundMufflers.isEmpty());
+            if (level.getServer().isSameThread()) {
+                var nearbySoundMufflers = Helper.locateNearbySoundMuffler(level, position, UtilityBlockModule.SOUND_MUFFLER_POI_TAG);
+                event.setCanceled(!nearbySoundMufflers.isEmpty());
+            }
         } else {
             var list = new ArrayList<>(CLIENT_MUFFLER_LIST);
             for (String s : list) {
                 var mufflerPos = BlockPos.of(Long.parseLong(s));
-                if (!event.getLevel().getBlockState(mufflerPos).is(UtilityBlockModule.SOUND_MUFFLER)) {
+                var state = event.getLevel().getBlockState(mufflerPos);
+                if (!state.is(UtilityBlockModule.MUFFLERS)) {
                     CLIENT_MUFFLER_LIST.remove(s);
-                } else if (mufflerPos.distToCenterSqr(position.getX(), position.getY(), position.getZ()) <= Config.SOUND_MUFFLER_BLOCK_RANGE.get()) {
+                } else if (state.is(UtilityBlockModule.SOUND_MUFFLER) && mufflerPos.distToCenterSqr(position.getX(), position.getY(), position.getZ()) <= Config.SOUND_MUFFLER_BLOCK_RANGE.get()) {
                     event.setCanceled(true);
                     break;
                 }
@@ -168,17 +176,20 @@ public class EventHandler
     static void onSoundAtEntity(PlayLevelSoundEvent.AtEntity event) {
         var position = event.getEntity().blockPosition();
         if (event.getLevel() instanceof ServerLevel level) {
-            var nearbySoundMuffler = Helper.locateNearbySoundMuffler(level, position, UtilityBlockModule.SOUND_MUFFLER_POI_TAG);
-            if (!nearbySoundMuffler.isEmpty()) {
-                event.setCanceled(true);
+            if (level.getServer().isSameThread()) {
+                var nearbySoundMuffler = Helper.locateNearbySoundMuffler(level, position, UtilityBlockModule.SOUND_MUFFLER_POI_TAG);
+                if (!nearbySoundMuffler.isEmpty()) {
+                    event.setCanceled(true);
+                }
             }
         } else {
             var list = new ArrayList<>(CLIENT_MUFFLER_LIST);
             for (String s : list) {
                 var mufflerPos = BlockPos.of(Long.parseLong(s));
-                if (!event.getLevel().getBlockState(mufflerPos).is(UtilityBlockModule.SOUND_MUFFLER)) {
+                var state = event.getLevel().getBlockState(mufflerPos);
+                if (!state.is(UtilityBlockModule.MUFFLERS)) {
                     CLIENT_MUFFLER_LIST.remove(s);
-                } else if (mufflerPos.distToCenterSqr(position.getX(), position.getY(), position.getZ()) <= Config.SOUND_MUFFLER_BLOCK_RANGE.get()) {
+                } else if (state.is(UtilityBlockModule.SOUND_MUFFLER) && mufflerPos.distToCenterSqr(position.getX(), position.getY(), position.getZ()) <= Config.SOUND_MUFFLER_BLOCK_RANGE.get()) {
                     event.setCanceled(true);
                     break;
                 }
@@ -224,12 +235,7 @@ public class EventHandler
                         executor.tell(new TickTask(0, () -> {
                             if (!usedSeedStack.isEmpty() && level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock) {
                                 var hitResult = new BlockHitResult(Vec3.ZERO, Direction.UP, event.getPos(), false);
-                                var blockState = blockItem.place(new BlockPlaceContext(level, event.getPlayer(), event.getContext().getHand(), usedSeedStack, hitResult));
-                                if (blockState.consumesAction()) {
-                                    if (!event.getPlayer().isCreative()) {
-                                        usedSeedStack.shrink(1);
-                                    }
-                                }
+                                blockItem.place(new BlockPlaceContext(level, event.getPlayer(), event.getContext().getHand(), usedSeedStack, hitResult));
                             }
                         }));
                     }
@@ -278,7 +284,7 @@ public class EventHandler
 
     @SubscribeEvent
     public static void chunkWatch(ChunkWatchEvent.Sent event) {
-        PacketDistributor.sendToPlayersTrackingChunk(event.getLevel(), event.getPos(), new SyncSoundMufflerData(event.getChunk().getData(Utilitarian.SOUND_MUFFLER_BLOCK_LIST), event.getPos().getWorldPosition()));
+        PacketDistributor.sendToPlayersTrackingChunk(event.getLevel(), event.getPos(), new SyncMufflerData(event.getChunk().getData(Utilitarian.MUFFLER_BLOCK_LIST), event.getPos().getWorldPosition()));
     }
 
     @SubscribeEvent
@@ -295,6 +301,12 @@ public class EventHandler
     public static void onRightClick(PlayerInteractEvent.EntityInteract event) {
         if (event.getItemStack().is(Utilitarian.NITWIT_CONVERT) && event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession().equals(VillagerProfession.NITWIT)) {
             villager.setVillagerData(villager.getVillagerData().setProfession(VillagerProfession.NONE));
+        }
+
+        if (!event.getLevel().isClientSide && event.getItemStack().is(Items.BUCKET) && event.getTarget() instanceof Slime slime && slime.getSize() == 1) {
+            event.getItemStack().shrink(1);
+            event.getEntity().addItem(UtilityItemModule.SLIME_BUCKET.get().getDefaultInstance());
+            event.getTarget().discard();
         }
     }
 }

@@ -1,3 +1,19 @@
+1.21.1-0.18.2
+
+- Only do sound muffler checks on main thread
+
+
+1.21.1-0.18.1
+
+- Fixed hoes consuming two seeds
+- Added bamboo to snad growables
+
+
+1.21.1-0.18.0
+
+- Added slime bucket that detects slime chunks
+
+
 1.21.1-0.17.1
 
 - Placing Angel Blocks can't bypass claims

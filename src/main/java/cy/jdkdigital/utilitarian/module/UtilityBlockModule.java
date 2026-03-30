@@ -8,6 +8,7 @@ import cy.jdkdigital.utilitarian.common.block.entity.WellBehavedDropperBlockEnti
 import cy.jdkdigital.utilitarian.common.item.AngelBlockItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.BlockItem;
@@ -28,11 +29,16 @@ import java.util.Set;
 
 public class UtilityBlockModule
 {
+    public static TagKey<Block> MUFFLERS = BlockTags.create(ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "mufflers"));
+
     public static DeferredHolder<Block, Block> ANGEL_BLOCK;
     public static DeferredHolder<Item, Item> ANGEL_BLOCK_ITEM;
 
     public static DeferredHolder<Block, Block> SOUND_MUFFLER;
     public static DeferredHolder<Item, Item> SOUND_MUFFLER_ITEM;
+
+    public static DeferredHolder<Block, Block> PARTICLE_MUFFLER;
+    public static DeferredHolder<Item, Item> PARTICLE_MUFFLER_ITEM;
 
     public static DeferredHolder<Block, Block> ENTITY_SOUND_MUFFLER;
     public static DeferredHolder<Item, Item> ENTITY_SOUND_MUFFLER_ITEM;
@@ -64,6 +70,8 @@ public class UtilityBlockModule
     public static TagKey<PoiType> SOUND_MUFFLER_POI_TAG = TagKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "sound_muffler"));
     public static DeferredHolder<PoiType, PoiType> SOUND_MUFFLER_POI;
 
+    // TODO particle preventer block
+
     public static void register() {
         ANGEL_BLOCK = Utilitarian.BLOCKS.register("angel_block", () -> new AngelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
         ANGEL_BLOCK_ITEM = Utilitarian.ITEMS.register("angel_block", () -> new AngelBlockItem(ANGEL_BLOCK.get(), new Item.Properties()));
@@ -77,7 +85,7 @@ public class UtilityBlockModule
         INVERTED_REDSTONE_LAMP = Utilitarian.BLOCKS.register("inverted_redstone_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 0 : 15)));
         INVERTED_REDSTONE_LAMP_ITEM = Utilitarian.ITEMS.register("inverted_redstone_lamp", () -> new BlockItem(INVERTED_REDSTONE_LAMP.get(), new Item.Properties()));
 
-        SOUND_MUFFLER = Utilitarian.BLOCKS.register("sound_muffler", () -> new SoundMufflerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+        SOUND_MUFFLER = Utilitarian.BLOCKS.register("sound_muffler", () -> new MufflerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
         SOUND_MUFFLER_ITEM = Utilitarian.ITEMS.register("sound_muffler", () -> new BlockItem(SOUND_MUFFLER.get(), new Item.Properties()));
 
         FLUID_HOPPER_BLOCK = Utilitarian.BLOCKS.register("fluid_hopper", () -> new FluidHopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER)));
