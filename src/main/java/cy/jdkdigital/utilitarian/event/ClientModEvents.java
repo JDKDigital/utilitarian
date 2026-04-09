@@ -25,7 +25,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
-@EventBusSubscriber(modid = Utilitarian.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Utilitarian.MODID, value = Dist.CLIENT)
 public class ClientModEvents
 {
     @SubscribeEvent

@@ -19,7 +19,7 @@ public class Config
     private static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
 
     public static final ModConfigSpec.DoubleValue POTION_EFFECT_TRANSPARENCY = CLIENT_BUILDER
-            .comment("Potions effect stink lines transparency in first person").defineInRange("positonEffectTransparency", 0.2d, 0d, 1d);
+            .comment("Potions effect stink lines transparency in first person").defineInRange("potionEffectTransparency", 0.2d, 0d, 1d);
 
     static ModConfigSpec CLIENT_SPEC = CLIENT_BUILDER.build();
 
@@ -29,7 +29,7 @@ public class Config
             .comment("Enable No Startup Messages module").define("noStartupMessagesEnabled", true);
     public static final ModConfigSpec.ConfigValue<List<? extends String>> NO_STARTUP_MESSAGES_MESSAGE_STRINGS = COMMON_BUILDER
             .comment("A list of word sequences that if contained in a message will be stopped.")
-            .defineListAllowEmpty("noStartupMessagesMessages", List.of("This game is using an alpha build of Ender IO"), o -> true);
+            .defineListAllowEmpty("noStartupMessagesMessages", List.of("This game is using an alpha build of Ender IO"), String::new, o -> true);
 
     public static final ModConfigSpec.BooleanValue DISABLE_RECIPE_ADVANCEMENTS = COMMON_BUILDER
             .comment("Disable recipe advancements").define("disableRecipeAdvancements", true);
@@ -38,6 +38,21 @@ public class Config
             .comment("Enable startup ding sound").define("enableDingDongStartupSound", true);
     public static final ModConfigSpec.ConfigValue<String> DING_DONG_SOUND = COMMON_BUILDER
             .comment("Name of sound to play. Default is entity.experience_orb.pickup").define("dingDongSound", "entity.experience_orb.pickup");
+
+    public static final ModConfigSpec.BooleanValue ENABLE_LOG_SUPPRESSOR = COMMON_BUILDER
+            .comment("Enable log supressor").define("logSuppressorEnabled", false);
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> LOG_SUPPRESSOR_MESSAGES_STARTS_WITH_STRINGS = COMMON_BUILDER
+            .comment("A list of word sequences that if a log message starts with will be stopped.")
+            .defineListAllowEmpty("logSuppressorStartsWithMessages", List.of(), String::new, o -> true);
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> LOG_SUPPRESSOR_MESSAGES_ENDS_WITH_STRINGS = COMMON_BUILDER
+            .comment("A list of word sequences that if a log message ends with will be stopped.")
+            .defineListAllowEmpty("logSuppressorEndsWithMessages", List.of(), String::new, o -> true);
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> LOG_SUPPRESSOR_MESSAGES_CONTAINS_STRINGS = COMMON_BUILDER
+            .comment("A list of word sequences that if contained in a log message will be stopped.")
+            .defineListAllowEmpty("logSuppressorContainsMessages", List.of(), String::new, o -> true);
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> LOG_SUPPRESSOR_MESSAGES_REGEX_STRINGS = COMMON_BUILDER
+            .comment("A list of regex that if a log message matches it will be stopped. Don't use this if you don't know what you're doing.")
+            .defineListAllowEmpty("logSuppressorRegexMessages", List.of(), String::new, o -> true);
 
     static ModConfigSpec COMMON_SPEC = COMMON_BUILDER.build();
 

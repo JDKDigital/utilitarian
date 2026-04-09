@@ -66,6 +66,8 @@ public class Utilitarian
         DATA_COMPONENT_TYPES.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
 
+        ATTACHMENT_TYPES.addAlias(ResourceLocation.fromNamespaceAndPath(MODID, "sound_mufflers"), ResourceLocation.fromNamespaceAndPath(MODID, "mufflers"));
+
         NoSolicitingModule.register();
         UtilityBlockModule.register();
         UtilityItemModule.register();

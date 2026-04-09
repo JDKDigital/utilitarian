@@ -1,3 +1,15 @@
+1.21.1-0.19.1
+
+- Changed log suppression to match on formatted log message
+- Fixed data serialization error
+
+
+1.21.1-0.19.0
+
+- Added log suppression options
+- Enabled in-game config changing
+
+
 1.21.1-0.18.2
 
 - Only do sound muffler checks on main thread

@@ -3,6 +3,10 @@ package cy.jdkdigital.utilitarian.event;
 import com.mojang.datafixers.util.Pair;
 import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
+import cy.jdkdigital.utilitarian.logger.ContainsMessageFilter;
+import cy.jdkdigital.utilitarian.logger.EndsWithMessageFilter;
+import cy.jdkdigital.utilitarian.logger.RegexMessageFilter;
+import cy.jdkdigital.utilitarian.logger.StartsWithMessageFilter;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.SnadModule;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
@@ -44,6 +48,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
@@ -58,6 +63,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -249,10 +255,22 @@ public class EventHandler
         if (Config.NO_STARTUP_MESSAGES_ENABLED.get()) {
             Config.NO_STARTUP_MESSAGES_MESSAGE_STRINGS.get().forEach(s -> {
                 if (event.getMessage().getString().contains(s)) {
-                    Utilitarian.LOGGER.debug("Blocked message: \"" + event.getMessage().getString() + "\"");
                     event.setCanceled(true);
                 }
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLoad(FMLLoadCompleteEvent event) {
+        if (Config.ENABLE_LOG_SUPPRESSOR.get()) {
+            var rootLogger = LogManager.getRootLogger();
+            if (rootLogger instanceof org.apache.logging.log4j.core.Logger logger) {
+                logger.addFilter(new ContainsMessageFilter());
+                logger.addFilter(new StartsWithMessageFilter());
+                logger.addFilter(new EndsWithMessageFilter());
+                logger.addFilter(new RegexMessageFilter());
+            }
         }
     }
 
