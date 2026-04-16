@@ -1,5 +1,6 @@
 package cy.jdkdigital.utilitarian.common.item;
 
+import cy.jdkdigital.utilitarian.Utilitarian;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +19,7 @@ public class UnnameTagItem extends Item
     @Override
     public @NotNull InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         if (!(target instanceof Player)) {
-            if (!player.level().isClientSide && target.isAlive()) {
+            if (!player.level().isClientSide() && target.getType().canSerialize()) {
                 target.setCustomName(null);
                 if (target instanceof Mob mob) {
                     mob.setPersistenceRequired();
@@ -27,7 +28,7 @@ public class UnnameTagItem extends Item
                 stack.shrink(1);
             }
 
-            return InteractionResult.sidedSuccess(player.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return InteractionResult.PASS;
         }

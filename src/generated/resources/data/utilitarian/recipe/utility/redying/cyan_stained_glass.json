@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "c:glass_blocks/cheap"
-    },
-    "D": {
-      "tag": "c:dyes/cyan"
-    }
+    "#": "#c:glass_blocks/cheap",
+    "D": "#c:dyes/cyan"
   },
   "pattern": [
     "###",

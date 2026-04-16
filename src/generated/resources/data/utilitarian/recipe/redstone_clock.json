@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:chiseled_stone_bricks"
-    },
-    "R": {
-      "tag": "c:dusts/redstone"
-    }
+    "#": "minecraft:chiseled_stone_bricks",
+    "R": "#c:dusts/redstone"
   },
   "pattern": [
     " R ",
@@ -15,7 +11,6 @@
     " R "
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:redstone_clock"
   }
 }

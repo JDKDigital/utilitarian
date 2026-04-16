@@ -9,8 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+
 import org.jetbrains.annotations.Nullable;
 
 public class AngelBlock extends Block
@@ -25,12 +24,9 @@ public class AngelBlock extends Block
         if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             pPlayer.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(UtilityBlockModule.ANGEL_BLOCK_ITEM.get()));
         } else {
-            var cap = pPlayer.getCapability(Capabilities.ItemHandler.ENTITY);
-            if (cap != null) {
-                var leftOver = ItemHandlerHelper.insertItemStacked(cap, new ItemStack(UtilityBlockModule.ANGEL_BLOCK_ITEM.get()), false);
-                if (!leftOver.isEmpty()) {
-                    popResource(pLevel, pPos, leftOver);
-                }
+            var leftOver = new ItemStack(UtilityBlockModule.ANGEL_BLOCK_ITEM.get());
+            if (!pPlayer.addItem(leftOver)) {
+                popResource(pLevel, pPos, leftOver);
             }
         }
     }

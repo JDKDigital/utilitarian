@@ -21,7 +21,7 @@ public class DataMapProvider extends net.neoforged.neoforge.common.data.DataMapP
     }
 
     @Override
-    protected void gather() {
+    protected void gather(net.minecraft.core.HolderLookup.Provider provider) {
         final var fuels = builder(NeoForgeDataMaps.FURNACE_FUELS);
 
         fuels.add(UtilityItemModule.TINY_COAL.getKey(), new FurnaceFuel(200), false);

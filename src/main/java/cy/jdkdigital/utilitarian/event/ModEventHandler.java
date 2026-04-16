@@ -12,7 +12,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @EventBusSubscriber(modid = Utilitarian.MODID)
@@ -21,7 +20,7 @@ public class ModEventHandler
     @SubscribeEvent
     public static void registerBlockEntityCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                Capabilities.Item.BLOCK,
                 UtilityBlockModule.WELL_BEHAVED_DROPPER_BLOCK_ENTITY.get(),
                 (myBlockEntity, side) -> myBlockEntity.inventoryHandler
         );
@@ -33,24 +32,13 @@ public class ModEventHandler
         registrar.playToClient(
                 SyncMufflerData.TYPE,
                 SyncMufflerData.STREAM_CODEC,
-                new DirectionalPayloadHandler<>(
-                        SyncMufflerData::clientHandle,
-                        SyncMufflerData::serverHandle
-                )
+                SyncMufflerData::clientHandle
         );
     }
 
     @SubscribeEvent
     public static void tabContents(BuildCreativeModeTabContentsEvent event) {
         if (Config.NO_SOLICITING_ENABLED.get()) {
-//            if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
-//                HolderLookup.RegistryLookup<BannerPattern> registrylookup = Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN);
-//                ItemStack noSolicitingBanner = new ItemStack(NoSolicitingModule.NO_SOLICITING_BANNER_ITEM.get());
-//                CompoundTag compoundtag = new CompoundTag();
-//                compoundtag.put("Patterns", (new BannerPatternLayers.Builder()).addIfRegistered(registrylookup, BannerPatterns.CROSS, DyeColor.RED).toListTag());
-//                BlockItem.setBlockEntityData(noSolicitingBanner, NoSolicitingModule.NO_SOLICITING_BANNER_BLOCK_ENTITY.get(), compoundtag);
-//                event.accept(noSolicitingBanner);
-//            }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 event.accept(NoSolicitingModule.RESTRAINING_ORDER.get());
                 event.accept(NoSolicitingModule.NO_SOLICITING_BANNER_ITEM.get());
@@ -70,6 +58,7 @@ public class ModEventHandler
             event.accept(UtilityBlockModule.FLUID_HOPPER_BLOCK.get());
             event.accept(UtilityBlockModule.ANGEL_BLOCK.get());
             event.accept(UtilityBlockModule.REDSTONE_CLOCK_BLOCK.get());
+            event.accept(UtilityBlockModule.MAGNET.get());
             event.accept(UtilityItemModule.TROWEL.get());
             event.accept(UtilityItemModule.TINY_COAL.get());
             event.accept(UtilityItemModule.TINY_CHARCOAL.get());

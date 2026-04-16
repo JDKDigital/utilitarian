@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:lime_carpet"
-    },
-    {
-      "tag": "minecraft:small_flowers"
-    }
+    "minecraft:lime_carpet",
+    "#minecraft:small_flowers"
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:lime_soliciting_carpet"
   }
 }

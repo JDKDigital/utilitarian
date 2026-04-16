@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/black"
-    },
-    {
-      "tag": "minecraft:wool"
-    }
+    "#c:dyes/black",
+    "#minecraft:wool"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:black_wool"
   }
 }

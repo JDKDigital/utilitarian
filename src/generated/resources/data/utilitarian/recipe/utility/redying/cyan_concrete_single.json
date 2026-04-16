@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/cyan"
-    },
-    {
-      "tag": "c:concretes"
-    }
+    "#c:dyes/cyan",
+    "#c:concretes"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:cyan_concrete"
   }
 }

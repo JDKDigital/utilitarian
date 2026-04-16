@@ -36,6 +36,6 @@ public class MufflerBlock extends Block
         mufflerData.add(String.valueOf(pos.asLong()));
         chunk.setData(Utilitarian.MUFFLER_BLOCK_LIST, mufflerData);
         // sync to client
-        PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(pos), new SyncMufflerData(mufflerData, pos));
+        PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(pos), new SyncMufflerData(mufflerData, pos));
     }
 }

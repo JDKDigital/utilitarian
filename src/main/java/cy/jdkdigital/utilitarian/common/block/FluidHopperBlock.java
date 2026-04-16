@@ -29,7 +29,7 @@ public class FluidHopperBlock extends HopperBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, UtilityBlockModule.FLUID_HOPPER_BLOCK_ENTITY.get(), FluidHopperBlockEntity::tick);
+        return pLevel.isClientSide() ? null : createTickerHelper(pBlockEntityType, UtilityBlockModule.FLUID_HOPPER_BLOCK_ENTITY.get(), FluidHopperBlockEntity::tick);
     }
 
     @Override

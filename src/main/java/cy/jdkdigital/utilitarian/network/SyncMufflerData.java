@@ -8,14 +8,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 
 public record SyncMufflerData(List<String> data, BlockPos chunkPos) implements CustomPacketPayload
 {
-    public static final Type<SyncMufflerData> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "sync_muffler_data"));
+    public static final Type<SyncMufflerData> TYPE = new Type<>(Identifier.fromNamespaceAndPath(Utilitarian.MODID, "sync_muffler_data"));
 
     public static final StreamCodec<ByteBuf, SyncMufflerData> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.fromCodec(Codec.STRING.listOf()),

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "minecraft:logs"
-    },
-    "I": {
-      "tag": "c:ingots/iron"
-    }
+    "#": "#minecraft:logs",
+    "I": "#c:ingots/iron"
   },
   "pattern": [
     "I#I",
@@ -15,7 +11,6 @@
     " I "
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:hopper"
   }
 }

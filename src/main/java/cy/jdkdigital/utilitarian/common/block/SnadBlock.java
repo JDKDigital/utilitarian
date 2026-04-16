@@ -48,7 +48,7 @@ public class SnadBlock extends ColoredFallingBlock
             if (
                     state.hasProperty(ageProperty) &&
                     i < 4 + Config.SNAD_ADDITIONAL_HEIGHT.get() &&
-                    (pPos.above(i).getY()) < pLevel.getMaxBuildHeight() &&
+                    !pLevel.isOutsideBuildHeight(pPos.above(i)) &&
                     pLevel.getBlockState(pPos.above(i)).canBeReplaced()
             ) {
                 // additional growth to configured height

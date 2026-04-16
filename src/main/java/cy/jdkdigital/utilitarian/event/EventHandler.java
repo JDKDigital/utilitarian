@@ -29,30 +29,31 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.villager.VillagerData;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.windcharge.WindCharge;
+import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.LogicalSide;
+
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.util.LogicalSidedProvider;
+
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
@@ -86,9 +87,9 @@ public class EventHandler
     static void onEntitySpawn(EntityJoinLevelEvent event) {
         if (Config.NO_SOLICITING_ENABLED.get()) {
             if (!event.loadedFromDisk() && event.getLevel() instanceof ServerLevel serverLevel && event.getEntity() instanceof LivingEntity entity) {
-                if (entity.getType().is(NoSolicitingModule.TRADER_BLACKLIST)) {
-                    var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
-                    executor.tell(new TickTask(0, () -> {
+                if (entity.getType().builtInRegistryHolder().is(NoSolicitingModule.TRADER_BLACKLIST)) {
+
+                    serverLevel.getServer().execute(() -> {
                         var nearbySoliciting = Helper.locateNearbySoliciting(serverLevel, event.getEntity().blockPosition());
                         if (!nearbySoliciting.isEmpty()) {
                             // TP to nearest soliciting carpet
@@ -96,19 +97,19 @@ public class EventHandler
                             entity.setPos(pos.getX(), pos.getY(), pos.getZ());
                             if (serverLevel.getBlockState(pos).is(NoSolicitingModule.TRAPPED_SOLICITING_CARPETS)) {
                                 // and die
-                                entity.kill();
+                                entity.kill(serverLevel);
                             }
                         } else {
                             var nearbyNoSolicitingCount = Helper.locateNearbyNoSoliciting(serverLevel, event.getEntity().blockPosition());
                             if (nearbyNoSolicitingCount > 0) {
-                                entity.discard();
+                                event.setCanceled(true);
                             }
                         }
-                    }));
+                    });
                 }
             }
         }
-        if (Config.WIND_CHARGE_AIR_SUPPLY_ENABLED.get() && !event.getLevel().isClientSide) {
+        if (Config.WIND_CHARGE_AIR_SUPPLY_ENABLED.get() && !event.getLevel().isClientSide()) {
             if (event.getEntity() instanceof WindCharge windCharge) {
                 if (windCharge.getOwner() instanceof Player player && player.getAirSupply() < player.getMaxAirSupply()) {
                     player.setAirSupply(Math.min(player.getMaxAirSupply(), player.getAirSupply() + Config.WIND_CHARGE_AIR_AMOUNT.get()));
@@ -134,22 +135,17 @@ public class EventHandler
                 });
             }
         }
-        if (!event.loadedFromDisk() && Config.NO_RAIDER_ENABLED.get() && event.getLevel() instanceof ServerLevel serverLevel && event.getEntity().getType().is(NoSolicitingModule.RAIDER_BLACKLIST)) {
+        if (!event.loadedFromDisk() && Config.NO_RAIDER_ENABLED.get() && event.getLevel() instanceof ServerLevel serverLevel && event.getEntity().getType().builtInRegistryHolder().is(NoSolicitingModule.RAIDER_BLACKLIST)) {
             var nearbySoliciting = Helper.locateNearbyNoRaider(serverLevel, event.getEntity().blockPosition());
             if (!nearbySoliciting.isEmpty()) {
-                Registry<Structure> registry = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
-                registry.getTag(NoSolicitingModule.RAIDER_OUTPOSTS).ifPresent(holders -> {
-                    Pair<BlockPos, Holder<Structure>> pair = serverLevel.getChunkSource()
-                            .getGenerator()
-                            .findNearestMapStructure(serverLevel, holders, event.getEntity().blockPosition(), 4, false);
+                var outpostTag = serverLevel.registryAccess().lookupOrThrow(Registries.STRUCTURE).getOrThrow(NoSolicitingModule.RAIDER_OUTPOSTS);
+                Pair<BlockPos, Holder<Structure>> pair = serverLevel.getChunkSource()
+                        .getGenerator()
+                        .findNearestMapStructure(serverLevel, outpostTag, event.getEntity().blockPosition(), 4, false);
 
-                    if (pair != null) {
-                        var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
-                        executor.tell(new TickTask(0, () -> {
-                            event.getEntity().discard();
-                        }));
-                    }
-                });
+                if (pair != null) {
+                    serverLevel.getServer().execute(() -> event.getEntity().discard());
+                }
             }
         }
     }
@@ -237,13 +233,13 @@ public class EventHandler
                     }
                     if (!seedStack.isEmpty() && !seedStack.is(Utilitarian.BLACKLISTED_SEEDS) && seedStack.getItem() instanceof BlockItem blockItem) {
                         final ItemStack usedSeedStack = seedStack;
-                        var executor = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
-                        executor.tell(new TickTask(0, () -> {
-                            if (!usedSeedStack.isEmpty() && level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock) {
+                        
+                        level.getServer().execute(() -> {
+                            if (!usedSeedStack.isEmpty() && level.getBlockState(event.getPos()).getBlock() instanceof FarmlandBlock) {
                                 var hitResult = new BlockHitResult(Vec3.ZERO, Direction.UP, event.getPos(), false);
                                 blockItem.place(new BlockPlaceContext(level, event.getPlayer(), event.getContext().getHand(), usedSeedStack, hitResult));
                             }
-                        }));
+                        });
                     }
                 }
             }
@@ -277,7 +273,7 @@ public class EventHandler
     @SubscribeEvent
     public static void onTrample(BlockEvent.FarmlandTrampleEvent event) {
         if (Config.NO_TRAMPLE_ENABLED.get()) {
-            if (!event.getEntity().getType().is(Utilitarian.TRAMPLING_ENTITIES)) {
+            if (!event.getEntity().getType().builtInRegistryHolder().is(Utilitarian.TRAMPLING_ENTITIES)) {
                 event.setCanceled(true);
             }
         }
@@ -287,12 +283,12 @@ public class EventHandler
     public static void onBoneMeal(BonemealEvent event) {
         if (Config.FLOWER_DUPLICATION_ENABLED.get()) {
             if (event.getState().is(BlockTags.SMALL_FLOWERS)) {
-                if (!event.getLevel().isClientSide) {
+                if (!event.getLevel().isClientSide()) {
                     if (event.getPlayer() != null) {
                         event.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                     }
                     event.getLevel().levelEvent(2011, event.getPos(), 15);
-                    Block.popResource(event.getLevel(), event.getPos(), event.getState().getBlock().getCloneItemStack(event.getState(), new BlockHitResult(event.getPos().getCenter(), Direction.DOWN, event.getPos(), false), event.getLevel(), event.getPos(), event.getPlayer()));
+                    Block.popResource(event.getLevel(), event.getPos(), event.getState().getBlock().getCloneItemStack(event.getLevel(), event.getPos(), event.getState(), false, event.getPlayer()));
                     event.getStack().shrink(1);
                 }
                 event.setSuccessful(true);
@@ -308,8 +304,8 @@ public class EventHandler
     @SubscribeEvent
     public static void onEntityDamaged(LivingDamageEvent.Post event) {
         if (event.getEntity().level() instanceof ServerLevel && event.getEntity() instanceof Villager villager && event.getSource().is(DamageTypes.FALLING_ANVIL)) {
-            if (!villager.getVillagerData().getProfession().equals(VillagerProfession.NITWIT)) {
-                villager.setVillagerData(villager.getVillagerData().setProfession(VillagerProfession.NITWIT));
+            if (!villager.getVillagerData().profession().is(VillagerProfession.NITWIT)) {
+                villager.setVillagerData(villager.getVillagerData().withProfession(villager.level().registryAccess(), VillagerProfession.NITWIT));
                 villager.releasePoi(MemoryModuleType.JOB_SITE);
             }
         }
@@ -317,11 +313,11 @@ public class EventHandler
 
     @SubscribeEvent
     public static void onRightClick(PlayerInteractEvent.EntityInteract event) {
-        if (event.getItemStack().is(Utilitarian.NITWIT_CONVERT) && event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession().equals(VillagerProfession.NITWIT)) {
-            villager.setVillagerData(villager.getVillagerData().setProfession(VillagerProfession.NONE));
+        if (event.getItemStack().is(Utilitarian.NITWIT_CONVERT) && event.getTarget() instanceof Villager villager && villager.getVillagerData().profession().is(VillagerProfession.NITWIT)) {
+            villager.setVillagerData(villager.getVillagerData().withProfession(villager.level().registryAccess(), VillagerProfession.NONE));
         }
 
-        if (!event.getLevel().isClientSide && event.getItemStack().is(Items.BUCKET) && event.getTarget() instanceof Slime slime && slime.getSize() == 1) {
+        if (!event.getLevel().isClientSide() && event.getItemStack().is(Items.BUCKET) && event.getTarget() instanceof Slime slime && slime.getSize() == 1) {
             event.getItemStack().shrink(1);
             event.getEntity().addItem(UtilityItemModule.SLIME_BUCKET.get().getDefaultInstance());
             event.getTarget().discard();

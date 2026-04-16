@@ -25,7 +25,7 @@ public class MagnetBlock extends Block
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, net.minecraft.world.level.redstone.Orientation orientation, boolean isMoving) {
         this.checkPoweredState(level, pos, state, Block.UPDATE_CLIENTS);
     }
 

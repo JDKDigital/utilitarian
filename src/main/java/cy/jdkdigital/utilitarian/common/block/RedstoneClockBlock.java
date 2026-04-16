@@ -59,7 +59,7 @@ public class RedstoneClockBlock extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, UtilityBlockModule.REDSTONE_CLOCK_BLOCK_ENTITY.get(), RedstoneClockBlockEntity::tick);
+        return pLevel.isClientSide() ? null : createTickerHelper(pBlockEntityType, UtilityBlockModule.REDSTONE_CLOCK_BLOCK_ENTITY.get(), RedstoneClockBlockEntity::tick);
     }
 
     @Override
@@ -76,28 +76,26 @@ public class RedstoneClockBlock extends BaseEntityBlock
 
     @Override
     protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof RedstoneClockBlockEntity redstoneClockBlockEntity) {
+        if (!pLevel.isClientSide() && pLevel.getBlockEntity(pPos) instanceof RedstoneClockBlockEntity redstoneClockBlockEntity) {
             int newValue = redstoneClockBlockEntity.rate + (pPlayer.isShiftKeyDown() ? 10 : 1);
             if (newValue < Config.REDSTONE_CLOCK_MIN_FREQUENCY.get() || newValue > 100) {
                 newValue = Config.REDSTONE_CLOCK_MIN_FREQUENCY.get();
             }
             redstoneClockBlockEntity.rate = newValue;
-            pPlayer.displayClientMessage(Component.translatable("block.utilitarian.redstone_clock.message", newValue), true);
+            pPlayer.sendOverlayMessage(Component.translatable("block.utilitarian.redstone_clock.message", newValue));
         }
         return InteractionResult.SUCCESS;
     }
 
     @Override
     public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
-        if (!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof RedstoneClockBlockEntity redstoneClockBlockEntity) {
-            pPlayer.displayClientMessage(Component.translatable("block.utilitarian.redstone_clock.message", redstoneClockBlockEntity.rate), true);
+        if (!pLevel.isClientSide() && pLevel.getBlockEntity(pPos) instanceof RedstoneClockBlockEntity redstoneClockBlockEntity) {
+            pPlayer.sendOverlayMessage(Component.translatable("block.utilitarian.redstone_clock.message", redstoneClockBlockEntity.rate));
         }
     }
 
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
-        var fromState = pLevel.getBlockState(pFromPos);
-        if (fromState.is(Blocks.REDSTONE_WIRE) || fromState.hasProperty(BlockStateProperties.POWER)) return;
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, net.minecraft.world.level.redstone.Orientation pOrientation, boolean pIsMoving) {
         this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_CLIENTS);
     }
 
@@ -108,12 +106,7 @@ public class RedstoneClockBlock extends BaseEntityBlock
         }
     }
 
-    @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTootipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
-        pTootipComponents.add(Component.translatable("block.utilitarian.redstone_clock.description").withStyle(ChatFormatting.GOLD));
-    }
-
+    // TODO MC 26.1: appendHoverText removed from Block
     @Override
     public boolean isSignalSource(BlockState pState) {
         return true;

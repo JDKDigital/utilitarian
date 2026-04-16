@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "minecraft:terracotta"
-    },
-    "D": {
-      "tag": "c:dyes/black"
-    }
+    "#": "#minecraft:terracotta",
+    "D": "#c:dyes/black"
   },
   "pattern": [
     "###",

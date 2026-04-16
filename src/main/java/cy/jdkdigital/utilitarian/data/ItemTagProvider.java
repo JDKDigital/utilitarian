@@ -3,17 +3,15 @@ package cy.jdkdigital.utilitarian.data;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagProvider extends ItemTagsProvider
 {
-    public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> future, CompletableFuture<TagLookup<Block>> provider, ExistingFileHelper helper) {
-        super(output, future, provider, Utilitarian.MODID, helper);
+    public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+        super(output, future, Utilitarian.MODID);
     }
 
     @Override

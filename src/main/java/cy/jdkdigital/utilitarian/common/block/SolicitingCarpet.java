@@ -22,14 +22,7 @@ public class SolicitingCarpet extends CarpetBlock
         this.registerDefaultState(this.stateDefinition.any().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH));
     }
 
-    @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTootipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTootipComponents, pTooltipFlag);
-        pTootipComponents.add(Component.translatable("utilitarian.soliciting_carpet.tooltip").withStyle(ChatFormatting.GOLD));
-        if (pStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock().defaultBlockState().is(NoSolicitingModule.TRAPPED_SOLICITING_CARPETS)) {
-            pTootipComponents.add(Component.translatable("utilitarian.soliciting_carpet.tooltip_trapped").withStyle(ChatFormatting.DARK_RED));
-        }
-    }
+    // TODO MC 26.1: appendHoverText removed from Block
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

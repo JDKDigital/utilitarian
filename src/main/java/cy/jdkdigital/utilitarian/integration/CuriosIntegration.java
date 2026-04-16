@@ -1,22 +1,11 @@
 package cy.jdkdigital.utilitarian.integration;
 
-import cy.jdkdigital.utilitarian.common.item.RestrainingOrder;
-import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import net.minecraft.world.entity.player.Player;
-import top.theillusivec4.curios.api.CuriosApi;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CuriosIntegration
 {
+    // TODO MC 26.1: Curios API not yet available for 26.1 — disabled until ported
     public static boolean hasRestrainingOrder(Player player) {
-        AtomicBoolean hasRestrainingOrder = new AtomicBoolean(false);
-        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> {
-            var restrainingOrder = curiosInventory.findFirstCurio(stack -> {
-                return stack.is(NoSolicitingModule.RESTRAINING_ORDER) && RestrainingOrder.isEnabledRestrainingOrder(stack);
-            });
-            hasRestrainingOrder.set(restrainingOrder.isPresent());
-        });
-        return hasRestrainingOrder.get();
+        return false;
     }
 }

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": {
-      "item": "minecraft:dropper"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    },
-    "S": {
-      "tag": "c:strings"
-    }
+    "D": "minecraft:dropper",
+    "R": "#c:rods/wooden",
+    "S": "#c:strings"
   },
   "pattern": [
     " RS",
@@ -18,7 +12,6 @@
     " RS"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:dispenser"
   }
 }

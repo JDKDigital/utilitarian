@@ -34,16 +34,12 @@ public class DritBlock extends Block
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
         super.stepOn(pLevel, pPos, pState, pEntity);
         if (pEntity instanceof LivingEntity livingEntity) {
-            Holder.Reference<DamageType> damageType = pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SnadModule.DRIT_DAMAGE);
+            Holder.Reference<DamageType> damageType = pEntity.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(SnadModule.DRIT_DAMAGE);
             livingEntity.hurt(new DamageSource(damageType), Config.SNAD_DRIT_DAMAGE.get().floatValue());
         }
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.translatable("utilitarian.drit.description").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
-    }
+    // TODO MC 26.1: appendHoverText removed from Block
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {

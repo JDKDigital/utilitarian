@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/orange"
-    },
-    {
-      "tag": "c:concretes"
-    }
+    "#c:dyes/orange",
+    "#c:concretes"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:orange_concrete"
   }
 }

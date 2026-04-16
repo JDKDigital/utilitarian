@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/magenta"
-    },
-    {
-      "tag": "c:glass_panes"
-    }
+    "#c:dyes/magenta",
+    "#c:glass_panes"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:magenta_stained_glass_pane"
   }
 }

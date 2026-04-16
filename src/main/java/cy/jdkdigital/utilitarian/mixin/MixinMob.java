@@ -45,7 +45,7 @@ public abstract class MixinMob extends Entity
         if (utilitarian$isEnabled()) {
             this.utilitarian$hasPickedUpEquipment = true;
             // entities in the tag will have default despawn prevention
-            this.persistenceRequired = utilitarian$existingPersistenceRequired || this.getType().is(Utilitarian.ALWAYS_PERSIST_WITH_EQUIPMENT);
+            this.persistenceRequired = utilitarian$existingPersistenceRequired || this.getType().builtInRegistryHolder().is(Utilitarian.ALWAYS_PERSIST_WITH_EQUIPMENT);
         }
     }
 
@@ -56,7 +56,7 @@ public abstract class MixinMob extends Entity
             for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
                 ItemStack itemStack = mob.getItemBySlot(equipmentSlot);
                 if (!itemStack.isEmpty() && (!itemStack.is(Utilitarian.EQUIPMENT_DESPAWN_BLACKLIST) || EnchantmentHelper.hasAnyEnchantments(itemStack)) && !EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP)) {
-                    this.spawnAtLocation(itemStack);
+                    if (this.level() instanceof net.minecraft.server.level.ServerLevel sl) this.spawnAtLocation(sl, itemStack);
                     mob.setItemSlot(equipmentSlot, ItemStack.EMPTY);
                 }
             }
@@ -75,7 +75,7 @@ public abstract class MixinMob extends Entity
     @Inject(at = {@At("TAIL")}, method = {"readAdditionalSaveData"})
     public void readAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
         if (utilitarian$isEnabled() && compound.contains("hasPickedUpEquipment")) {
-            this.utilitarian$hasPickedUpEquipment = compound.getBoolean("hasPickedUpEquipment");
+            this.utilitarian$hasPickedUpEquipment = compound.getBooleanOr("hasPickedUpEquipment", false);
         }
     }
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "utilitarian:block/inverted_redstone_lamp_on"
+    },
+    "lit=true": {
+      "model": "utilitarian:block/inverted_redstone_lamp"
+    }
+  }
+}

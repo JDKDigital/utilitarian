@@ -2,22 +2,13 @@ package cy.jdkdigital.utilitarian.event;
 
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.client.render.block.NoSolicitingBannerRenderer;
-import cy.jdkdigital.utilitarian.common.item.RestrainingOrder;
-import cy.jdkdigital.utilitarian.common.item.SlimeBucketItem;
-import cy.jdkdigital.utilitarian.common.item.TrowelItem;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.SnadModule;
 import cy.jdkdigital.utilitarian.module.UtilityEntityModule;
-import cy.jdkdigital.utilitarian.module.UtilityItemModule;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.List;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -37,26 +28,16 @@ public class ClientModEvents
 
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            ItemProperties.register(NoSolicitingModule.RESTRAINING_ORDER.get(), ResourceLocation.withDefaultNamespace("active"), (stack, world, entity, i) -> RestrainingOrder.isActive(stack) ? 1.0F : 0.0F);
-            ItemProperties.register(UtilityItemModule.TROWEL.get(), ResourceLocation.withDefaultNamespace("extended"), (stack, world, entity, i) -> TrowelItem.isExtended(stack) ? 1.0F : 0.0F);
-            ItemProperties.register(UtilityItemModule.SLIME_BUCKET.get(), ResourceLocation.withDefaultNamespace("slimed"), (stack, world, entity, i) -> SlimeBucketItem.isInSlime(stack) ? 1.0F : 0.0F);
-            ItemBlockRenderTypes.setRenderLayer(SnadModule.GRRASS_BLOCK.get(), RenderType.cutoutMipped());
-        });
+        // TODO MC 26.1: ItemProperties and ItemBlockRenderTypes removed.
+        // Item model predicates and render type overrides are now data-driven via JSON model files.
+        // ItemProperties.register(UtilityItemModule.TROWEL.get(), Identifier.withDefaultNamespace("extended"), ...);
+        // ItemProperties.register(UtilityItemModule.SLIME_BUCKET.get(), Identifier.withDefaultNamespace("slimed"), ...);
     }
 
+    // TODO MC 26.1: Item color handlers are now data-driven via model JSON tint sources.
+    // Block tint source registration uses RegisterColorHandlersEvent.BlockTintSources.
     @SubscribeEvent
-    public static void registerItemColors(final RegisterColorHandlersEvent.Item event) {
-        event.register((stack, tintIndex) -> {
-            BlockState blockstate = ((BlockItem)stack.getItem()).getBlock().defaultBlockState();
-            return event.getBlockColors().getColor(blockstate, null, null, tintIndex);
-        }, SnadModule.GRRASS_BLOCK.get());
-    }
-
-    @SubscribeEvent
-    public static void registerBlockColors(final RegisterColorHandlersEvent.Block event) {
-        event.register((blockState, lightReader, pos, tintIndex) -> {
-            return lightReader != null && pos != null ? BiomeColors.getAverageGrassColor(lightReader, pos) : GrassColor.get(0.5D, 1.0D);
-        }, SnadModule.GRRASS_BLOCK.get());
+    public static void registerBlockColors(final RegisterColorHandlersEvent.BlockTintSources event) {
+        event.register(List.of(BlockTintSources.grassBlock()), SnadModule.GRRASS_BLOCK.get());
     }
 }

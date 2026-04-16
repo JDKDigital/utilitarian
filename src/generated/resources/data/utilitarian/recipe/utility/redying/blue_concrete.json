@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "c:concretes"
-    },
-    "D": {
-      "tag": "c:dyes/blue"
-    }
+    "#": "#c:concretes",
+    "D": "#c:dyes/blue"
   },
   "pattern": [
     "###",

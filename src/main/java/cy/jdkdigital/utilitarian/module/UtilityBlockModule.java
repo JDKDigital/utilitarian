@@ -7,7 +7,7 @@ import cy.jdkdigital.utilitarian.common.block.entity.RedstoneClockBlockEntity;
 import cy.jdkdigital.utilitarian.common.block.entity.WellBehavedDropperBlockEntity;
 import cy.jdkdigital.utilitarian.common.item.AngelBlockItem;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -29,79 +29,73 @@ import java.util.Set;
 
 public class UtilityBlockModule
 {
-    public static TagKey<Block> MUFFLERS = BlockTags.create(ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "mufflers"));
+    public static TagKey<Block> MUFFLERS = BlockTags.create(Identifier.fromNamespaceAndPath(Utilitarian.MODID, "mufflers"));
 
     public static DeferredHolder<Block, Block> ANGEL_BLOCK;
     public static DeferredHolder<Item, Item> ANGEL_BLOCK_ITEM;
 
     public static DeferredHolder<Block, Block> SOUND_MUFFLER;
-    public static DeferredHolder<Item, Item> SOUND_MUFFLER_ITEM;
-
-    public static DeferredHolder<Block, Block> PARTICLE_MUFFLER;
-    public static DeferredHolder<Item, Item> PARTICLE_MUFFLER_ITEM;
-
-    public static DeferredHolder<Block, Block> ENTITY_SOUND_MUFFLER;
-    public static DeferredHolder<Item, Item> ENTITY_SOUND_MUFFLER_ITEM;
+    public static DeferredHolder<Item, BlockItem> SOUND_MUFFLER_ITEM;
 
     public static DeferredHolder<Block, Block> LAPIS_LAMP;
-    public static DeferredHolder<Item, Item> LAPIS_LAMP_ITEM;
+    public static DeferredHolder<Item, BlockItem> LAPIS_LAMP_ITEM;
 
     public static DeferredHolder<Block, Block> INVERTED_LAPIS_LAMP;
-    public static DeferredHolder<Item, Item> INVERTED_LAPIS_LAMP_ITEM;
+    public static DeferredHolder<Item, BlockItem> INVERTED_LAPIS_LAMP_ITEM;
 
     public static DeferredHolder<Block, Block> INVERTED_REDSTONE_LAMP;
-    public static DeferredHolder<Item, Item> INVERTED_REDSTONE_LAMP_ITEM;
+    public static DeferredHolder<Item, BlockItem> INVERTED_REDSTONE_LAMP_ITEM;
 
     public static DeferredHolder<Block, Block> FLUID_HOPPER_BLOCK;
-    public static DeferredHolder<Item, Item> FLUID_HOPPER_BLOCK_ITEM;
+    public static DeferredHolder<Item, BlockItem> FLUID_HOPPER_BLOCK_ITEM;
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidHopperBlockEntity>> FLUID_HOPPER_BLOCK_ENTITY;
 
     public static DeferredHolder<Block, Block> REDSTONE_CLOCK_BLOCK;
-    public static DeferredHolder<Item, Item> REDSTONE_CLOCK_BLOCK_ITEM;
+    public static DeferredHolder<Item, BlockItem> REDSTONE_CLOCK_BLOCK_ITEM;
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<RedstoneClockBlockEntity>> REDSTONE_CLOCK_BLOCK_ENTITY;
 
     public static DeferredHolder<Block, Block> WELL_BEHAVED_DROPPER;
-    public static DeferredHolder<Item, Item> WELL_BEHAVED_DROPPER_ITEM;
+    public static DeferredHolder<Item, BlockItem> WELL_BEHAVED_DROPPER_ITEM;
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<WellBehavedDropperBlockEntity>> WELL_BEHAVED_DROPPER_BLOCK_ENTITY;
 
     public static DeferredHolder<Block, Block> MAGNET;
-    public static DeferredHolder<Item, Item> MAGNET_ITEM;
+    public static DeferredHolder<Item, BlockItem> MAGNET_ITEM;
 
-    public static TagKey<PoiType> SOUND_MUFFLER_POI_TAG = TagKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "sound_muffler"));
+    public static TagKey<PoiType> SOUND_MUFFLER_POI_TAG = TagKey.create(Registries.POINT_OF_INTEREST_TYPE, Identifier.fromNamespaceAndPath(Utilitarian.MODID, "sound_muffler"));
     public static DeferredHolder<PoiType, PoiType> SOUND_MUFFLER_POI;
 
     // TODO particle preventer block
 
     public static void register() {
-        ANGEL_BLOCK = Utilitarian.BLOCKS.register("angel_block", () -> new AngelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
-        ANGEL_BLOCK_ITEM = Utilitarian.ITEMS.register("angel_block", () -> new AngelBlockItem(ANGEL_BLOCK.get(), new Item.Properties()));
+        ANGEL_BLOCK = Utilitarian.BLOCKS.registerBlock("angel_block", p -> new AngelBlock(p.mapColor(MapColor.COLOR_BLACK).noCollision().instabreak().pushReaction(PushReaction.DESTROY)));
+        ANGEL_BLOCK_ITEM = Utilitarian.ITEMS.registerItem("angel_block", p -> new AngelBlockItem(ANGEL_BLOCK.get(), p.useBlockDescriptionPrefix()));
 
-        LAPIS_LAMP = Utilitarian.BLOCKS.register("lapis_lamp", () -> new LapisLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> 0), false));
-        LAPIS_LAMP_ITEM = Utilitarian.ITEMS.register("lapis_lamp", () -> new BlockItem(LAPIS_LAMP.get(), new Item.Properties()));
+        LAPIS_LAMP = Utilitarian.BLOCKS.registerBlock("lapis_lamp", p -> new LapisLampBlock(p.lightLevel(state -> 0), false), () -> BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP));
+        LAPIS_LAMP_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(LAPIS_LAMP);
 
-        INVERTED_LAPIS_LAMP = Utilitarian.BLOCKS.register("inverted_lapis_lamp", () -> new LapisLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> 0), true));
-        INVERTED_LAPIS_LAMP_ITEM = Utilitarian.ITEMS.register("inverted_lapis_lamp", () -> new BlockItem(INVERTED_LAPIS_LAMP.get(), new Item.Properties()));
+        INVERTED_LAPIS_LAMP = Utilitarian.BLOCKS.registerBlock("inverted_lapis_lamp", p -> new LapisLampBlock(p, true), () -> BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> 0));
+        INVERTED_LAPIS_LAMP_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(INVERTED_LAPIS_LAMP);
 
-        INVERTED_REDSTONE_LAMP = Utilitarian.BLOCKS.register("inverted_redstone_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 0 : 15)));
-        INVERTED_REDSTONE_LAMP_ITEM = Utilitarian.ITEMS.register("inverted_redstone_lamp", () -> new BlockItem(INVERTED_REDSTONE_LAMP.get(), new Item.Properties()));
+        INVERTED_REDSTONE_LAMP = Utilitarian.BLOCKS.registerBlock("inverted_redstone_lamp", RedstoneLampBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_LAMP).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 0 : 15));
+        INVERTED_REDSTONE_LAMP_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(INVERTED_REDSTONE_LAMP);
 
-        SOUND_MUFFLER = Utilitarian.BLOCKS.register("sound_muffler", () -> new MufflerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
-        SOUND_MUFFLER_ITEM = Utilitarian.ITEMS.register("sound_muffler", () -> new BlockItem(SOUND_MUFFLER.get(), new Item.Properties()));
+        SOUND_MUFFLER = Utilitarian.BLOCKS.registerBlock("sound_muffler", MufflerBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL));
+        SOUND_MUFFLER_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(SOUND_MUFFLER);
 
-        FLUID_HOPPER_BLOCK = Utilitarian.BLOCKS.register("fluid_hopper", () -> new FluidHopperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER)));
-        FLUID_HOPPER_BLOCK_ITEM = Utilitarian.ITEMS.register("fluid_hopper", () -> new BlockItem(FLUID_HOPPER_BLOCK.get(), new Item.Properties()));
-        FLUID_HOPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("fluid_hopper", () -> BlockEntityType.Builder.of(FluidHopperBlockEntity::new, FLUID_HOPPER_BLOCK.get()).build(null));
+        FLUID_HOPPER_BLOCK = Utilitarian.BLOCKS.registerBlock("fluid_hopper", FluidHopperBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.HOPPER));
+        FLUID_HOPPER_BLOCK_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(FLUID_HOPPER_BLOCK);
+        FLUID_HOPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("fluid_hopper", () -> new BlockEntityType<>(FluidHopperBlockEntity::new, FLUID_HOPPER_BLOCK.get()));
 
-        REDSTONE_CLOCK_BLOCK = Utilitarian.BLOCKS.register("redstone_clock", () -> new RedstoneClockBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).isRedstoneConductor((pState, pLevel, pPos) -> false)));
-        REDSTONE_CLOCK_BLOCK_ITEM = Utilitarian.ITEMS.register("redstone_clock", () -> new BlockItem(REDSTONE_CLOCK_BLOCK.get(), new Item.Properties()));
-        REDSTONE_CLOCK_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("redstone_clock", () -> BlockEntityType.Builder.of(RedstoneClockBlockEntity::new, REDSTONE_CLOCK_BLOCK.get()).build(null));
+        REDSTONE_CLOCK_BLOCK = Utilitarian.BLOCKS.registerBlock("redstone_clock", RedstoneClockBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).isRedstoneConductor((pState, pLevel, pPos) -> false));
+        REDSTONE_CLOCK_BLOCK_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(REDSTONE_CLOCK_BLOCK);
+        REDSTONE_CLOCK_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("redstone_clock", () -> new BlockEntityType<>(RedstoneClockBlockEntity::new, REDSTONE_CLOCK_BLOCK.get()));
 
-        WELL_BEHAVED_DROPPER = Utilitarian.BLOCKS.register("well_behaved_dropper", () -> new WellBehavedDropperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DROPPER).isRedstoneConductor((pState, pLevel, pPos) -> false)));
-        WELL_BEHAVED_DROPPER_ITEM = Utilitarian.ITEMS.register("well_behaved_dropper", () -> new BlockItem(WELL_BEHAVED_DROPPER.get(), new Item.Properties()));
-        WELL_BEHAVED_DROPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("well_behaved_dropper", () -> BlockEntityType.Builder.of(WellBehavedDropperBlockEntity::new, WELL_BEHAVED_DROPPER.get()).build(null));
+        WELL_BEHAVED_DROPPER = Utilitarian.BLOCKS.registerBlock("well_behaved_dropper", WellBehavedDropperBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.DROPPER).isRedstoneConductor((pState, pLevel, pPos) -> false));
+        WELL_BEHAVED_DROPPER_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(WELL_BEHAVED_DROPPER);
+        WELL_BEHAVED_DROPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("well_behaved_dropper", () -> new BlockEntityType<>(WellBehavedDropperBlockEntity::new, WELL_BEHAVED_DROPPER.get()));
 
-        MAGNET = Utilitarian.BLOCKS.register("magnet", () -> new MagnetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).noOcclusion()));
-        MAGNET_ITEM = Utilitarian.ITEMS.register("magnet", () -> new BlockItem(MAGNET.get(), new Item.Properties()));
+        MAGNET = Utilitarian.BLOCKS.registerBlock("magnet", MagnetBlock::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).noOcclusion());
+        MAGNET_ITEM = Utilitarian.ITEMS.registerSimpleBlockItem(MAGNET);
 
         SOUND_MUFFLER_POI = Utilitarian.POI_TYPES.register("sound_muffler", () -> {
             Set<BlockState> blockStates = new HashSet<>(SOUND_MUFFLER.get().getStateDefinition().getPossibleStates());

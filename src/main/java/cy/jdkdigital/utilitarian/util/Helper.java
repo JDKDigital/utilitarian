@@ -31,8 +31,8 @@ public class Helper
         }
         var range = Config.NO_SOLICITING_PLAYER_CHUNK_RANGE.get() * 16D;
         List<Player> players = level.getEntitiesOfClass(Player.class, (new AABB(new BlockPos(spawnPosition))).inflate(range, range, range)).stream().filter(player -> {
-            for (ItemStack itemStack : player.getInventory().items) {
-                if (itemStack.is(NoSolicitingModule.RESTRAINING_ORDER) && RestrainingOrder.isEnabledRestrainingOrder(itemStack)) {
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) { ItemStack itemStack = player.getInventory().getItem(i);
+                if (RestrainingOrder.isEnabledRestrainingOrder(itemStack)) {
                     return true;
                 }
             }

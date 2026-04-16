@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:red_carpet"
-    },
-    {
-      "tag": "minecraft:small_flowers"
-    }
+    "minecraft:red_carpet",
+    "#minecraft:small_flowers"
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:red_soliciting_carpet"
   }
 }

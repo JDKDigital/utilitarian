@@ -2,19 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "c:ingots/iron"
-    },
-    "T": {
-      "item": "minecraft:tnt"
-    }
+    "I": "#c:ingots/iron",
+    "T": "minecraft:tnt"
   },
   "pattern": [
     "ITI",
     "III"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:tnt_minecart"
   }
 }

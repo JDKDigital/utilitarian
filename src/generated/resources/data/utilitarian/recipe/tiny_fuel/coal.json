@@ -2,33 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    },
-    {
-      "item": "utilitarian:tiny_coal"
-    }
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal",
+    "utilitarian:tiny_coal"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:coal"
   }
 }

@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "utilitarian:pink_soliciting_carpet"
-    },
-    {
-      "item": "minecraft:tripwire_hook"
-    }
+    "utilitarian:pink_soliciting_carpet",
+    "minecraft:tripwire_hook"
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:pink_trapped_soliciting_carpet"
   }
 }

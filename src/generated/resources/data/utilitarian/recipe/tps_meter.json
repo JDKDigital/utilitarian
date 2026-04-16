@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:comparator"
-    },
-    "O": {
-      "tag": "c:obsidians"
-    }
+    "#": "minecraft:comparator",
+    "O": "#c:obsidians"
   },
   "pattern": [
     " # ",
@@ -15,7 +11,6 @@
     " # "
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:tps_meter"
   }
 }

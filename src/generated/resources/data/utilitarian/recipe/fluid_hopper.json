@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:bucket"
-    },
-    "I": {
-      "tag": "c:ingots/iron"
-    },
-    "P": {
-      "tag": "c:dyes/white"
-    }
+    "#": "minecraft:bucket",
+    "I": "#c:ingots/iron",
+    "P": "#c:dyes/white"
   },
   "pattern": [
     "IPI",
@@ -18,7 +12,6 @@
     " I "
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:fluid_hopper"
   }
 }

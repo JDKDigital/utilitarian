@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "c:glass_panes"
-    },
-    "D": {
-      "tag": "c:dyes/brown"
-    }
+    "#": "#c:glass_panes",
+    "D": "#c:dyes/brown"
   },
   "pattern": [
     "###",

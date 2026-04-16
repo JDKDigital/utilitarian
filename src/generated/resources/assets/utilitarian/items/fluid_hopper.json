@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "utilitarian:item/fluid_hopper"
+  }
+}

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": {
-      "tag": "c:dusts/redstone"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    },
-    "S": {
-      "item": "minecraft:stone"
-    }
+    "D": "#c:dusts/redstone",
+    "R": "#c:rods/wooden",
+    "S": "minecraft:stone"
   },
   "pattern": [
     "D D",
@@ -18,7 +12,6 @@
     "SSS"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:repeater"
   }
 }

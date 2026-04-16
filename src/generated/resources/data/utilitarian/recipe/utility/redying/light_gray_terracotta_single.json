@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/light_gray"
-    },
-    {
-      "tag": "minecraft:terracotta"
-    }
+    "#c:dyes/light_gray",
+    "#minecraft:terracotta"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:light_gray_terracotta"
   }
 }

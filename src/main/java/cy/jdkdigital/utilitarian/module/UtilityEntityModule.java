@@ -2,6 +2,9 @@ package cy.jdkdigital.utilitarian.module;
 
 import cy.jdkdigital.utilitarian.Utilitarian;
 import cy.jdkdigital.utilitarian.common.entity.RisingBlockEntity;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -14,7 +17,7 @@ public class UtilityEntityModule
         RISING_BLOCK = Utilitarian.ENTITIES.register(
                 "rising_block",
                 () -> EntityType.Builder.of(RisingBlockEntity::new, MobCategory.MISC).sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(20)
-                        .build(Utilitarian.MODID + ":rising_block")
+                        .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Utilitarian.MODID, "rising_block")))
         );
     }
 }

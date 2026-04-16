@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/purple"
-    },
-    {
-      "tag": "minecraft:candles"
-    }
+    "#c:dyes/purple",
+    "#minecraft:candles"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:purple_candle"
   }
 }

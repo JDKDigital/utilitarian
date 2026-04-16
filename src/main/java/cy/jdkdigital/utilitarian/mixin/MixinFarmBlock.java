@@ -4,7 +4,7 @@ import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //@Debug(export = true)
-@Mixin(value = FarmBlock.class)
+@Mixin(value = FarmlandBlock.class)
 public abstract class MixinFarmBlock
 {
     @Inject(at = {@At("RETURN")}, method = {"canSurvive"}, cancellable = true)

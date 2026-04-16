@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/cyan"
-    },
-    {
-      "tag": "c:concrete_powders"
-    }
+    "#c:dyes/cyan",
+    "#c:concrete_powders"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:cyan_concrete_powder"
   }
 }

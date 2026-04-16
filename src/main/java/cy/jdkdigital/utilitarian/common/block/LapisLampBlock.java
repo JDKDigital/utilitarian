@@ -41,12 +41,7 @@ public class LapisLampBlock extends RedstoneLampBlock
         return 0;
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.translatable("block.utilitarian.lapis_lamp.tooltip").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltipComponents.add(Component.translatable("block.utilitarian.lapis_lamp.tooltip2").withStyle(ChatFormatting.GREEN));
-    }
+    // TODO MC 26.1: appendHoverText removed from Block
 
     private boolean isLit(BlockState state) {
         return (state.getValue(BlockStateProperties.LIT) && !isInverted) || (!state.getValue(BlockStateProperties.LIT) && isInverted);

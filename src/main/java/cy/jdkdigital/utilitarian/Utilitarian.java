@@ -6,7 +6,7 @@ import cy.jdkdigital.utilitarian.module.*;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -37,24 +37,24 @@ public class Utilitarian
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MODID);
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, MODID);
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MODID);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
 
-    public static final TagKey<Item> BLACKLISTED_SEEDS = ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "hoe_planting_blacklist"));
-    public static final TagKey<Item> NITWIT_CONVERT = ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "nitwit_convert"));
-    public static final TagKey<Item> EQUIPMENT_DESPAWN_BLACKLIST = ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "equipment_despawn_blacklist"));
-    public static final TagKey<Block> FARMLAND_CAN_SURVIVE = BlockTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "farmland_cansurvive"));
-    public static final TagKey<Block> MAGNET_VALID_BLOCKS = BlockTags.create(ResourceLocation.fromNamespaceAndPath(MODID, "magnet_valid_blocks"));
-    public static final TagKey<EntityType<?>> TRAMPLING_ENTITIES = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "trampling_entities"));
-    public static final TagKey<EntityType<?>> ALWAYS_PERSIST_WITH_EQUIPMENT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "always_persist_with_equipment"));
+    public static final TagKey<Item> BLACKLISTED_SEEDS = ItemTags.create(Identifier.fromNamespaceAndPath(MODID, "hoe_planting_blacklist"));
+    public static final TagKey<Item> NITWIT_CONVERT = ItemTags.create(Identifier.fromNamespaceAndPath(MODID, "nitwit_convert"));
+    public static final TagKey<Item> EQUIPMENT_DESPAWN_BLACKLIST = ItemTags.create(Identifier.fromNamespaceAndPath(MODID, "equipment_despawn_blacklist"));
+    public static final TagKey<Block> FARMLAND_CAN_SURVIVE = BlockTags.create(Identifier.fromNamespaceAndPath(MODID, "farmland_cansurvive"));
+    public static final TagKey<Block> MAGNET_VALID_BLOCKS = BlockTags.create(Identifier.fromNamespaceAndPath(MODID, "magnet_valid_blocks"));
+    public static final TagKey<EntityType<?>> TRAMPLING_ENTITIES = TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MODID, "trampling_entities"));
+    public static final TagKey<EntityType<?>> ALWAYS_PERSIST_WITH_EQUIPMENT = TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MODID, "always_persist_with_equipment"));
 
     public static final Supplier<AttachmentType<List<String>>> MUFFLER_BLOCK_LIST = ATTACHMENT_TYPES.register(
-            "mufflers", () -> AttachmentType.<List<String>>builder(() -> new ArrayList<>()).serialize(Codec.STRING.listOf()).build()
+            "mufflers", () -> AttachmentType.<List<String>>builder(() -> new ArrayList<>()).serialize(Codec.STRING.listOf().fieldOf("value")).build()
     );
 
     public Utilitarian(IEventBus modEventBus, ModContainer modContainer) {
@@ -66,7 +66,7 @@ public class Utilitarian
         DATA_COMPONENT_TYPES.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
 
-        ATTACHMENT_TYPES.addAlias(ResourceLocation.fromNamespaceAndPath(MODID, "sound_mufflers"), ResourceLocation.fromNamespaceAndPath(MODID, "mufflers"));
+        ATTACHMENT_TYPES.addAlias(Identifier.fromNamespaceAndPath(MODID, "sound_mufflers"), Identifier.fromNamespaceAndPath(MODID, "mufflers"));
 
         NoSolicitingModule.register();
         UtilityBlockModule.register();

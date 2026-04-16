@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/pink"
-    },
-    {
-      "tag": "minecraft:candles"
-    }
+    "#c:dyes/pink",
+    "#minecraft:candles"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:pink_candle"
   }
 }

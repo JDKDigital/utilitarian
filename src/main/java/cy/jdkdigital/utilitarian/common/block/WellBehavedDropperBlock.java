@@ -49,7 +49,7 @@ public class WellBehavedDropperBlock extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, UtilityBlockModule.WELL_BEHAVED_DROPPER_BLOCK_ENTITY.get(), WellBehavedDropperBlockEntity::tick);
+        return level.isClientSide() ? null : createTickerHelper(blockEntityType, UtilityBlockModule.WELL_BEHAVED_DROPPER_BLOCK_ENTITY.get(), WellBehavedDropperBlockEntity::tick);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class WellBehavedDropperBlock extends BaseEntityBlock
     }
 
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, net.minecraft.world.level.redstone.Orientation pOrientation, boolean pIsMoving) {
         this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_CLIENTS);
     }
 

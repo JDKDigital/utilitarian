@@ -15,9 +15,5 @@ public class NoRaiderBlock extends Block
         super(pProperties);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.translatable("utilitarian.no_raider.description").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
-    }
+    // TODO MC 26.1: appendHoverText removed from Block
 }

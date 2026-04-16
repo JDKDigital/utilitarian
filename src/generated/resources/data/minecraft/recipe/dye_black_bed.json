@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/black"
-    },
-    {
-      "tag": "minecraft:beds"
-    }
+    "#c:dyes/black",
+    "#minecraft:beds"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:black_bed"
   }
 }

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "c:concrete_powders"
-    },
-    "D": {
-      "tag": "c:dyes/pink"
-    }
+    "#": "#c:concrete_powders",
+    "D": "#c:dyes/pink"
   },
   "pattern": [
     "###",

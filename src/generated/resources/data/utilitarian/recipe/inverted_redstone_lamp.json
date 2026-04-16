@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:lever"
-    },
-    {
-      "item": "minecraft:redstone_lamp"
-    }
+    "minecraft:lever",
+    "minecraft:redstone_lamp"
   ],
   "result": {
-    "count": 1,
     "id": "utilitarian:inverted_redstone_lamp"
   }
 }

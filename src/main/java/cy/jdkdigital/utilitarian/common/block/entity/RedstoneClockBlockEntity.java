@@ -4,13 +4,13 @@ import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class RedstoneClockBlockEntity extends BlockEntity
 {
@@ -43,18 +43,14 @@ public class RedstoneClockBlockEntity extends BlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput pTag) {
+        super.saveAdditional(pTag);
         pTag.putInt("rate", this.rate);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-        if (pTag.contains("rate")) {
-            this.rate = pTag.getInt("rate");
-        } else {
-            this.rate = Config.REDSTONE_CLOCK_MIN_FREQUENCY.get();
-        }
+    protected void loadAdditional(ValueInput pTag) {
+        super.loadAdditional(pTag);
+        this.rate = pTag.getIntOr("rate", Config.REDSTONE_CLOCK_MIN_FREQUENCY.get());
     }
 }

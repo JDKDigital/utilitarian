@@ -21,13 +21,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
-import net.minecraft.world.level.block.SnowyDirtBlock;
+import net.minecraft.world.level.block.SnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 
 import java.util.List;
 
-public class GrrassBlock extends SnowyDirtBlock
+public class GrrassBlock extends SnowyBlock
 {
     public GrrassBlock(Properties pProperties) {
         super(pProperties);
@@ -37,7 +37,7 @@ public class GrrassBlock extends SnowyDirtBlock
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
         super.stepOn(pLevel, pPos, pState, pEntity);
         if (pEntity instanceof LivingEntity livingEntity) {
-            Holder.Reference<DamageType> damageType = pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SnadModule.GRRASS_DAMAGE);
+            Holder.Reference<DamageType> damageType = pEntity.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(SnadModule.GRRASS_DAMAGE);
             livingEntity.hurt(new DamageSource(damageType), Config.SNAD_DRIT_DAMAGE.get().floatValue());
         }
     }
@@ -50,11 +50,7 @@ public class GrrassBlock extends SnowyDirtBlock
         }
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.translatable("utilitarian.grrass.description").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
-    }
+    // TODO MC 26.1: appendHoverText removed from Block
 
     private static boolean canBeGrass(BlockState pState, LevelReader pLevelReader, BlockPos pPos) {
         BlockPos blockpos = pPos.above();
@@ -65,9 +61,9 @@ public class GrrassBlock extends SnowyDirtBlock
             return false;
         } else {
             int i = LightEngine.getLightBlockInto(
-                    pLevelReader, pState, pPos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(pLevelReader, blockpos)
+                    pState, blockstate, Direction.UP, blockstate.getLightDampening()
             );
-            return i < pLevelReader.getMaxLightLevel();
+            return i < 15;
         }
     }
 

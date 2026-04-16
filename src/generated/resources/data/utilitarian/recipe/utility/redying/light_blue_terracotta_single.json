@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:dyes/light_blue"
-    },
-    {
-      "tag": "minecraft:terracotta"
-    }
+    "#c:dyes/light_blue",
+    "#minecraft:terracotta"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:light_blue_terracotta"
   }
 }

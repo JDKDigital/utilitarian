@@ -19,14 +19,14 @@ public class YankingRopeItem extends Item
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         // "capture" entity and create an entity balloon
-        if (!pInteractionTarget.getType().is(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED)) { // TODO use own tag
+        if (!pInteractionTarget.getType().builtInRegistryHolder().is(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED)) { // TODO use own tag
             pInteractionTarget.setNoGravity(true);
             // set DataCompo
             if (pInteractionTarget instanceof Leashable leashable) {
                 leashable.setLeashedTo(pPlayer, true);
             }
             var pos = pInteractionTarget.position();
-            pInteractionTarget.moveTo(pos.add(0, 3,0));
+            pInteractionTarget.setPos(pos.add(0, 3, 0));
         }
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
     }

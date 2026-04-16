@@ -55,7 +55,7 @@ public class TPSMeter extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, TPSMeterModule.TPS_METER_BLOCK_ENTITY.get(), TPSMeterBlockEntity::tick);
+        return pLevel.isClientSide() ? null : createTickerHelper(pBlockEntityType, TPSMeterModule.TPS_METER_BLOCK_ENTITY.get(), TPSMeterBlockEntity::tick);
     }
 
     @SuppressWarnings("deprecation")
