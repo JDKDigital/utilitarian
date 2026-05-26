@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-23T23:02:47.925982	Utilitarian Block Loot Table datagen
+// 1.21.1	2026-04-23T21:51:02.0570315	Utilitarian Block Loot Table datagen
 eb332988daea99e720f69554aff35e6cf01d44ea data/utilitarian/loot_table/blocks/black_soliciting_carpet.json
 ff0eeaf9ffe2e93d6a909a36371cf1995e81e53a data/utilitarian/loot_table/blocks/black_trapped_soliciting_carpet.json
 ed9d92e169cd427bae5801d30afb405be377541d data/utilitarian/loot_table/blocks/blue_soliciting_carpet.json
@@ -24,6 +24,7 @@ c1da6f5db4cf1eeedae5ddd607355edb4d1f53e8 data/utilitarian/loot_table/blocks/ligh
 72128012e225927a812b030a053cda29925972a9 data/utilitarian/loot_table/blocks/lime_trapped_soliciting_carpet.json
 03bdcd43afad9f648578512d1a4e1ee7cc02bdd3 data/utilitarian/loot_table/blocks/magenta_soliciting_carpet.json
 67d9952d376f4418afd62838316a71114eec1c33 data/utilitarian/loot_table/blocks/magenta_trapped_soliciting_carpet.json
+0715064b1a07ce637250b82cdfe4b00ce36cf1c5 data/utilitarian/loot_table/blocks/magnet.json
 02ee2797f4227bed672e6d2148afc48597a7f18f data/utilitarian/loot_table/blocks/no_raider_block.json
 0fe1701312aba64debd315699b35635250b90ab3 data/utilitarian/loot_table/blocks/no_soliciting_banner.json
 045a9ae9ac4fda8a837261d9cd112de59983ddc2 data/utilitarian/loot_table/blocks/no_soliciting_wall_banner.json

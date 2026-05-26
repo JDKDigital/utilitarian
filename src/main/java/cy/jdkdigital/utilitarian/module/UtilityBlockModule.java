@@ -100,7 +100,7 @@ public class UtilityBlockModule
         WELL_BEHAVED_DROPPER_ITEM = Utilitarian.ITEMS.register("well_behaved_dropper", () -> new BlockItem(WELL_BEHAVED_DROPPER.get(), new Item.Properties()));
         WELL_BEHAVED_DROPPER_BLOCK_ENTITY = Utilitarian.BLOCK_ENTITY.register("well_behaved_dropper", () -> BlockEntityType.Builder.of(WellBehavedDropperBlockEntity::new, WELL_BEHAVED_DROPPER.get()).build(null));
 
-        MAGNET = Utilitarian.BLOCKS.register("magnet", () -> new MagnetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).noOcclusion()));
+        MAGNET = Utilitarian.BLOCKS.register("magnet", () -> new MagnetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_LIGHT_GRAY).noOcclusion()));
         MAGNET_ITEM = Utilitarian.ITEMS.register("magnet", () -> new BlockItem(MAGNET.get(), new Item.Properties()));
 
         SOUND_MUFFLER_POI = Utilitarian.POI_TYPES.register("sound_muffler", () -> {

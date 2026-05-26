@@ -19,7 +19,7 @@ public class SoulSnadBlock extends SoulSandBlock
     }
 
     @Override
-    public TriState canSustainPlant(BlockState state, BlockGetter level, BlockPos soilPosition, net.minecraft.core.Direction facing, BlockState plant) {
+    public TriState canSustainPlant(BlockState state, BlockGetter level, BlockPos soilPosition, Direction facing, BlockState plant) {
         return plant.is(SnadModule.SOUL_SAND_GROWABLES) ? TriState.TRUE : TriState.DEFAULT;
     }
 

@@ -1,3 +1,13 @@
+1.21.1-0.19.3-pre
+
+- Fixed some tags
+
+
+1.21.1-0.19.2
+
+- Add recipe and loot table for Block Magnet
+
+
 1.21.1-0.19.1
 
 - Changed log suppression to match on formatted log message

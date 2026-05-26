@@ -52,6 +52,7 @@ public class ModEventHandler
 //                event.accept(noSolicitingBanner);
 //            }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+                event.accept(UtilityBlockModule.MAGNET.get());
                 event.accept(NoSolicitingModule.RESTRAINING_ORDER.get());
                 event.accept(NoSolicitingModule.NO_SOLICITING_BANNER_ITEM.get());
                 event.accept(NoSolicitingModule.SOLICITING_CARPET_ITEM.get(DyeColor.WHITE).get());

@@ -132,6 +132,13 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .define('P', Ingredient.of(Tags.Items.DYES_WHITE))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "fluid_hopper"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.MAGNET.get(), 1)
+                .unlockedBy("has_iron", has(Tags.Items.STORAGE_BLOCKS_IRON))
+                .pattern("CIC")
+                .define('C', Ingredient.of(Tags.Items.INGOTS_COPPER))
+                .define('I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Utilitarian.MODID, "magnet"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, UtilityBlockModule.WELL_BEHAVED_DROPPER.get(), 1)
                 .unlockedBy(getHasName(Items.DROPPER), has(Items.DROPPER))
                 .pattern(" I ").pattern("I#I").pattern(" I ")

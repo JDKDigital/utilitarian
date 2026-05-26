@@ -1,3 +1,6 @@
-// 1.21.1	2026-04-09T14:34:47.2829957	Utilitarian Block Tags Provider
+// 1.21.1	2026-04-25T15:53:28.0379483	Utilitarian Block Tags Provider
+4ef8f3dee81f291e1a9786801b71e03b0967970b data/minecraft/tags/block/mineable/axe.json
+2fa8f67445868627008558f5ec04cf7b41b1825d data/minecraft/tags/block/mineable/pickaxe.json
+2421ddbcd3ae3858d44c5d06521223f2462cac0a data/minecraft/tags/block/mineable/shovel.json
 bcd9c96e3ef5fd29b4cc1837e77ac234260157a5 data/utilitarian/tags/block/magnet_valid_blocks.json
 cbe3ffbf9a678ef4218d676650da86db020f1d5a data/utilitarian/tags/block/mufflers.json

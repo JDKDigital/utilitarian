@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-04T15:22:43.3784958	Recipes
+// 1.21.1	2026-04-23T21:45:33.291133	Recipes
 7f34359444be8a6962620815bb1286948b028c71 data/minecraft/advancement/recipes/misc/dye_black_bed.json
 bdedbd824815573d5acbca28bb4d78b4ce2bf5e6 data/minecraft/advancement/recipes/misc/dye_black_carpet.json
 0ceb2b716284f711b94279b72f2f538f5ed81f56 data/minecraft/advancement/recipes/misc/dye_black_wool.json
@@ -102,6 +102,7 @@ d22e1ba4015f9d90350dbb7fb1dd6eb09bf0c994 data/utilitarian/advancement/recipes/mi
 d93fc4e9d4fd59a286605a5e228c425a645f4c67 data/utilitarian/advancement/recipes/misc/inverted_lapis_lamp.json
 2d817f0bceb181ba2fe0733a3ea13e3d00d58fd1 data/utilitarian/advancement/recipes/misc/inverted_redstone_lamp.json
 f61b30cd854d4e4bd1f60c9de45e1748f1907afc data/utilitarian/advancement/recipes/misc/lapis_lamp.json
+bb3fa196a4f1e63ca7c723058b31afa0257aa762 data/utilitarian/advancement/recipes/misc/magnet.json
 58a2e18ec148c5408b8a4439a2ea8da02f2f55ce data/utilitarian/advancement/recipes/misc/no_soliciting/no_raider_block.json
 aa981c7a672a9995d76dd57755037289c0424638 data/utilitarian/advancement/recipes/misc/no_soliciting/no_soliciting_banner.json
 7530930991ce60ba6a2b10caf2605203a24f531b data/utilitarian/advancement/recipes/misc/no_soliciting/restraining_order.json
@@ -424,6 +425,7 @@ c00ef6921f99a63cbac539cd90adb475391aa0eb data/utilitarian/recipe/fluid_hopper.js
 cbc7013f986d9e9b0833980a03ca0cd5f043f776 data/utilitarian/recipe/inverted_lapis_lamp.json
 96dd0c94a9c90c5741e5ed9f0ec7f7ecb3c80d80 data/utilitarian/recipe/inverted_redstone_lamp.json
 a6ee220cc14c5a5617c7e3d817bac217d84d7780 data/utilitarian/recipe/lapis_lamp.json
+c77111c40f2f0e0e6009cf67c858ca707a127df7 data/utilitarian/recipe/magnet.json
 cdafc3c1539c2aa33aa02abfbf3e2c363e0c413c data/utilitarian/recipe/no_soliciting/no_raider_block.json
 01ff3a92b6f88375b6342a5c475649101ab154a2 data/utilitarian/recipe/no_soliciting/no_soliciting_banner.json
 c4871c9a150578ba345c6f8c31e3285b3385d401 data/utilitarian/recipe/no_soliciting/restraining_order.json
