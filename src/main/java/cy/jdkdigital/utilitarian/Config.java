@@ -113,5 +113,14 @@ public class Config
     public static final ModConfigSpec.BooleanValue CURSED_EARTH_ENABLED = SERVER_BUILDER
             .comment("Enable Cursed Earth module").define("cursedEarthEnabled", true);
 
+    public static final ModConfigSpec.BooleanValue FAST_LEAF_DECAY_ENABLED = SERVER_BUILDER
+            .comment("Speed up leaf decay when a nearby log is broken.").define("fastLeafDecayEnabled", true);
+    public static final ModConfigSpec.IntValue FAST_LEAF_DECAY_RADIUS = SERVER_BUILDER
+            .comment("Radius around a broken log to schedule leaf decay ticks. Vanilla leaves decay at distance 7 from a log, so 6 covers all of them.")
+            .defineInRange("fastLeafDecayRadius", 6, 1, 16);
+    public static final ModConfigSpec.IntValue FAST_LEAF_DECAY_MAX_DELAY = SERVER_BUILDER
+            .comment("Maximum random delay (in ticks) for each scheduled leaf decay. Each leaf picks a delay between 1 and this value so decay looks staggered. 20 ticks = 1 second.")
+            .defineInRange("fastLeafDecayMaxDelay", 40, 1, Integer.MAX_VALUE);
+
     static ModConfigSpec SERVER_SPEC = SERVER_BUILDER.build();
 }
