@@ -21,6 +21,13 @@ public class Config
     public static final ModConfigSpec.DoubleValue POTION_EFFECT_TRANSPARENCY = CLIENT_BUILDER
             .comment("Potions effect stink lines transparency in first person").defineInRange("potionEffectTransparency", 0.2d, 0d, 1d);
 
+    public static final ModConfigSpec.BooleanValue COLORFUL_HEARTS_ENABLED = CLIENT_BUILDER
+            .comment("Recolor hearts instead of stacking them on extra rows when max health exceeds 20.").define("colorfulHeartsEnabled", true);
+    public static final ModConfigSpec.BooleanValue OVERLOADED_ARMOR_BAR_ENABLED = CLIENT_BUILDER
+            .comment("Recolor the armor bar to indicate tiers instead of stacking it on extra rows when armor exceeds 20.").define("overloadedArmorBarEnabled", true);
+    public static final ModConfigSpec.BooleanValue TAB_LIST_HEARTS_ENABLED = CLIENT_BUILDER
+            .comment("Recolor hearts in the multiplayer player list (tab list) instead of letting them shrink/overflow when player health exceeds 20.").define("tabListHeartsEnabled", true);
+
     static ModConfigSpec CLIENT_SPEC = CLIENT_BUILDER.build();
 
     private static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();

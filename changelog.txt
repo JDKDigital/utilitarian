@@ -1,3 +1,11 @@
+26.1.2-0.21.0
+
+- Added Colorful Hearts: when max health exceeds 20, hearts recolor by tier instead of stacking new rows. Poisoned/withered/frozen hearts keep their distinctive vanilla colors. Includes damage-blink and regeneration-pulse animations.
+- Added Overloaded Armor Bar: when armor exceeds 20, icons recolor by tier instead of stacking new rows.
+- Added Colorful tab-list hearts: scoreboard health hearts in the multiplayer player list recolor by tier instead of overflowing.
+- Added a small tier marker overlay on the leftmost hearts so you can count the current tier at a glance.
+
+
 26.1.2-0.20.0
 
 - Added Fast Leaf Decay functionality

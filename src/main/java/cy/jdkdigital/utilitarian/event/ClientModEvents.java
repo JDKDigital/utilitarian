@@ -1,6 +1,9 @@
 package cy.jdkdigital.utilitarian.event;
 
+import cy.jdkdigital.utilitarian.Config;
 import cy.jdkdigital.utilitarian.Utilitarian;
+import cy.jdkdigital.utilitarian.client.gui.ColorfulHeartsLayer;
+import cy.jdkdigital.utilitarian.client.gui.OverloadedArmorLayer;
 import cy.jdkdigital.utilitarian.client.render.block.NoSolicitingBannerRenderer;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.SnadModule;
@@ -15,10 +18,22 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 @EventBusSubscriber(modid = Utilitarian.MODID, value = Dist.CLIENT)
 public class ClientModEvents
 {
+    @SubscribeEvent
+    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+        if (Config.COLORFUL_HEARTS_ENABLED.get()) {
+            event.replaceLayer(VanillaGuiLayers.PLAYER_HEALTH, new ColorfulHeartsLayer());
+        }
+        if (Config.OVERLOADED_ARMOR_BAR_ENABLED.get()) {
+            event.replaceLayer(VanillaGuiLayers.ARMOR_LEVEL, new OverloadedArmorLayer());
+        }
+    }
+
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(NoSolicitingModule.NO_SOLICITING_BANNER_BLOCK_ENTITY.get(), NoSolicitingBannerRenderer::new);
