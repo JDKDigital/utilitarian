@@ -7,6 +7,7 @@ import cy.jdkdigital.utilitarian.logger.ContainsMessageFilter;
 import cy.jdkdigital.utilitarian.logger.EndsWithMessageFilter;
 import cy.jdkdigital.utilitarian.logger.RegexMessageFilter;
 import cy.jdkdigital.utilitarian.logger.StartsWithMessageFilter;
+import cy.jdkdigital.utilitarian.mixin.InvokerShulker;
 import cy.jdkdigital.utilitarian.module.NoSolicitingModule;
 import cy.jdkdigital.utilitarian.module.SnadModule;
 import cy.jdkdigital.utilitarian.module.UtilityBlockModule;
@@ -28,13 +29,18 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -68,6 +74,7 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @EventBusSubscriber(modid = Utilitarian.MODID)
@@ -321,6 +328,23 @@ public class EventHandler
             event.getItemStack().shrink(1);
             event.getEntity().addItem(UtilityItemModule.SLIME_BUCKET.get().getDefaultInstance());
             event.getTarget().discard();
+        }
+
+        if (Config.SHULKER_DYEING_ENABLED.get() && event.getItemStack().getItem() instanceof DyeItem && event.getTarget() instanceof Shulker shulker) {
+            DyeColor color = event.getItemStack().get(net.minecraft.core.component.DataComponents.DYE);
+            DyeColor current = shulker.getColor();
+            DyeColor effective = current != null ? current : DyeColor.PURPLE;
+            if (color != null && effective != color) {
+                if (!event.getLevel().isClientSide()) {
+                    ((InvokerShulker) (Object) shulker).utilitarian$setVariant(Optional.of(color));
+                    if (!event.getEntity().getAbilities().instabuild) {
+                        event.getItemStack().shrink(1);
+                    }
+                    shulker.level().playSound(null, shulker.blockPosition(), SoundEvents.DYE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+                }
+                event.getEntity().swing(event.getHand());
+                event.setCanceled(true);
+            }
         }
     }
 }

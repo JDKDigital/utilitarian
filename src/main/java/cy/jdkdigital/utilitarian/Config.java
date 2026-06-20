@@ -120,6 +120,9 @@ public class Config
     public static final ModConfigSpec.BooleanValue CURSED_EARTH_ENABLED = SERVER_BUILDER
             .comment("Enable Cursed Earth module").define("cursedEarthEnabled", true);
 
+    public static final ModConfigSpec.BooleanValue SHULKER_DYEING_ENABLED = SERVER_BUILDER
+            .comment("Allow using a dye on a shulker to change its color variant.").define("shulkerDyeingEnabled", true);
+
     public static final ModConfigSpec.BooleanValue FAST_LEAF_DECAY_ENABLED = SERVER_BUILDER
             .comment("Speed up leaf decay when a nearby log is broken.").define("fastLeafDecayEnabled", true);
     public static final ModConfigSpec.IntValue FAST_LEAF_DECAY_RADIUS = SERVER_BUILDER

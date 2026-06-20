@@ -3,9 +3,12 @@
   "package": "cy.jdkdigital.utilitarian.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "InvokerShulker",
+    "MixinCompressedNbt",
     "MixinCryingObsidianBlock",
     "MixinFarmBlock",
     "MixinMob",
+    "MixinSavedDataStorage",
     "MixinServerAdvancementManager"
   ],
   "injectors": {
